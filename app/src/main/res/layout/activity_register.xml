@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/Nombre"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Nombre" />
+
+    <EditText
+        android:id="@+id/Mail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Mail" />
+
+    <EditText
+        android:id="@+id/Contrasen"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Contraseña" />
+
+    <EditText
+        android:id="@+id/Edad"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Numero de telefono"
+        android:inputType="number" />
+
+    <EditText
+        android:id="@+id/NumTel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Numero de telefono"
+        android:inputType="number" />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="ConfirmarRegistro"
+        android:hint="Confirmar Registro"/>
+</LinearLayout>
