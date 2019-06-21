@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
@@ -71,6 +73,16 @@ public class MisGrupos extends AppCompatActivity {
         ListView androidListView = (ListView) findViewById(R.id.ListaGrupos);
         Log.d("Holahola", "Llegue chicos");
         androidListView.setAdapter(simpleAdapter);
+
+
     }
+public void ClickedBtn(){
+        Intent asd;
+        asd = new Intent(this, InfoGrupo.class);
+        startActivity(asd);
+
+    }
+
 }
+
 

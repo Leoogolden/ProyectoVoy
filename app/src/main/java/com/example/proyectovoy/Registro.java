@@ -12,9 +12,14 @@ public class Registro extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
     }
-    public void ConfirmarRegistro (View vista){
-        Intent ActividadDestino;
-        ActividadDestino = new Intent(Registro.this, IniciarSesion.class);
-        startActivity(ActividadDestino);
+
+    public void ConfirmarRegistro(View vista) {
+
+
+
+            Intent ActividadDestino;
+            ActividadDestino = new Intent(Registro.this, IniciarSesion.class);
+            startActivity(ActividadDestino);
+
     }
 }
