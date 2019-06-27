@@ -52,14 +52,10 @@ public class MisGrupos extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mis_grupos);
-        Fragment ingreso;
-        ingreso = new SelectedGroup();
-        ManejadorDeFragments = getFragmentManager();
-        Transacciones= ManejadorDeFragments.beginTransaction();
-        Transacciones.replace(R.id.AlojadorDeFragments, ingreso);
-        Transacciones.commit();
-//        tareaAsincronica miTarea = new tareaAsincronica();
-//        miTarea.execute();
+
+
+        tareaAsincronica miTarea = new tareaAsincronica();
+        miTarea.execute();
         BottomNavigationView bNavView = (BottomNavigationView) findViewById(R.id.navigation_view);
         Menu menunav = bNavView.getMenu();
         MenuItem itemseleccionado = menunav.getItem(2);
@@ -100,10 +96,17 @@ public class MisGrupos extends AppCompatActivity {
 
         public void onItemClick(AdapterView parent, View v, int position, long id) {
             String itemValue = (String) androidListView.getItemAtPosition(position);
-//            Bundle pasaje;
-//            pasaje = new Bundle();
-//            Grupos grupo = new Grupos(ListaDeGrupos.get(position).IdGrupo, ListaDeGrupos.get(position).Nombre, ListaDeGrupos.get(position).Descripcion);
-//            pasaje.putSerializable("Grupo", grupo);
+            Bundle pasaje;
+            pasaje = new Bundle();
+            pasaje.putInt("idGrupo",ListaDeGrupos.get(position).IdGrupo);
+            pasaje.putString("Nombre", ListaDeGrupos.get(position).Nombre);
+            pasaje.putString("Descripcion", ListaDeGrupos.get(position).Descripcion);
+            Fragment ingreso;
+            ingreso = new SelectedGroup();
+            ManejadorDeFragments = getFragmentManager();
+            Transacciones= ManejadorDeFragments.beginTransaction();
+            Transacciones.replace(R.id.AlojadorDeFragments, ingreso);
+            Transacciones.commit();
 
         }
     };
