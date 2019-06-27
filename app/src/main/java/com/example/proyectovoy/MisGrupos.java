@@ -1,5 +1,8 @@
 package com.example.proyectovoy;
 
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
@@ -22,6 +25,7 @@ import org.json.JSONObject;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.Serializable;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
@@ -30,6 +34,10 @@ import java.util.List;
 import java.util.Scanner;
 
 public class MisGrupos extends AppCompatActivity {
+
+    FragmentManager ManejadorDeFragments;
+    FragmentTransaction Transacciones;
+
 
     List<String> listagrupos;
     ArrayList<Grupos> ListaDeGrupos = new ArrayList<Grupos>();
@@ -44,8 +52,14 @@ public class MisGrupos extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mis_grupos);
-        tareaAsincronica miTarea = new tareaAsincronica();
-        miTarea.execute();
+        Fragment ingreso;
+        ingreso = new SelectedGroup();
+        ManejadorDeFragments = getFragmentManager();
+        Transacciones= ManejadorDeFragments.beginTransaction();
+        Transacciones.replace(R.id.AlojadorDeFragments, ingreso);
+        Transacciones.commit();
+//        tareaAsincronica miTarea = new tareaAsincronica();
+//        miTarea.execute();
         BottomNavigationView bNavView = (BottomNavigationView) findViewById(R.id.navigation_view);
         Menu menunav = bNavView.getMenu();
         MenuItem itemseleccionado = menunav.getItem(2);
@@ -77,8 +91,22 @@ public class MisGrupos extends AppCompatActivity {
             }
         });
 
+
     }
 
+    private AdapterView.OnItemClickListener listClick = new AdapterView.OnItemClickListener() {
+
+        ListView androidListView = (ListView) findViewById(R.id.ListaGrupos);
+
+        public void onItemClick(AdapterView parent, View v, int position, long id) {
+            String itemValue = (String) androidListView.getItemAtPosition(position);
+//            Bundle pasaje;
+//            pasaje = new Bundle();
+//            Grupos grupo = new Grupos(ListaDeGrupos.get(position).IdGrupo, ListaDeGrupos.get(position).Nombre, ListaDeGrupos.get(position).Descripcion);
+//            pasaje.putSerializable("Grupo", grupo);
+
+        }
+    };
 
 
     private class tareaAsincronica extends AsyncTask<Void, Void, Void> {
@@ -111,6 +139,7 @@ public class MisGrupos extends AppCompatActivity {
             int lenght = ListaDeGrupos.size();
             for (int i = 0; i < lenght; i++) {
                 Log.d("HolaHola", "ueso, que pasoa3" + ListaDeGrupos.get(i).Nombre);
+
                 HashMap<String, String> hm = new HashMap<String, String>();
                 hm.put("listview_title", ListaDeGrupos.get(i).Nombre);
                 hm.put("listview_image", Integer.toString(listviewImage[i]));
@@ -166,10 +195,6 @@ public class MisGrupos extends AppCompatActivity {
         }
 
     }
-
-
-
-
 
 
     public void ClickedBtn() {
