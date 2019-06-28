@@ -20,8 +20,12 @@ public class SelectedGroup extends Fragment{
     ImageView FotoGrupo;
     Grupos SelectedGroup;
 
-    public View OnCreateView(LayoutInflater inflador, ViewGroup grupo, Bundle datos) {
+    public View onCreateView(LayoutInflater inflador, ViewGroup grupo, Bundle datos) {
         View vistadevuelve = inflador.inflate(R.layout.selected_group, grupo, false);
+
+
+
+
         NombreGrupo= vistadevuelve.findViewById(R.id.NombreGrupo);
         DescripcionGrupo = vistadevuelve.findViewById(R.id.DescripcionGrupo);
         ListaIntegrantes = vistadevuelve.findViewById(R.id.ListaIntegrantes);
