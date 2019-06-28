@@ -55,7 +55,12 @@ public class MisGrupos extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mis_grupos);
-
+        Fragment verGrupos;
+        verGrupos = new VerGrupos();
+        ManejadorDeFragments = getFragmentManager();
+        Transacciones = ManejadorDeFragments.beginTransaction();
+        Transacciones.replace(R.id.AlojadorDeFragments, verGrupos);
+        Transacciones.commit();
 
         //navigation bar
         BottomNavigationView bNavView = (BottomNavigationView) findViewById(R.id.navigation_view);

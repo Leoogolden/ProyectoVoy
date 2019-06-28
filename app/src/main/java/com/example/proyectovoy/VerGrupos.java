@@ -39,6 +39,7 @@ public class VerGrupos extends Fragment {
     FragmentTransaction Transacciones;
 
     Button CrearGrupo;
+
     public View onCreateView(LayoutInflater inflador, ViewGroup grupo, Bundle datos) {
         vistadevuelve = inflador.inflate(R.layout.lista_de_grupos, grupo, false);
 
@@ -88,7 +89,7 @@ public class VerGrupos extends Fragment {
         @Override
         protected Void doInBackground(Void... voids) {
             try {
-                URL rutatlantica = new URL("http://10.152.2.21:2073/api/Grupos/" + idUsr);
+                URL rutatlantica = new URL("http://10.152.2.80:2073/api/Grupos/" + idUsr);
                 HttpURLConnection conexion = (HttpURLConnection) rutatlantica.openConnection();
                 Log.d("AccesoAPI", "Me conecto");
                 if (conexion.getResponseCode() == 200) {
@@ -112,20 +113,20 @@ public class VerGrupos extends Fragment {
             List<HashMap<String, String>> aList = new ArrayList<HashMap<String, String>>();
             Log.d("HolaHola", "ueso, que pasoa2");
             int lenght = ListaDeGrupos.size();
-            for (int i = 0; i < lenght; i++) {
+            for (int i = 0; i < lenght-1; i++) {
                 Log.d("HolaHola", "ueso, que pasoa3" + ListaDeGrupos.get(i).Nombre);
-
                 HashMap<String, String> hm = new HashMap<String, String>();
                 hm.put("listview_title", ListaDeGrupos.get(i).Nombre);
                 hm.put("listview_image", Integer.toString(listviewImage[i]));
                 Log.d("HolaHola", "ueso, que pasoa4");
                 aList.add(hm);
+                Log.d("holahola", hm.toString());
             }
             Log.d("HolaHola", "ueso, que pasoa5");
             String[] from = {"listview_image", "listview_title"};
             int[] to = {R.id.listview_image, R.id.listview_item_title};
 
-            SimpleAdapter simpleAdapter = new SimpleAdapter(getActivity().getBaseContext(), aList, R.layout.lista_de_grupos, from, to);
+            SimpleAdapter simpleAdapter = new SimpleAdapter(getActivity().getBaseContext(), aList, R.layout.activity_listagrupos, from, to);
             ListView androidListView = (ListView) vistadevuelve.findViewById(R.id.ListaGrupos);
             Log.d("Holahola", "Llegue chicos");
             androidListView.setAdapter(simpleAdapter);
@@ -133,8 +134,6 @@ public class VerGrupos extends Fragment {
     }
 
     //selected item lleva a info en otro fragment
-
-
     public void onItemClick(AdapterView parent, View v, int position, long id) {
         Bundle pasaje;
         pasaje = new Bundle();
@@ -177,7 +176,7 @@ public class VerGrupos extends Fragment {
                     }
                 }
                 Grupos asd = new Grupos(idGrupo, nombre, descripcion);
-//                Log.d("uoso", ""+ asd);
+               Log.d("uoso", ""+ asd);
                 ListaDeGrupos.add(asd);
                 JSONleido.endObject();
             }
