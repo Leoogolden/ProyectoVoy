@@ -113,7 +113,7 @@ public class VerGrupos extends Fragment {
             List<HashMap<String, String>> aList = new ArrayList<HashMap<String, String>>();
             Log.d("HolaHola", "ueso, que pasoa2");
             int lenght = ListaDeGrupos.size();
-            for (int i = 0; i < lenght-1; i++) {
+            for (int i = 0; i < lenght - 1; i++) {
                 Log.d("HolaHola", "ueso, que pasoa3" + ListaDeGrupos.get(i).Nombre);
                 HashMap<String, String> hm = new HashMap<String, String>();
                 hm.put("listview_title", ListaDeGrupos.get(i).Nombre);
@@ -176,7 +176,7 @@ public class VerGrupos extends Fragment {
                     }
                 }
                 Grupos asd = new Grupos(idGrupo, nombre, descripcion);
-               Log.d("uoso", ""+ asd);
+                Log.d("uoso", "" + asd);
                 ListaDeGrupos.add(asd);
                 JSONleido.endObject();
             }
