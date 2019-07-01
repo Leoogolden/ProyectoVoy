@@ -11,7 +11,7 @@ public class CrearGrupo extends Fragment {
 
     public View onCreateView(LayoutInflater inflador, ViewGroup grupo, Bundle datos) {
         View vistadevuelve;
-        vistadevuelve = inflador.inflate(R.layout.crear_grupo, grupo, false);
+        vistadevuelve = inflador.inflate(R.layout.fragment_crear_grupo, grupo, false);
 
 
 

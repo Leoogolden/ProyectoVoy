@@ -41,7 +41,7 @@ public class VerGrupos extends Fragment {
     Button CrearGrupo;
 
     public View onCreateView(LayoutInflater inflador, ViewGroup grupo, Bundle datos) {
-        vistadevuelve = inflador.inflate(R.layout.lista_de_grupos, grupo, false);
+        vistadevuelve = inflador.inflate(R.layout.fragment_lista_de_grupos, grupo, false);
 
         CrearGrupo = vistadevuelve.findViewById(R.id.CrearGrupo);
         CrearGrupo.setOnClickListener(new View.OnClickListener() {
@@ -51,7 +51,7 @@ public class VerGrupos extends Fragment {
                 creargrupo = new CrearGrupo();
                 ManejadorDeFragments = getFragmentManager();
                 Transacciones = ManejadorDeFragments.beginTransaction();
-                Transacciones.replace(R.id.AlojadorDeFragments, creargrupo);
+                Transacciones.replace(R.id.AlojadorDeFragmentsGrupos, creargrupo);
                 Transacciones.commit();
 
 
@@ -75,7 +75,7 @@ public class VerGrupos extends Fragment {
                 ingreso = new SelectedGroup();
                 ManejadorDeFragments = getFragmentManager();
                 Transacciones = ManejadorDeFragments.beginTransaction();
-                Transacciones.replace(R.id.AlojadorDeFragments, ingreso);
+                Transacciones.replace(R.id.AlojadorDeFragmentsGrupos, ingreso);
                 Transacciones.commit();
             }
         });
@@ -126,7 +126,7 @@ public class VerGrupos extends Fragment {
             String[] from = {"listview_image", "listview_title"};
             int[] to = {R.id.listview_image, R.id.listview_item_title};
 
-            SimpleAdapter simpleAdapter = new SimpleAdapter(getActivity().getBaseContext(), aList, R.layout.activity_listagrupos, from, to);
+            SimpleAdapter simpleAdapter = new SimpleAdapter(getActivity().getBaseContext(), aList, R.layout.lista_grupos, from, to);
             ListView androidListView = (ListView) vistadevuelve.findViewById(R.id.ListaGrupos);
             Log.d("Holahola", "Llegue chicos");
             androidListView.setAdapter(simpleAdapter);
@@ -144,7 +144,7 @@ public class VerGrupos extends Fragment {
         ingreso = new SelectedGroup();
         ManejadorDeFragments = getFragmentManager();
         Transacciones = ManejadorDeFragments.beginTransaction();
-        Transacciones.replace(R.id.AlojadorDeFragments, ingreso);
+        Transacciones.replace(R.id.AlojadorDeFragmentsGrupos, ingreso);
         Transacciones.commit();
 
     }

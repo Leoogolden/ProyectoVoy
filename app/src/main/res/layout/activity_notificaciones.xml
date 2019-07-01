@@ -11,6 +11,12 @@
         android:textAlignment="center"
         android:text="Notificaciones"
         />
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/AlojadorDeFragmentsNotificaciones">
+    </FrameLayout>
+
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigation_view"
         android:layout_width="match_parent"

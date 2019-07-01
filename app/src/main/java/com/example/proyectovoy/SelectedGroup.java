@@ -11,18 +11,13 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
-
-import com.example.proyectovoy.Grupos;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 public class SelectedGroup extends Fragment {
 
@@ -36,7 +31,7 @@ public class SelectedGroup extends Fragment {
     View vistadevuelve;
 
     public View onCreateView(LayoutInflater inflador, ViewGroup grupo, Bundle datos) {
-        vistadevuelve = inflador.inflate(R.layout.selected_group, grupo, false);
+        vistadevuelve = inflador.inflate(R.layout.fragment_selected_group, grupo, false);
 
 
         NombreGrupo = vistadevuelve.findViewById(R.id.NombreGrupo);

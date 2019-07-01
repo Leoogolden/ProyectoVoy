@@ -4,34 +4,14 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.JsonReader;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
-import android.widget.SimpleAdapter;
 
-import com.example.proyectovoy.Grupos;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Serializable;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Scanner;
 
 public class MisGrupos extends AppCompatActivity {
 
@@ -40,15 +20,6 @@ public class MisGrupos extends AppCompatActivity {
     FragmentManager ManejadorDeFragments;
     FragmentTransaction Transacciones;
 
-    //declaramos fotos provisorias pa probar
-
-    int[] listviewImage = new int[]{
-            R.drawable.ejemploperfilgrupo, R.drawable.ejemploperfilgrupo, R.drawable.ejemploperfilgrupo, R.drawable.ejemploperfilgrupo
-    };
-    //declaramos un id del usuario para probar los grupos
-    int idUsr = 2;
-    ArrayList<String> results = new ArrayList<>();
-    //listapaelsheison
 
 
     @Override
@@ -59,7 +30,7 @@ public class MisGrupos extends AppCompatActivity {
         verGrupos = new VerGrupos();
         ManejadorDeFragments = getFragmentManager();
         Transacciones = ManejadorDeFragments.beginTransaction();
-        Transacciones.replace(R.id.AlojadorDeFragments, verGrupos);
+        Transacciones.replace(R.id.AlojadorDeFragmentsGrupos, verGrupos);
         Transacciones.commit();
 
         //navigation bar

@@ -1,5 +1,8 @@
 package com.example.proyectovoy;
 
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -18,10 +21,25 @@ import java.util.List;
 
 public class Notificaciones extends AppCompatActivity {
 
+
+    //declaracion de fragments
+    FragmentManager ManejadorDeFragments;
+    FragmentTransaction Transacciones;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notificaciones);
+
+        Fragment verGrupos;
+        verGrupos = new VerGrupos();
+        ManejadorDeFragments = getFragmentManager();
+        Transacciones = ManejadorDeFragments.beginTransaction();
+        Transacciones.replace(R.id.AlojadorDeFragmentsNotificaciones, verGrupos);
+        Transacciones.commit();
+
+
         BottomNavigationView bNavView = (BottomNavigationView) findViewById(R.id.navigation_view);
         Menu menunav = bNavView.getMenu();
         MenuItem itemseleccionado = menunav.getItem(1);
@@ -53,4 +71,6 @@ public class Notificaciones extends AppCompatActivity {
             }
         });
     }
+
+
 }
