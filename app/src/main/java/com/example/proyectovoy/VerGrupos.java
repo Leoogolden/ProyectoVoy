@@ -66,11 +66,13 @@ public class VerGrupos extends Fragment {
         androidListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.d("onclick", "entra");
                 Bundle pasaje;
                 pasaje = new Bundle();
                 pasaje.putInt("idGrupo", ListaDeGrupos.get(position).IdGrupo);
                 pasaje.putString("Nombre", ListaDeGrupos.get(position).Nombre);
                 pasaje.putString("Descripcion", ListaDeGrupos.get(position).Descripcion);
+                Log.d("onclick", "entra2" + ListaDeGrupos.get(position).Nombre);
                 Fragment ingreso;
                 ingreso = new SelectedGroup();
                 ManejadorDeFragments = getFragmentManager();

@@ -34,16 +34,22 @@ public class SelectedGroup extends Fragment {
 
     public View onCreateView(LayoutInflater inflador, ViewGroup grupo, Bundle datos) {
         vistadevuelve = inflador.inflate(R.layout.fragment_selected_group, grupo, false);
+        Log.d("onclick", "entra3");
+
         DatosRecibidos = getArguments();
         NombreGrupo = vistadevuelve.findViewById(R.id.NombreGrupo);
         DescripcionGrupo = vistadevuelve.findViewById(R.id.DescripcionGrupo);
         ListaIntegrantes = vistadevuelve.findViewById(R.id.ListaIntegrantes);
         FotoGrupo = vistadevuelve.findViewById(R.id.ImagenGrupo);
+        Log.d("onclick", "entra4");
+
         NombreGrupo.setText(DatosRecibidos.getString("Nombre"));
         DescripcionGrupo.setText(DatosRecibidos.getString("Descripcion"));
         idGrupo = DatosRecibidos.getInt("idGrupo");
-
+        Log.d("onclick", "entra5");
         tareaAsincronica miTarea = new tareaAsincronica();
+
+
         miTarea.execute();
         SelectedGroup = new Grupos(datos.getInt("id"), datos.getString("Nombre"), datos.getString("Descripcion"));
         NombreGrupo.setText(SelectedGroup.Nombre);

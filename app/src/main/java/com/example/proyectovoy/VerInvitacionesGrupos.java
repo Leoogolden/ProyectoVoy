@@ -26,6 +26,8 @@ public class VerInvitacionesGrupos extends Fragment {
 
     public View onCreateView(LayoutInflater inflador, ViewGroup grupo, Bundle datos) {
         vistadevuelve = inflador.inflate(R.layout.fragment_invitaciones_grupos, grupo, false);
+
+
         tareaAsincronica miTarea = new tareaAsincronica();
         miTarea.execute();
 
