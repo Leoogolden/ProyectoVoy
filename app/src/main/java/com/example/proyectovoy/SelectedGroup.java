@@ -27,18 +27,24 @@ public class SelectedGroup extends Fragment {
     ImageView FotoGrupo;
     Grupos SelectedGroup;
     ArrayList<Usuarios> ListaDeUsuarios = new ArrayList<>();
+    Bundle DatosRecibidos;
+
     int idGrupo;
     View vistadevuelve;
 
     public View onCreateView(LayoutInflater inflador, ViewGroup grupo, Bundle datos) {
         vistadevuelve = inflador.inflate(R.layout.fragment_selected_group, grupo, false);
-
-
+        DatosRecibidos = getArguments();
         NombreGrupo = vistadevuelve.findViewById(R.id.NombreGrupo);
         DescripcionGrupo = vistadevuelve.findViewById(R.id.DescripcionGrupo);
         ListaIntegrantes = vistadevuelve.findViewById(R.id.ListaIntegrantes);
         FotoGrupo = vistadevuelve.findViewById(R.id.ImagenGrupo);
+        NombreGrupo.setText(DatosRecibidos.getString("Nombre"));
+        DescripcionGrupo.setText(DatosRecibidos.getString("Descripcion"));
+        idGrupo = DatosRecibidos.getInt("idGrupo");
 
+        tareaAsincronica miTarea = new tareaAsincronica();
+        miTarea.execute();
         SelectedGroup = new Grupos(datos.getInt("id"), datos.getString("Nombre"), datos.getString("Descripcion"));
         NombreGrupo.setText(SelectedGroup.Nombre);
         DescripcionGrupo.setText(SelectedGroup.Descripcion);
@@ -50,19 +56,19 @@ public class SelectedGroup extends Fragment {
         @Override
         protected Void doInBackground(Void... voids) {
             try {
-                URL rutatlantica = new URL("http://10.152.2.80:2073/api/Grupos/MiembrosGrupo/" + idGrupo);
+                URL rutatlantica = new URL("http://10.152.2.16:2073/api/Grupos/MiembrosGrupo/" + idGrupo);
                 HttpURLConnection conexion = (HttpURLConnection) rutatlantica.openConnection();
-                Log.d("AccesoAPI", "Me conecto");
+                Log.d("AccesoAPI3", "Me conecto");
                 if (conexion.getResponseCode() == 200) {
-                    Log.d("AccesoAPI", "conexion ok");
+                    Log.d("AccesoAPI3", "conexion ok");
                     InputStream cuerporesspuesta = conexion.getInputStream();
                     InputStreamReader lectorrespuesta = new InputStreamReader(cuerporesspuesta, "UTF-8");
                     ProcessJSONLeido(lectorrespuesta);
                 } else {
-                    Log.d("AccesoAPI", "Error en la conexion");
+                    Log.d("AccesoAPI3", "Error en la conexion");
                 }
             } catch (Exception error) {
-                Log.d("AccesoAPI", "Huno un error al conectarme" + error.getMessage());
+                Log.d("AccesoAPI3", "Huno un error al conectarme" + error.getMessage());
             }
             return null;
         }
@@ -70,11 +76,11 @@ public class SelectedGroup extends Fragment {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            Log.d("HolaHola", "ueso, que pasoa");
+            Log.d("HolaHola3", "ueso, que pasoa");
             ArrayList<String> DatosLista = new ArrayList<String>();
             int lenght = ListaDeUsuarios.size();
             for (int i = 0; i < lenght - 1; i++) {
-                Log.d("HolaHola", "ueso, que pasoa3" + ListaDeUsuarios.get(i).Nombre);
+                Log.d("HolaHola3", "ueso, que pasoa3" + ListaDeUsuarios.get(i).Nombre);
                 DatosLista.add(ListaDeUsuarios.get(i).Nombre);
 
             }
@@ -92,45 +98,45 @@ public class SelectedGroup extends Fragment {
         try {
             JSONleido.beginArray();
             while (JSONleido.hasNext()) {
-                Log.d("uoso", "1");
+                Log.d("uoso3", "1");
                 JSONleido.beginObject();
-                Log.d("uoso", "2");
+                Log.d("uoso3", "2");
                 Usuarios user;
                 user = new Usuarios();
                 while (JSONleido.hasNext()) {
                     String NomeDuElemento = JSONleido.nextName();
-                    Log.d("uoso", "3");
+                    Log.d("uoso3", "3");
                     if (NomeDuElemento.equals("IdUsuario")) {
-                        Log.d("uoso", "4");
+                        Log.d("uoso3", "4");
                         user.IdUsuario = JSONleido.nextInt();
                     } else if (NomeDuElemento.equals("Nombre")) {
-                        Log.d("uoso", "5");
+                        Log.d("uoso3", "5");
                         user.Nombre = JSONleido.nextString();
                     } else if (NomeDuElemento.equals("Mail")) {
-                        Log.d("uoso", "6");
+                        Log.d("uoso3", "6");
                         user.Mail = JSONleido.nextString();
                     } else if (NomeDuElemento.equals("NombreUsuario")) {
-                        Log.d("uoso", "7");
+                        Log.d("uoso3", "7");
                         user.NombreUsuario = JSONleido.nextString();
                     } else if (NomeDuElemento.equals("Contraseña")) {
-                        Log.d("uoso", "8");
+                        Log.d("uoso3", "8");
                         user.Contra = JSONleido.nextString();
                     } else if (NomeDuElemento.equals("NroTelefono")) {
-                        Log.d("uoso", "9");
+                        Log.d("uoso3", "9");
                         user.NroTel = JSONleido.nextInt();
                     } else if (NomeDuElemento.equals("Edad")) {
-                        Log.d("uoso", "10");
+                        Log.d("uoso3", "10");
                         user.Edad = JSONleido.nextInt();
                     }
                 }
 
-                Log.d("uoso", "" + user);
+                Log.d("uoso3", "" + user);
                 ListaDeUsuarios.add(user);
                 JSONleido.endObject();
             }
             JSONleido.endArray();
         } catch (Exception error) {
-            Log.d("LecturaJSON", "" + error);
+            Log.d("LecturaJSON3", "" + error);
         }
     }
 }

@@ -89,7 +89,7 @@ public class VerGrupos extends Fragment {
         @Override
         protected Void doInBackground(Void... voids) {
             try {
-                URL rutatlantica = new URL("http://10.152.2.80:2073/api/Grupos/" + idUsr);
+                URL rutatlantica = new URL("http://10.152.2.16:2073/api/Grupos/" + idUsr);
                 HttpURLConnection conexion = (HttpURLConnection) rutatlantica.openConnection();
                 Log.d("AccesoAPI", "Me conecto");
                 if (conexion.getResponseCode() == 200) {

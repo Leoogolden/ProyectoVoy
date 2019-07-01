@@ -32,11 +32,11 @@ public class Notificaciones extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notificaciones);
 
-        Fragment verGrupos;
-        verGrupos = new VerGrupos();
+        Fragment VerInvitaciones;
+        VerInvitaciones = new VerInvitacionesGrupos();
         ManejadorDeFragments = getFragmentManager();
         Transacciones = ManejadorDeFragments.beginTransaction();
-        Transacciones.replace(R.id.AlojadorDeFragmentsNotificaciones, verGrupos);
+        Transacciones.replace(R.id.AlojadorDeFragmentsNotificaciones, VerInvitaciones);
         Transacciones.commit();
 
 

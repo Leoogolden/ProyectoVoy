@@ -15,12 +15,14 @@ public class InvitacionesGruposListAdapter extends ArrayAdapter<InvitacionesGrup
 
     private static final String TAG = "InvitacionesGruposListAdapter";
     private Context mContext;
-    int mResource;
+    private int mResource;
 
-    public InvitacionesGruposListAdapter(Context context, int resource, ArrayList<InvitacionesGrupos> objects,) {
+
+    public InvitacionesGruposListAdapter(Context context, int resource, ArrayList<InvitacionesGrupos> objects) {
         super(context, resource, objects);
         mContext = context;
         mResource = resource;
+
     }
 
     @NonNull
