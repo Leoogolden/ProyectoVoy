@@ -91,7 +91,7 @@ public class VerGrupos extends Fragment {
         @Override
         protected Void doInBackground(Void... voids) {
             try {
-                URL rutatlantica = new URL("http://10.152.2.16:2073/api/Grupos/" + idUsr);
+                URL rutatlantica = new URL("http://10.152.2.34:2073/api/Grupos/" + idUsr);
                 HttpURLConnection conexion = (HttpURLConnection) rutatlantica.openConnection();
                 Log.d("AccesoAPI", "Me conecto");
                 if (conexion.getResponseCode() == 200) {
@@ -137,13 +137,16 @@ public class VerGrupos extends Fragment {
 
     //selected item lleva a info en otro fragment
     public void onItemClick(AdapterView parent, View v, int position, long id) {
-        Bundle pasaje;
+        /*Bundle pasaje;
         pasaje = new Bundle();
         pasaje.putInt("idGrupo", ListaDeGrupos.get(position).IdGrupo);
         pasaje.putString("Nombre", ListaDeGrupos.get(position).Nombre);
-        pasaje.putString("Descripcion", ListaDeGrupos.get(position).Descripcion);
+        pasaje.putString("Descripcion", ListaDeGrupos.get(position).Descripcion);*/
         Fragment ingreso;
         ingreso = new SelectedGroup();
+        ((SelectedGroup) ingreso).idGrupo = ListaDeGrupos.get(position).IdGrupo;
+        ((SelectedGroup) ingreso).Nombre = ListaDeGrupos.get(position).Nombre;
+        ((SelectedGroup) ingreso).Descripcion = ListaDeGrupos.get(position).Descripcion;
         ManejadorDeFragments = getFragmentManager();
         Transacciones = ManejadorDeFragments.beginTransaction();
         Transacciones.replace(R.id.AlojadorDeFragmentsGrupos, ingreso);
