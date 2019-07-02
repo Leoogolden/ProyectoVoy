@@ -32,8 +32,6 @@ public class InvitacionesGruposListAdapter extends ArrayAdapter<InvitacionesGrup
         String QuienInvita = getItem(position).getQuienInvita();
         String NomGrupo = getItem(position).getGrupo();
 
-        InvitacionesGrupos invitacion = new InvitacionesGrupos(QuienInvita, NomGrupo);
-
         LayoutInflater inflater = LayoutInflater.from(mContext);
         convertView = inflater.inflate(mResource, parent, false);
 

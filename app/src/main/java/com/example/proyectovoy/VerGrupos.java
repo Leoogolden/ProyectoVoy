@@ -22,7 +22,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
+import java.util.EventListener;
 public class VerGrupos extends Fragment {
 
     //declaramos fotos provisorias pa probar
@@ -75,6 +75,7 @@ public class VerGrupos extends Fragment {
                 Log.d("onclick", "entra2" + ListaDeGrupos.get(position).Nombre);
                 Fragment ingreso;
                 ingreso = new SelectedGroup();
+                ingreso.setArguments(pasaje);
                 ManejadorDeFragments = getFragmentManager();
                 Transacciones = ManejadorDeFragments.beginTransaction();
                 Transacciones.replace(R.id.AlojadorDeFragmentsGrupos, ingreso);
@@ -91,7 +92,7 @@ public class VerGrupos extends Fragment {
         @Override
         protected Void doInBackground(Void... voids) {
             try {
-                URL rutatlantica = new URL("http://10.152.2.34:2073/api/Grupos/" + idUsr);
+                URL rutatlantica = new URL("http://10.152.2.49:2073/api/Grupos/" + idUsr);
                 HttpURLConnection conexion = (HttpURLConnection) rutatlantica.openConnection();
                 Log.d("AccesoAPI", "Me conecto");
                 if (conexion.getResponseCode() == 200) {
@@ -112,7 +113,8 @@ public class VerGrupos extends Fragment {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
             Log.d("HolaHola", "ueso, que pasoa");
-            List<HashMap<String, String>> aList = new ArrayList<HashMap<String, String>>();
+            List<HashMap<String, String>> aList;
+            aList = new ArrayList<HashMap<String, String>>();
             Log.d("HolaHola", "ueso, que pasoa2");
             int lenght = ListaDeGrupos.size();
             for (int i = 0; i < lenght - 1; i++) {
@@ -133,25 +135,6 @@ public class VerGrupos extends Fragment {
             Log.d("Holahola", "Llegue chicos");
             androidListView.setAdapter(simpleAdapter);
         }
-    }
-
-    //selected item lleva a info en otro fragment
-    public void onItemClick(AdapterView parent, View v, int position, long id) {
-        /*Bundle pasaje;
-        pasaje = new Bundle();
-        pasaje.putInt("idGrupo", ListaDeGrupos.get(position).IdGrupo);
-        pasaje.putString("Nombre", ListaDeGrupos.get(position).Nombre);
-        pasaje.putString("Descripcion", ListaDeGrupos.get(position).Descripcion);*/
-        Fragment ingreso;
-        ingreso = new SelectedGroup();
-        ((SelectedGroup) ingreso).idGrupo = ListaDeGrupos.get(position).IdGrupo;
-        ((SelectedGroup) ingreso).Nombre = ListaDeGrupos.get(position).Nombre;
-        ((SelectedGroup) ingreso).Descripcion = ListaDeGrupos.get(position).Descripcion;
-        ManejadorDeFragments = getFragmentManager();
-        Transacciones = ManejadorDeFragments.beginTransaction();
-        Transacciones.replace(R.id.AlojadorDeFragmentsGrupos, ingreso);
-        Transacciones.commit();
-
     }
 
     //guardamos las cosas en un array list tipo string (ListaDeGrupos)

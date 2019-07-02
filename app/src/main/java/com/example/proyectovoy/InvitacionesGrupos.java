@@ -2,8 +2,8 @@ package com.example.proyectovoy;
 
 public class InvitacionesGrupos {
 
-    private String QuienInvita;
-    private String Grupo;
+    String QuienInvita;
+    String Grupo;
 
 
     public InvitacionesGrupos(String quienInvita, String grupo) {

@@ -39,7 +39,7 @@ public class VerInvitacionesGrupos extends Fragment {
         @Override
         protected Void doInBackground(Void... voids) {
             try {
-                URL rutatlantica = new URL("http://10.152.2.34:2073/api/Invitacion/" + idUsr);
+                URL rutatlantica = new URL("http://10.152.2.49:2073/api/Invitacion/" + idUsr);
                 HttpURLConnection conexion = (HttpURLConnection) rutatlantica.openConnection();
                 Log.d("AccesoAPI2", "Me conecto");
                 if (conexion.getResponseCode() == 200) {
@@ -60,7 +60,6 @@ public class VerInvitacionesGrupos extends Fragment {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
             Log.d("HolaHola2", "ueso, que pasoa");
-            List<HashMap<String, String>> aList = new ArrayList<HashMap<String, String>>();
             Log.d("HolaHola2", "ueso, que pasoa2");
 
             InvitacionesGruposListAdapter adapter;
