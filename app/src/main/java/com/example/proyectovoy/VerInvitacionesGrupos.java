@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.io.IOException;
@@ -31,6 +32,16 @@ public class VerInvitacionesGrupos extends Fragment {
         tareaAsincronica miTarea = new tareaAsincronica();
         miTarea.execute();
 
+        ListView listainvitaciones = vistadevuelve.findViewById(R.id.ListaInvitacionGrupo);
+        listainvitaciones.setOnItemClickListener (new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                openDialog();
+            }
+        });
+
+
 
 
         return vistadevuelve;
@@ -39,7 +50,7 @@ public class VerInvitacionesGrupos extends Fragment {
         @Override
         protected Void doInBackground(Void... voids) {
             try {
-                URL rutatlantica = new URL("http://10.152.2.49:2073/api/Invitacion/" + idUsr);
+                URL rutatlantica = new URL("http://10.152.2.68:2073/api/Invitacion/" + idUsr);
                 HttpURLConnection conexion = (HttpURLConnection) rutatlantica.openConnection();
                 Log.d("AccesoAPI2", "Me conecto");
                 if (conexion.getResponseCode() == 200) {
@@ -68,7 +79,10 @@ public class VerInvitacionesGrupos extends Fragment {
             lista.setAdapter(adapter);
         }
     }
+    public void openDialog(){
 
+
+    }
     public void ProcessJSONLeido(InputStreamReader streamLeido) {
     Log.d("uoso2", "entra");
         JsonReader JSONleido = new JsonReader(streamLeido);

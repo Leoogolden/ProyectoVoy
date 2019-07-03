@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.EventListener;
-public class VerGrupos extends Fragment {
+public class VerGrupos extends Fragment implements View.OnClickListener {
 
     //declaramos fotos provisorias pa probar
     int[] listviewImage = new int[]{
@@ -44,19 +44,7 @@ public class VerGrupos extends Fragment {
         vistadevuelve = inflador.inflate(R.layout.fragment_lista_de_grupos, grupo, false);
 
         CrearGrupo = vistadevuelve.findViewById(R.id.CrearGrupo);
-        CrearGrupo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Fragment creargrupo;
-                creargrupo = new CrearGrupo();
-                ManejadorDeFragments = getFragmentManager();
-                Transacciones = ManejadorDeFragments.beginTransaction();
-                Transacciones.replace(R.id.AlojadorDeFragmentsGrupos, creargrupo);
-                Transacciones.commit();
-
-
-            }
-        });
+        CrearGrupo.setOnClickListener(this);
 
         tareaAsincronica miTarea = new tareaAsincronica();
         miTarea.execute();
@@ -87,12 +75,27 @@ public class VerGrupos extends Fragment {
         return vistadevuelve;
     }
 
+    @Override
+    public void onClick(View v) {
+        Log.d("entra", "entro");
+        Fragment creargrupo = new CrearGrupo();
+        Bundle pasaje = new Bundle();
+        pasaje.putInt("idusr",idUsr);
+        creargrupo.setArguments(pasaje);
+        ManejadorDeFragments = getFragmentManager();
+        Log.d("entra", "entro2");
+        Transacciones = ManejadorDeFragments.beginTransaction();
+        Transacciones.replace(R.id.AlojadorDeFragmentsGrupos, creargrupo);
+        Log.d("entra", "entro3");
+        Transacciones.commit();
+    }
+
     //la buena async task
     private class tareaAsincronica extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... voids) {
             try {
-                URL rutatlantica = new URL("http://10.152.2.49:2073/api/Grupos/" + idUsr);
+                URL rutatlantica = new URL("http://10.152.2.68:2073/api/Grupos/" + idUsr);
                 HttpURLConnection conexion = (HttpURLConnection) rutatlantica.openConnection();
                 Log.d("AccesoAPI", "Me conecto");
                 if (conexion.getResponseCode() == 200) {
