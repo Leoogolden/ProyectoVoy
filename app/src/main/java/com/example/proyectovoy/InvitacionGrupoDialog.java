@@ -18,28 +18,33 @@ public class InvitacionGrupoDialog extends AppCompatDialogFragment {
     Boolean Aceptaono;
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        AlertDialog.Builder build = new AlertDialog.Builder(getActivity());
+
+        final AlertDialog.Builder build = new AlertDialog.Builder(getActivity());
         LayoutInflater inflador = getActivity().getLayoutInflater();
         View view = inflador.inflate(R.layout.dialog_invitaciones, null);
         build.setView(view);
-        Log.d("AccesoAPI6", "entra2");
-        build.setTitle("Invitacion a Grupo")
-                .setNegativeButton("Rechazar", new DialogInterface.OnClickListener() {
+        Log.d("AccesoAPI6", "entra3");
+        build.setTitle("Invitacion a Grupo");
+                build.setNegativeButton("Rechazar", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-
+                        Log.d("AccesoAPI6", "entra4");
+                        Aceptaono = false;
+                        tareaAsincronicaInvitacion acep = new tareaAsincronicaInvitacion();
+                        acep.execute();
+                        getDialog().dismiss();
                     }
-                })
-                .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                });
+                build.setPositiveButton("Aceptar324", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Log.d("AccesoAPI6", "entra3");
+                        Log.d("AccesoAPI6", "entra4");
                         Aceptaono = true;
                         tareaAsincronicaInvitacion acep = new tareaAsincronicaInvitacion();
                         acep.execute();
+                        getDialog().dismiss();
                     }
                 });
-
         return build.create();
     }
 
