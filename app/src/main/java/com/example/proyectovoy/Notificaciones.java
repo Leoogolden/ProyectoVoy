@@ -1,11 +1,11 @@
 package com.example.proyectovoy;
 
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -34,7 +34,7 @@ public class Notificaciones extends AppCompatActivity {
 
         Fragment VerInvitaciones;
         VerInvitaciones = new VerInvitacionesGrupos();
-        ManejadorDeFragments = getFragmentManager();
+        ManejadorDeFragments = getSupportFragmentManager();
         Transacciones = ManejadorDeFragments.beginTransaction();
         Transacciones.replace(R.id.AlojadorDeFragmentsNotificaciones, VerInvitaciones);
         Transacciones.commit();

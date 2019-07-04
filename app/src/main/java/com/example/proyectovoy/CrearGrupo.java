@@ -54,9 +54,12 @@ public class CrearGrupo extends Fragment implements View.OnClickListener {
         @Override
         protected Void doInBackground(Void... voids) {
             try {
-                URL rutatlantica = new URL("http://10.152.2.68:2073/api/Grupos/" + NombreGrupo + DescripcionGrupo + idUsr);
+                Log.d("AccesoAPI6", "aaaa" + NombreGrupo+ " "+ DescripcionGrupo+ " "+ idUsr);
+                URL rutatlantica = new URL("http://10.152.2.63:2073/api/Grupos/CrearGrupo/" + NombreGrupo+ "/" + DescripcionGrupo+ "/" + idUsr);
                 HttpURLConnection conexion = (HttpURLConnection) rutatlantica.openConnection();
                 conexion.setRequestMethod("POST");
+                conexion.setRequestProperty( "Content-Type", "application/json");
+                conexion.setRequestProperty( "charset", "utf-8");
                 Log.d("AccesoAPI6", "Me conecto");
                 if (conexion.getResponseCode() == 200) {
                     Log.d("AccesoAPI6", "conexion ok");
@@ -64,12 +67,19 @@ public class CrearGrupo extends Fragment implements View.OnClickListener {
 //                    InputStreamReader lectorrespuesta = new InputStreamReader(cuerporesspuesta, "UTF-8");
 //                    ProcessJSONLeido(lectorrespuesta);
                 } else {
-                    Log.d("AccesoAPI6", "Error en la conexion ");
+                    Log.d("AccesoAPI6", "Error en la conexion " + conexion.getResponseCode());
                 }
+                conexion.disconnect();
             } catch (Exception error) {
                 Log.d("AccesoAPI6", "Huno un error al conectarme" + error.getMessage());
             }
             return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            //Grupos
+            super.onPostExecute(aVoid);
         }
     }
 

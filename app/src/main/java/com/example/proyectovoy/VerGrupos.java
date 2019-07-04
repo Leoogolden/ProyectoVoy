@@ -22,7 +22,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.EventListener;
+
 public class VerGrupos extends Fragment implements View.OnClickListener {
 
     //declaramos fotos provisorias pa probar
@@ -46,7 +46,7 @@ public class VerGrupos extends Fragment implements View.OnClickListener {
         CrearGrupo = vistadevuelve.findViewById(R.id.CrearGrupo);
         CrearGrupo.setOnClickListener(this);
 
-        tareaAsincronica miTarea = new tareaAsincronica();
+        ActualizarGrupos miTarea = new ActualizarGrupos();
         miTarea.execute();
 
         ListView androidListView = (ListView) vistadevuelve.findViewById(R.id.ListaGrupos);
@@ -91,11 +91,11 @@ public class VerGrupos extends Fragment implements View.OnClickListener {
     }
 
     //la buena async task
-    private class tareaAsincronica extends AsyncTask<Void, Void, Void> {
+    public class ActualizarGrupos extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... voids) {
             try {
-                URL rutatlantica = new URL("http://10.152.2.68:2073/api/Grupos/" + idUsr);
+                URL rutatlantica = new URL("http://10.152.2.63:2073/api/Grupos/" + idUsr);
                 HttpURLConnection conexion = (HttpURLConnection) rutatlantica.openConnection();
                 Log.d("AccesoAPI", "Me conecto");
                 if (conexion.getResponseCode() == 200) {
@@ -106,6 +106,7 @@ public class VerGrupos extends Fragment implements View.OnClickListener {
                 } else {
                     Log.d("AccesoAPI", "Error en la conexion");
                 }
+                conexion.disconnect();
             } catch (Exception error) {
                 Log.d("AccesoAPI", "Huno un error al conectarme" + error.getMessage());
             }
@@ -120,7 +121,7 @@ public class VerGrupos extends Fragment implements View.OnClickListener {
             aList = new ArrayList<HashMap<String, String>>();
             Log.d("HolaHola", "ueso, que pasoa2");
             int lenght = ListaDeGrupos.size();
-            for (int i = 0; i < lenght - 1; i++) {
+            for (int i = 0; i < lenght; i++) {
                 Log.d("HolaHola", "ueso, que pasoa3" + ListaDeGrupos.get(i).Nombre);
                 HashMap<String, String> hm = new HashMap<String, String>();
                 hm.put("listview_title", ListaDeGrupos.get(i).Nombre);
@@ -133,7 +134,7 @@ public class VerGrupos extends Fragment implements View.OnClickListener {
             String[] from = {"listview_image", "listview_title"};
             int[] to = {R.id.listview_image, R.id.listview_item_title};
 
-            SimpleAdapter simpleAdapter = new SimpleAdapter(getActivity().getBaseContext(), aList, R.layout.lista_grupos, from, to);
+            SimpleAdapter simpleAdapter = new SimpleAdapter(getActivity(), aList, R.layout.lista_grupos, from, to);
             ListView androidListView = (ListView) vistadevuelve.findViewById(R.id.ListaGrupos);
             Log.d("Holahola", "Llegue chicos");
             androidListView.setAdapter(simpleAdapter);

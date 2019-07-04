@@ -14,12 +14,9 @@ public class IniciarSesion extends AppCompatActivity {
     }
 
     public void CheckLogIn(View view) {
-
-
-            Intent ActividadDestino;
-            ActividadDestino = new Intent(IniciarSesion.this, Home.class);
-            startActivity(ActividadDestino);
-
+        Intent ActividadDestino;
+        ActividadDestino = new Intent(IniciarSesion.this, Home.class);
+        startActivity(ActividadDestino);
     }
 
     public void ForgPass(View view) {

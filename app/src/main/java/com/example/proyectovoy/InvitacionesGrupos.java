@@ -4,16 +4,27 @@ public class InvitacionesGrupos {
 
     String QuienInvita;
     String Grupo;
+    int idInv;
 
 
-    public InvitacionesGrupos(String quienInvita, String grupo) {
+    public InvitacionesGrupos(int idInvitacion, String quienInvita, String grupo) {
         QuienInvita = quienInvita;
         Grupo = grupo;
+        idInv = idInvitacion;
     }
 
     public InvitacionesGrupos() {
         QuienInvita = "";
         Grupo = "";
+        idInv = 0;
+    }
+
+    public int getIdInv() {
+        return idInv;
+    }
+
+    public void setIdInv(int idInv) {
+        this.idInv = idInv;
     }
 
     public String getQuienInvita() {

@@ -22,7 +22,6 @@ public class InvitacionesGruposListAdapter extends ArrayAdapter<InvitacionesGrup
         super(context, resource, objects);
         mContext = context;
         mResource = resource;
-
     }
 
     @NonNull

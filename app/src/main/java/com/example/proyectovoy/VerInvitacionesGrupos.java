@@ -1,8 +1,9 @@
 package com.example.proyectovoy;
 
-import android.app.Fragment;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.util.JsonReader;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -36,8 +37,7 @@ public class VerInvitacionesGrupos extends Fragment {
         listainvitaciones.setOnItemClickListener (new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                openDialog();
+                openDialog(ListaDeInvitacionesGrupos.get(position));
             }
         });
 
@@ -50,7 +50,7 @@ public class VerInvitacionesGrupos extends Fragment {
         @Override
         protected Void doInBackground(Void... voids) {
             try {
-                URL rutatlantica = new URL("http://10.152.2.68:2073/api/Invitacion/" + idUsr);
+                URL rutatlantica = new URL("http://10.152.2.63:2073/api/Invitacion/" + idUsr);
                 HttpURLConnection conexion = (HttpURLConnection) rutatlantica.openConnection();
                 Log.d("AccesoAPI2", "Me conecto");
                 if (conexion.getResponseCode() == 200) {
@@ -61,6 +61,7 @@ public class VerInvitacionesGrupos extends Fragment {
                 } else {
                     Log.d("AccesoAPI2", "Error en la conexion");
                 }
+                conexion.disconnect();
             } catch (Exception error) {
                 Log.d("AccesoAPI2", "Huno un error al conectarme" + error.getMessage());
             }
@@ -79,8 +80,11 @@ public class VerInvitacionesGrupos extends Fragment {
             lista.setAdapter(adapter);
         }
     }
-    public void openDialog(){
-
+    public void openDialog(InvitacionesGrupos grupo){
+        InvitacionGrupoDialog dialogo = new InvitacionGrupoDialog();
+        Log.d("AccesoAPI6", "entra");
+        dialogo.show(getActivity().getSupportFragmentManager(), "se viene");
+        dialogo.setGrupo(grupo);
 
     }
     public void ProcessJSONLeido(InputStreamReader streamLeido) {
@@ -101,9 +105,13 @@ public class VerInvitacionesGrupos extends Fragment {
                 while (JSONleido.hasNext()) {
                     String NomeDuElemento = JSONleido.nextName();
                     Log.d("uoso2", "3");
-                    if (NomeDuElemento.equals("QuienInvita")) {
+                    if (NomeDuElemento.equals("id")) {
                         Log.d("uoso2", "4");
+                        Invitaciones.setIdInv(JSONleido.nextInt());
+                    } else if (NomeDuElemento.equals("QuienInvita")) {
+                        Log.d("uoso2", "5");
                         Invitaciones.setQuienInvita(JSONleido.nextString());
+
                     } else if (NomeDuElemento.equals("NombreGrupo")) {
                         Log.d("uoso2", "5");
                         Invitaciones.setGrupo(JSONleido.nextString());
