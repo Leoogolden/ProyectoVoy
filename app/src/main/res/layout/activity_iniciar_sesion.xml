@@ -6,13 +6,13 @@
     android:orientation="vertical">
 
     <EditText
-        android:id="@+id/Mail"
+        android:id="@+id/nombreusuariologin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Email" />
+        android:hint="Nombre de usuario" />
 
     <EditText
-        android:id="@+id/contrasenia"
+        android:id="@+id/contrasenialogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Contraseña"

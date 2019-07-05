@@ -101,7 +101,7 @@ public class VerInvitacionesGrupos extends Fragment {
                         Log.d("olap", "" + invita.getIdInv());
                         tareaAsincronicaInvitacion asd = new tareaAsincronicaInvitacion();
                         asd.execute();
-                        Toast.makeText(getActivity(), "positive clicked" + grupo.getQuienInvita(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Te has unido al grupo " + grupo.getGrupo(), Toast.LENGTH_SHORT).show();
                         FragmentTransaction ft = getFragmentManager().beginTransaction();
                         ft.detach(VerInvitacionesGrupos.this).attach(VerInvitacionesGrupos.this).commit();
                         ListaDeInvitacionesGrupos.clear();

@@ -7,10 +7,17 @@
     android:orientation="vertical">
 
     <EditText
-        android:id="@+id/Nombre"
+        android:id="@+id/NombreUsuario"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Nombre" />
+        android:hint="Nombre de usuario" />
+
+    <EditText
+        android:id="@+id/Contrasen"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Contraseña"
+        android:inputType="textPassword"/>
 
     <EditText
         android:id="@+id/Mail"
@@ -19,23 +26,23 @@
         android:hint="Mail" />
 
     <EditText
-        android:id="@+id/Contrasen"
+        android:id="@+id/Nombre"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Contraseña" />
-
-    <EditText
-        android:id="@+id/Edad"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Numero de telefono"
-        android:inputType="number" />
+        android:hint="Nombre" />
 
     <EditText
         android:id="@+id/NumTel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Numero de telefono"
+        android:inputType="number" />
+
+    <EditText
+        android:id="@+id/Edad"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Edad"
         android:inputType="number" />
 
     <Button
