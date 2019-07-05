@@ -16,6 +16,9 @@ public class Registro extends AppCompatActivity {
     public void ConfirmarRegistro(View vista) {
 
 
+        
+
+
 
             Intent ActividadDestino;
             ActividadDestino = new Intent(Registro.this, IniciarSesion.class);

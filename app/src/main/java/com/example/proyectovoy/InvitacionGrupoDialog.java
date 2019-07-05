@@ -67,7 +67,7 @@ public class InvitacionGrupoDialog extends AppCompatDialogFragment {
 
             try {
 
-                URL rutatlantica = new URL("http://10.152.2.63:2073/api/Invitacion/Aceptar" + grupo.idInv+"/"+ Aceptaono);
+                URL rutatlantica = new URL("http://10.152.2.22:2073/api/Invitacion/Aceptar" + grupo.idInv+"/"+ Aceptaono);
                 HttpURLConnection conexion = (HttpURLConnection) rutatlantica.openConnection();
                 conexion.setRequestMethod("POST");
                 conexion.setRequestProperty("Content-Type", "application/json");

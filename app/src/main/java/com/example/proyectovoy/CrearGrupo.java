@@ -55,7 +55,7 @@ public class CrearGrupo extends Fragment implements View.OnClickListener {
         protected Void doInBackground(Void... voids) {
             try {
                 Log.d("AccesoAPI6", "aaaa" + NombreGrupo+ " "+ DescripcionGrupo+ " "+ idUsr);
-                URL rutatlantica = new URL("http://10.152.2.63:2073/api/Grupos/CrearGrupo/" + NombreGrupo+ "/" + DescripcionGrupo+ "/" + idUsr);
+                URL rutatlantica = new URL("http://10.152.2.22:2073/api/Grupos/CrearGrupo/" + NombreGrupo+ "/" + DescripcionGrupo+ "/" + idUsr);
                 HttpURLConnection conexion = (HttpURLConnection) rutatlantica.openConnection();
                 conexion.setRequestMethod("POST");
                 conexion.setRequestProperty( "Content-Type", "application/json");

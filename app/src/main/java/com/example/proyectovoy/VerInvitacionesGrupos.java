@@ -3,6 +3,7 @@ package com.example.proyectovoy;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.util.JsonReader;
 import android.util.Log;
@@ -21,13 +22,14 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 
 public class VerInvitacionesGrupos extends Fragment {
     InvitacionesGrupos invita = new InvitacionesGrupos();
     Boolean Aceptaono;
     View vistadevuelve;
     ArrayList<InvitacionesGrupos> ListaDeInvitacionesGrupos = new ArrayList<>();
-    int idUsr = 2;
+    int idUsr = 1;
 
     public View onCreateView(LayoutInflater inflador, ViewGroup grupo, Bundle datos) {
         vistadevuelve = inflador.inflate(R.layout.fragment_invitaciones_grupos, grupo, false);
@@ -51,7 +53,7 @@ public class VerInvitacionesGrupos extends Fragment {
         @Override
         protected Void doInBackground(Void... voids) {
             try {
-                URL rutatlantica = new URL("http://10.152.2.63:2073/api/Invitacion/" + idUsr);
+                URL rutatlantica = new URL("http://10.152.2.22:2073/api/Invitacion/" + idUsr);
                 HttpURLConnection conexion = (HttpURLConnection) rutatlantica.openConnection();
                 Log.d("AccesoAPI2", "Me conecto");
                 if (conexion.getResponseCode() == 200) {
@@ -100,7 +102,9 @@ public class VerInvitacionesGrupos extends Fragment {
                         tareaAsincronicaInvitacion asd = new tareaAsincronicaInvitacion();
                         asd.execute();
                         Toast.makeText(getActivity(), "positive clicked" + grupo.getQuienInvita(), Toast.LENGTH_SHORT).show();
-
+                        FragmentTransaction ft = getFragmentManager().beginTransaction();
+                        ft.detach(VerInvitacionesGrupos.this).attach(VerInvitacionesGrupos.this).commit();
+                        ListaDeInvitacionesGrupos.clear();
                     }
                 })
                 .setNegativeButton("Rechazar Invitacion", new View.OnClickListener() {
@@ -109,6 +113,9 @@ public class VerInvitacionesGrupos extends Fragment {
                         Aceptaono = false;
                         tareaAsincronicaInvitacion asd = new tareaAsincronicaInvitacion();
                         asd.execute();
+                        FragmentTransaction ft = getFragmentManager().beginTransaction();
+                        ft.detach(VerInvitacionesGrupos.this).attach(VerInvitacionesGrupos.this).commit();
+                        ListaDeInvitacionesGrupos.clear();
                     }
                 })
                 .setNeutralButton("Volver a la lista", null)
@@ -162,7 +169,7 @@ public class VerInvitacionesGrupos extends Fragment {
 
             try {
 
-                URL rutatlantica = new URL("http://10.152.2.63:2073/api/Invitacion/Aceptar/" + invita.idInv + "/" + Aceptaono);
+                URL rutatlantica = new URL("http://10.152.2.22:2073/api/Invitacion/Aceptar/" + invita.idInv + "/" + Aceptaono);
                 HttpURLConnection conexion = (HttpURLConnection) rutatlantica.openConnection();
                 conexion.setRequestMethod("POST");
                 conexion.setRequestProperty("Content-Type", "application/json");

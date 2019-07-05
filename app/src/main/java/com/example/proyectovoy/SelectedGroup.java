@@ -72,7 +72,7 @@ public class SelectedGroup extends Fragment {
         @Override
         protected Void doInBackground(Void... voids) {
             try {
-                URL rutatlantica = new URL("http://10.152.2.63:2073/api/Grupos/MiembrosGrupo/" + idGrupo);
+                URL rutatlantica = new URL("http://10.152.2.22:2073/api/Grupos/MiembrosGrupo/" + idGrupo);
                 HttpURLConnection conexion = (HttpURLConnection) rutatlantica.openConnection();
                 Log.d("AccesoAPI3", "Me conecto");
                 if (conexion.getResponseCode() == 200) {
