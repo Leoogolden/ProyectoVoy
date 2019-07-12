@@ -1,49 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/degradado"
     android:layout_gravity="center"
+    android:background="@drawable/degradado"
     android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/nombreusuariologin"
+    <Button
+        android:id="@+id/botonloginuno"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Nombre de usuario"
-        android:layout_gravity="center"
-        />
+        android:layout_height="200px"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/boton"
+        android:onClick="CheckLogIn"
+        android:text="Log In"
+        android:textColor="@drawable/txtboton" />
+
 
     <EditText
         android:id="@+id/contrasenialogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/botonloginuno"
+        android:layout_marginBottom="10dp"
         android:hint="Contraseña"
         android:inputType="textPassword" />
 
-    <Button
+    <EditText
+        android:id="@+id/nombreusuariologin"
         android:layout_width="match_parent"
-        android:layout_height="200px"
-        android:background="@drawable/boton"
-        android:onClick="CheckLogIn"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/contrasenialogin"
+        android:layout_gravity="center"
+        android:layout_marginBottom="10dp"
+        android:hint="Nombre de usuario" />
 
-        android:text="Log In"
-        android:textColor="@drawable/txtboton" />
 
-    <TextView
-        android:id="@+id/forpass"
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="ForgPass"
-        android:text="Forgot Password" />
+        android:layout_below="@+id/botonloginuno"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/reg"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="ToReg"
-        android:text="Register"
-        />
+        <TextView
+            android:id="@+id/forpass"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:onClick="ForgPass"
+            android:text="Forgot Password"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/reg"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/forpass"
+            android:onClick="ToReg"
+            android:text="Register"
+            android:textSize="18sp" />
+
+    </RelativeLayout>
 
 
-</LinearLayout>
+</RelativeLayout>
