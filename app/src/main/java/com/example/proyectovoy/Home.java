@@ -5,17 +5,21 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import java.text.DateFormat;
 
 public class Home extends AppCompatActivity {
-
+    Bundle usuario = new Bundle(getIntent().getExtras());
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        Usuarios user = new Usuarios(usuario.getInt("IdUSuario"), usuario.getString("Nombre"), usuario.getString("Mail"), usuario.getString("NombreUsuario"), usuario.getString("Contra"), usuario.getInt("NroTel"), usuario.getInt("Edad"));
+        Log.d("Logeadisimo","ahi va "+ user.NombreUsuario);
         DateFormat dateFormat = android.text.format.DateFormat.getDateFormat(getApplicationContext());
         BottomNavigationView bNavView = (BottomNavigationView) findViewById(R.id.navigation_view);
         Menu menunav = bNavView.getMenu();
@@ -29,21 +33,25 @@ public class Home extends AppCompatActivity {
                     case R.id.action_home:
                         Intent ActividadDestino;
                         ActividadDestino = new Intent(Home.this, MisGrupos.class);
+                        ActividadDestino.putExtras(usuario);
                         startActivity(ActividadDestino);
                         break;
                     case R.id.action_notificaciones:
                         Intent ActividadDestino2;
                         ActividadDestino2 = new Intent(Home.this, Notificaciones.class);
+                        ActividadDestino2.putExtras(usuario);
                         startActivity(ActividadDestino2);
                         break;
                     case R.id.action_grupos:
                         Intent ActividadDestino3;
                         ActividadDestino3 = new Intent(Home.this, MisGrupos.class);
+                        ActividadDestino3.putExtras(usuario);
                         startActivity(ActividadDestino3);
                         break;
                     case R.id.action_perfil:
                         Intent ActividadDestino4;
                         ActividadDestino4 = new Intent(Home.this, MiPerfil.class);
+                        ActividadDestino4.putExtras(usuario);
                         startActivity(ActividadDestino4);
                         break;
                 }

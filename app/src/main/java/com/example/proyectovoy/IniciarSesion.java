@@ -46,10 +46,19 @@ public class IniciarSesion extends AppCompatActivity {
         tar.execute();
 
         if (entraono) {
+            Bundle UsuarioBundle = new Bundle();
+            UsuarioBundle.putInt("IdUsuario", user.IdUsuario);
+            UsuarioBundle.putString("Nombre", user.Nombre);
+            UsuarioBundle.putString("Mail", user.Mail);
+            UsuarioBundle.putString("NombreUsuario", user.NombreUsuario);
+            UsuarioBundle.putString("Contra", user.Contra);
+            UsuarioBundle.putInt("NroTel", user.NroTel);
+            UsuarioBundle.putInt("Edad", user.Edad);
             Log.d("valoruser", "" + user.IdUsuario);
             Toast.makeText(this, " Logeandose...", Toast.LENGTH_SHORT).show();
             Intent ActividadDestino;
             ActividadDestino = new Intent(IniciarSesion.this, Home.class);
+            ActividadDestino.putExtras(UsuarioBundle);
             startActivity(ActividadDestino);
         } else {
             Toast.makeText(this, "Contraseña o usuario incorrecto", Toast.LENGTH_SHORT).show();
@@ -74,7 +83,7 @@ public class IniciarSesion extends AppCompatActivity {
         @Override
         protected Void doInBackground(Void... voids) {
             try {
-                URL rutatlantica = new URL("http://10.152.2.22:2073/api/Usuario/" + Nombreu + "/" + pas);
+                URL rutatlantica = new URL("http://10.152.2.24:2073/api/Usuario/" + Nombreu + "/" + pas);
                 HttpURLConnection conexion = (HttpURLConnection) rutatlantica.openConnection();
                 Log.d("AccesoAPI3", "Me conecto");
                 if (conexion.getResponseCode() == 200) {
