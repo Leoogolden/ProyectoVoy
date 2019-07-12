@@ -9,6 +9,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 public class MiPerfil extends AppCompatActivity {
+    Bundle usuario = new Bundle(getIntent().getExtras());
+    Usuarios user = new Usuarios(usuario.getInt("IdUSuario"), usuario.getString("Nombre"), usuario.getString("Mail"), usuario.getString("NombreUsuario"), usuario.getString("Contra"), usuario.getInt("NroTel"), usuario.getInt("Edad"));
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,16 +28,19 @@ public class MiPerfil extends AppCompatActivity {
                     case R.id.action_home:
                         Intent ActividadDestino;
                         ActividadDestino = new Intent(MiPerfil.this, Home.class);
+                        ActividadDestino.putExtras(usuario);
                         startActivity(ActividadDestino);
                         break;
                     case R.id.action_notificaciones:
                         Intent ActividadDestino2;
                         ActividadDestino2 = new Intent(MiPerfil.this, Notificaciones.class);
+                        ActividadDestino2.putExtras(usuario);
                         startActivity(ActividadDestino2);
                         break;
                     case R.id.action_grupos:
                         Intent ActividadDestino3;
                         ActividadDestino3 = new Intent(MiPerfil.this, MisGrupos.class);
+                        ActividadDestino3.putExtras(usuario);
                         startActivity(ActividadDestino3);
                         break;
                     case R.id.action_perfil:

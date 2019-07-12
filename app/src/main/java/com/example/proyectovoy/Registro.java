@@ -52,7 +52,7 @@ public class Registro extends AppCompatActivity {
 
             try {
 
-                URL rutatlantica = new URL("http://10.152.2.22:2073/api/Usuario/Register/" + usuarionombre + "/" + contrasenha + "/" + stringmail + "/" + nombraso + "/" +nrotel + "/" +EdadReal);
+                URL rutatlantica = new URL("http://10.152.2.24:2073/api/Usuario/Register/" + usuarionombre + "/" + contrasenha + "/" + stringmail + "/" + nombraso + "/" +nrotel + "/" +EdadReal);
                 HttpURLConnection conexion = (HttpURLConnection) rutatlantica.openConnection();
                 conexion.setRequestMethod("POST");
                 conexion.setRequestProperty("Content-Type", "application/json");

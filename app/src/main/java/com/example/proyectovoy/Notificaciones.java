@@ -20,6 +20,8 @@ import java.util.List;
 
 
 public class Notificaciones extends AppCompatActivity {
+    Bundle usuario = new Bundle(getIntent().getExtras());
+    Usuarios user = new Usuarios(usuario.getInt("IdUSuario"), usuario.getString("Nombre"), usuario.getString("Mail"), usuario.getString("NombreUsuario"), usuario.getString("Contra"), usuario.getInt("NroTel"), usuario.getInt("Edad"));
 
 
     //declaracion de fragments
@@ -52,6 +54,7 @@ public class Notificaciones extends AppCompatActivity {
                     case R.id.action_home:
                         Intent ActividadDestino;
                         ActividadDestino = new Intent(Notificaciones.this, Home.class);
+                        ActividadDestino.putExtras(usuario);
                         startActivity(ActividadDestino);
                         break;
                     case R.id.action_notificaciones:
@@ -60,11 +63,13 @@ public class Notificaciones extends AppCompatActivity {
                     case R.id.action_grupos:
                         Intent ActividadDestino3;
                         ActividadDestino3 = new Intent(Notificaciones.this, MisGrupos.class);
+                        ActividadDestino3.putExtras(usuario);
                         startActivity(ActividadDestino3);
                         break;
                     case R.id.action_perfil:
                         Intent ActividadDestino4;
                         ActividadDestino4 = new Intent(Notificaciones.this, MiPerfil.class);
+                        ActividadDestino4.putExtras(usuario);
                         startActivity(ActividadDestino4);
                         break;
                 }                return false;
