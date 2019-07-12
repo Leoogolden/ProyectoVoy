@@ -9,13 +9,16 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 public class MiPerfil extends AppCompatActivity {
-    Bundle usuario = new Bundle(getIntent().getExtras());
-    Usuarios user = new Usuarios(usuario.getInt("IdUSuario"), usuario.getString("Nombre"), usuario.getString("Mail"), usuario.getString("NombreUsuario"), usuario.getString("Contra"), usuario.getInt("NroTel"), usuario.getInt("Edad"));
+    Bundle usuario = new Bundle();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mi_perfil);
+        usuario = getIntent().getExtras();
+        Usuarios user = new Usuarios(usuario.getInt("IdUsuario"), usuario.getString("Nombre"), usuario.getString("Mail"), usuario.getString("NombreUsuario"), usuario.getString("Contra"), usuario.getInt("NroTel"), usuario.getInt("Edad"));
+
+
         BottomNavigationView bNavView = (BottomNavigationView) findViewById(R.id.navigation_view);
         Menu menunav = bNavView.getMenu();
         MenuItem itemseleccionado = menunav.getItem(3);

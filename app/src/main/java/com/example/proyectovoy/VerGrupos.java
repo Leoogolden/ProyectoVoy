@@ -29,8 +29,8 @@ public class VerGrupos extends Fragment implements View.OnClickListener {
     int[] listviewImage = new int[]{
             R.drawable.ejemploperfilgrupo, R.drawable.ejemploperfilgrupo, R.drawable.ejemploperfilgrupo, R.drawable.ejemploperfilgrupo, R.drawable.ejemploperfilgrupo, R.drawable.ejemploperfilgrupo, R.drawable.ejemploperfilgrupo, R.drawable.ejemploperfilgrupo, R.drawable.ejemploperfilgrupo, R.drawable.ejemploperfilgrupo
     };
-
-    int idUsr = 1;
+    Bundle usuariologeado;
+    Usuarios user = new Usuarios();
     //listapaelsheison
     ArrayList<Grupos> ListaDeGrupos = new ArrayList<Grupos>();
     View vistadevuelve;
@@ -43,6 +43,18 @@ public class VerGrupos extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflador, ViewGroup grupo, Bundle datos) {
         vistadevuelve = inflador.inflate(R.layout.fragment_lista_de_grupos, grupo, false);
 
+
+        usuariologeado = getArguments();
+        user.setContra(usuariologeado.getString("Contra"));
+        user.setEdad(usuariologeado.getInt("Edad"));
+        user.setIdUsuario(usuariologeado.getInt("IdUsuario"));
+        user.setMail(usuariologeado.getString("Mail"));
+        user.setNombre(usuariologeado.getString("Nombre"));
+        user.setNroTel(usuariologeado.getInt("NroTel"));
+        user.setNombreUsuario(usuariologeado.getString("NombreUsuario"));
+
+
+        Log.d("keloke",""+user.IdUsuario);
         CrearGrupo = vistadevuelve.findViewById(R.id.CrearGrupo);
         CrearGrupo.setOnClickListener(this);
 
@@ -75,13 +87,13 @@ public class VerGrupos extends Fragment implements View.OnClickListener {
         return vistadevuelve;
     }
 
+    //CREAR GRUPO
     @Override
     public void onClick(View v) {
         Log.d("entra", "entro");
         Fragment creargrupo = new CrearGrupo();
-        Bundle pasaje = new Bundle();
-        pasaje.putInt("idusr",idUsr);
-        creargrupo.setArguments(pasaje);
+
+        creargrupo.setArguments(usuariologeado);
         ManejadorDeFragments = getFragmentManager();
         Log.d("entra", "entro2");
         Transacciones = ManejadorDeFragments.beginTransaction();
@@ -95,11 +107,11 @@ public class VerGrupos extends Fragment implements View.OnClickListener {
         @Override
         protected Void doInBackground(Void... voids) {
             try {
-                URL rutatlantica = new URL("http://10.152.2.24:2073/api/Grupos/" + idUsr);
+                URL rutatlantica = new URL("http://10.152.2.24:2073/api/Grupos/" + user.IdUsuario);
                 HttpURLConnection conexion = (HttpURLConnection) rutatlantica.openConnection();
                 Log.d("AccesoAPI", "Me conecto");
                 if (conexion.getResponseCode() == 200) {
-                    Log.d("AccesoAPI", "conexion ok");
+                    Log.d("AccesoAPI", "conexion ok" + user.IdUsuario);
                     InputStream cuerporesspuesta = conexion.getInputStream();
                     InputStreamReader lectorrespuesta = new InputStreamReader(cuerporesspuesta, "UTF-8");
                     ProcessJSONLeido(lectorrespuesta);

@@ -12,13 +12,13 @@ import android.view.MenuItem;
 import java.text.DateFormat;
 
 public class Home extends AppCompatActivity {
-    Bundle usuario = new Bundle(getIntent().getExtras());
+    Bundle usuario = new Bundle();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
-        Usuarios user = new Usuarios(usuario.getInt("IdUSuario"), usuario.getString("Nombre"), usuario.getString("Mail"), usuario.getString("NombreUsuario"), usuario.getString("Contra"), usuario.getInt("NroTel"), usuario.getInt("Edad"));
+        usuario = this.getIntent().getExtras();
+        Usuarios user = new Usuarios(usuario.getInt("IdUsuario"), usuario.getString("Nombre"), usuario.getString("Mail"), usuario.getString("NombreUsuario"), usuario.getString("Contra"), usuario.getInt("NroTel"), usuario.getInt("Edad"));
         Log.d("Logeadisimo","ahi va "+ user.NombreUsuario);
         DateFormat dateFormat = android.text.format.DateFormat.getDateFormat(getApplicationContext());
         BottomNavigationView bNavView = (BottomNavigationView) findViewById(R.id.navigation_view);

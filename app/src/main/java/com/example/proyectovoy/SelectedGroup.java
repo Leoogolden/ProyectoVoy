@@ -101,7 +101,7 @@ public class SelectedGroup extends Fragment {
 
             ArrayList<String> DatosLista = new ArrayList<String>();
             int lenght = ListaDeUsuarios.size();
-            for (int i = 0; i < lenght - 1; i++) {
+            for (int i = 0; i < lenght; i++) {
                 Log.d("HolaHola3", "ueso, que pasoa3" + ListaDeUsuarios.get(i).Nombre);
                 DatosLista.add(ListaDeUsuarios.get(i).NombreUsuario);
             }

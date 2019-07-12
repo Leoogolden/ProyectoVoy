@@ -8,14 +8,12 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import java.util.ArrayList;
-
 public class MisGrupos extends AppCompatActivity {
-    Bundle usuario = new Bundle(getIntent().getExtras());
-    Usuarios user = new Usuarios(usuario.getInt("IdUSuario"), usuario.getString("Nombre"), usuario.getString("Mail"), usuario.getString("NombreUsuario"), usuario.getString("Contra"), usuario.getInt("NroTel"), usuario.getInt("Edad"));
+    Bundle usuariologeado = new Bundle();
 
 
     //declaracion de fragments
@@ -28,8 +26,14 @@ public class MisGrupos extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mis_grupos);
+        usuariologeado = getIntent().getExtras();
+        Usuarios user = new Usuarios(usuariologeado.getInt("IdUsuario"), usuariologeado.getString("Nombre"), usuariologeado.getString("Mail"), usuariologeado.getString("NombreUsuario"), usuariologeado.getString("Contra"), usuariologeado.getInt("NroTel"), usuariologeado.getInt("Edad"));
+        Log.d("keloke",user.Nombre+ " "+ user.IdUsuario);
+
+
         Fragment verGrupos;
         verGrupos = new VerGrupos();
+        verGrupos.setArguments(usuariologeado);
         ManejadorDeFragments = getFragmentManager();
         Transacciones = ManejadorDeFragments.beginTransaction();
         Transacciones.replace(R.id.AlojadorDeFragmentsGrupos, verGrupos);
@@ -48,13 +52,13 @@ public class MisGrupos extends AppCompatActivity {
                     case R.id.action_home:
                         Intent ActividadDestino;
                         ActividadDestino = new Intent(MisGrupos.this, Home.class);
-                        ActividadDestino.putExtras(usuario);
+                        ActividadDestino.putExtras(usuariologeado);
                         startActivity(ActividadDestino);
                         break;
                     case R.id.action_notificaciones:
                         Intent ActividadDestino2;
                         ActividadDestino2 = new Intent(MisGrupos.this, Notificaciones.class);
-                        ActividadDestino2.putExtras(usuario);
+                        ActividadDestino2.putExtras(usuariologeado);
                         startActivity(ActividadDestino2);
                         break;
                     case R.id.action_grupos:
@@ -62,7 +66,7 @@ public class MisGrupos extends AppCompatActivity {
                     case R.id.action_perfil:
                         Intent ActividadDestino4;
                         ActividadDestino4 = new Intent(MisGrupos.this, MiPerfil.class);
-                        ActividadDestino4.putExtras(usuario);
+                        ActividadDestino4.putExtras(usuariologeado);
                         startActivity(ActividadDestino4);
                         break;
                 }

@@ -29,11 +29,21 @@ public class VerInvitacionesGrupos extends Fragment {
     Boolean Aceptaono;
     View vistadevuelve;
     ArrayList<InvitacionesGrupos> ListaDeInvitacionesGrupos = new ArrayList<>();
-    int idUsr = 1;
+
+    Bundle usuariologeado;
+    Usuarios user = new Usuarios();
 
     public View onCreateView(LayoutInflater inflador, ViewGroup grupo, Bundle datos) {
         vistadevuelve = inflador.inflate(R.layout.fragment_invitaciones_grupos, grupo, false);
 
+        usuariologeado = getArguments();
+        user.setContra(usuariologeado.getString("Contra"));
+        user.setEdad(usuariologeado.getInt("Edad"));
+        user.setIdUsuario(usuariologeado.getInt("IdUsuario"));
+        user.setMail(usuariologeado.getString("Mail"));
+        user.setNombre(usuariologeado.getString("Nombre"));
+        user.setNroTel(usuariologeado.getInt("NroTel"));
+        user.setNombreUsuario(usuariologeado.getString("NombreUsuario"));
 
         tareaAsincronica miTarea = new tareaAsincronica();
         miTarea.execute();
@@ -53,7 +63,7 @@ public class VerInvitacionesGrupos extends Fragment {
         @Override
         protected Void doInBackground(Void... voids) {
             try {
-                URL rutatlantica = new URL("http://10.152.2.24:2073/api/Invitacion/" + idUsr);
+                URL rutatlantica = new URL("http://10.152.2.24:2073/api/Invitacion/" + user.IdUsuario);
                 HttpURLConnection conexion = (HttpURLConnection) rutatlantica.openConnection();
                 Log.d("AccesoAPI2", "Me conecto");
                 if (conexion.getResponseCode() == 200) {

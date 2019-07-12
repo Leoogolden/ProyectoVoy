@@ -29,7 +29,7 @@ public class CrearGrupo extends Fragment implements View.OnClickListener {
         Log.d("entra", "entro5");
         vistadevuelve = inflador.inflate(R.layout.fragment_crear_grupo, grupo, false);
         Bundle DatosRecibidos = getArguments();
-        idUsr = DatosRecibidos.getInt("idusr");
+        idUsr = DatosRecibidos.getInt("IdUsuario");
         Nom = vistadevuelve.findViewById(R.id.txtNombre);
         Desc = vistadevuelve.findViewById(R.id.txtDescripcion);
         btn = vistadevuelve.findViewById(R.id.btnCrearGrupo);

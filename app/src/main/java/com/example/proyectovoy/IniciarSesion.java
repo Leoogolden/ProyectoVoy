@@ -54,14 +54,14 @@ public class IniciarSesion extends AppCompatActivity {
             UsuarioBundle.putString("Contra", user.Contra);
             UsuarioBundle.putInt("NroTel", user.NroTel);
             UsuarioBundle.putInt("Edad", user.Edad);
-            Log.d("valoruser", "" + user.IdUsuario);
+            Log.d("valoruser", "" + UsuarioBundle.getString("IdUsuario"));
             Toast.makeText(this, " Logeandose...", Toast.LENGTH_SHORT).show();
             Intent ActividadDestino;
             ActividadDestino = new Intent(IniciarSesion.this, Home.class);
             ActividadDestino.putExtras(UsuarioBundle);
             startActivity(ActividadDestino);
         } else {
-            Toast.makeText(this, "Contraseña o usuario incorrecto", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Contraseña o usuariologeado incorrecto", Toast.LENGTH_SHORT).show();
 //            finish();
 //            startActivity(getIntent());
         }

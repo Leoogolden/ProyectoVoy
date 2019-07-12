@@ -6,18 +6,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MisGrupos">
-
-    <ListView
-        android:id="@+id/ListaGrupos"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    </ListView>
-
+    tools:context="MisGrupos">
     <Button
         android:id="@+id/CrearGrupo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/ListaGrupos"
+        android:layout_alignParentTop="true"
         android:text="Crear grupo" />
+    <ListView
+        android:id="@+id/ListaGrupos"
+        android:layout_width="match_parent"
+        android:layout_height="550dp"
+        android:layout_below="@id/CrearGrupo">
+    </ListView>
+
+
 </RelativeLayout>
