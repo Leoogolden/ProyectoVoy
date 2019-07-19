@@ -9,12 +9,13 @@
 
     <ImageView
         android:id="@+id/imageView3"
-
+        android:layout_centerInParent="true"
         android:layout_width="133dp"
         android:layout_height="141dp"
-        android:layout_above="@+id/nombreusuariologin"
-        android:layout_centerInParent="true"
-        android:layout_marginBottom="22dp"
+        android:layout_below="@+id/nombreusuariologin"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="-199dp"
+        android:layout_marginBottom="42dp"
         app:srcCompat="@drawable/voylogointento" />
 
     <Button
@@ -24,9 +25,10 @@
         android:layout_centerInParent="true"
         android:layout_marginBottom="10dp"
         android:textSize="20dp"
-        android:background="@drawable/boton"
+
         android:onClick="CheckLogIn"
         android:text="Log In"
+        android:background="@drawable/boton"
         android:textColor="@drawable/txtboton" />
 
 
@@ -62,7 +64,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/botonloginuno"
         android:orientation="vertical">
-
         <TextView
             android:id="@+id/forpass"
             android:layout_width="wrap_content"
@@ -73,7 +74,6 @@
             android:onClick="ForgPass"
             android:text="Forgot Password"
             android:textSize="18sp" />
-
         <TextView
             android:id="@+id/reg"
             android:layout_marginLeft="30dp"
@@ -83,10 +83,5 @@
             android:onClick="ToReg"
             android:text="Register"
             android:textSize="18sp" />
-
     </RelativeLayout>
-
-
-
-
 </RelativeLayout>
