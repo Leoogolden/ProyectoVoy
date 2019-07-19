@@ -33,7 +33,7 @@ public class InvitarAlGrupo extends Fragment {
     int idusr;
     View vistadevuelve;
     ArrayList<Usuarios> ListaDeUsuarios = new ArrayList<>();
-
+    ListView ListaMiembros;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         vistadevuelve = inflater.inflate(R.layout.fragment_selected_group, container, false);
@@ -44,8 +44,8 @@ public class InvitarAlGrupo extends Fragment {
         idusr = DatosRecibidos.getInt("id");
 
 
-        ListView listainvitaciones = vistadevuelve.findViewById(R.id.ListaInvitacionGrupo);
-        listainvitaciones.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+        ListaMiembros.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 openDialog(ListaDeUsuarios.get(position));
@@ -83,7 +83,6 @@ public class InvitarAlGrupo extends Fragment {
             super.onPostExecute(aVoid);
             Log.d("HolaHola3", "ueso, que pasoa");
 
-
             ArrayList<String> DatosLista = new ArrayList<String>();
             int lenght = ListaDeUsuarios.size();
             for (int i = 0; i < lenght; i++) {
@@ -92,7 +91,7 @@ public class InvitarAlGrupo extends Fragment {
             }
             ArrayAdapter<String> miAdaptador;
             miAdaptador = new ArrayAdapter<>(getActivity().getBaseContext(), android.R.layout.simple_list_item_1, DatosLista);
-            ListView ListaMiembros = vistadevuelve.findViewById(R.id.ListaUsuarios);
+             ListaMiembros = vistadevuelve.findViewById(R.id.ListaUsuarios);
             ListaMiembros.setAdapter(miAdaptador);
         }
     }

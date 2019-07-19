@@ -137,7 +137,7 @@ public class VerGrupos extends Fragment implements View.OnClickListener {
                 Log.d("HolaHola", "ueso, que pasoa3" + ListaDeGrupos.get(i).Nombre);
                 HashMap<String, String> hm = new HashMap<String, String>();
                 hm.put("listview_title", ListaDeGrupos.get(i).Nombre);
-                hm.put("listview_image", Integer.toString(listviewImage[i]));
+                hm.put("listview_image", Integer.toString(listviewImage[1]));
                 Log.d("HolaHola", "ueso, que pasoa4");
                 aList.add(hm);
                 Log.d("holahola", hm.toString());
