@@ -33,10 +33,12 @@ public class InvitarAlGrupo extends Fragment {
     int idusr;
     View vistadevuelve;
     ArrayList<Usuarios> ListaDeUsuarios = new ArrayList<>();
-    ListView ListaMiembros;
+    int idusrinvitado;
+    int idgrupo;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        vistadevuelve = inflater.inflate(R.layout.fragment_selected_group, container, false);
+        vistadevuelve = inflater.inflate(R.layout.fragment_invitarusuarios, container, false);
         TraerAmigos a = new TraerAmigos();
         a.execute();
         IP = getString(R.string.IP);
@@ -44,13 +46,6 @@ public class InvitarAlGrupo extends Fragment {
         idusr = DatosRecibidos.getInt("id");
 
 
-
-        ListaMiembros.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                openDialog(ListaDeUsuarios.get(position));
-            }
-        });
         return vistadevuelve;
     }
 
@@ -91,10 +86,21 @@ public class InvitarAlGrupo extends Fragment {
             }
             ArrayAdapter<String> miAdaptador;
             miAdaptador = new ArrayAdapter<>(getActivity().getBaseContext(), android.R.layout.simple_list_item_1, DatosLista);
-             ListaMiembros = vistadevuelve.findViewById(R.id.ListaUsuarios);
+            ListView ListaMiembros = vistadevuelve.findViewById(R.id.ListaUsuarios);
             ListaMiembros.setAdapter(miAdaptador);
+
+            ListaMiembros.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    openDialog(ListaDeUsuarios.get(position));
+
+                    idusrinvitado = position;
+
+                }
+            });
         }
     }
+
     public void openDialog(final Usuarios grupo) {
 
         new LovelyStandardDialog(getActivity(), LovelyStandardDialog.ButtonLayout.VERTICAL)
@@ -109,11 +115,6 @@ public class InvitarAlGrupo extends Fragment {
                     @Override
                     public void onClick(View v) {
 
-                    }
-                })
-                .setNegativeButton("Volver a la lista", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
 
                     }
                 })
@@ -144,5 +145,34 @@ public class InvitarAlGrupo extends Fragment {
             ListaDeUsuarios.add(user);
         }
 
+    }
+
+    private class EnviarInvitacion extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected Void doInBackground(Void... voids) {
+
+
+            try {
+
+                URL rutatlantica = new URL(IP + "Invitacion/Invitar/" + idgrupo + "/" + idusr + "/" + idusrinvitado);
+                HttpURLConnection conexion = (HttpURLConnection) rutatlantica.openConnection();
+                conexion.setRequestMethod("POST");
+                conexion.setRequestProperty("Content-Type", "application/json");
+                conexion.setRequestProperty("charset", "utf-8");
+                Log.d("AccesoAPI7", "Me conecto");
+                if (conexion.getResponseCode() == 200) {
+                    Log.d("AccesoAPI7", "conexion ok");
+//                    InputStream cuerporesspuesta = conexion.getInputStream();
+//                    InputStreamReader lectorrespuesta = new InputStreamReader(cuerporesspuesta, "UTF-8");
+//                    ProcessJSONLeido(lectorrespuesta);
+                } else {
+                    Log.d("AccesoAPI7", "Error en la conexion " + conexion.getResponseCode());
+                }
+                conexion.disconnect();
+            } catch (Exception error) {
+                Log.d("AccesoAPI7", "Huno un error al conectarme" + error.getMessage());
+            }
+            return null;
+        }
     }
 }
