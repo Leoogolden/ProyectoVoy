@@ -28,7 +28,7 @@ import java.util.List;
 
 public class SelectedGroup extends Fragment {
 
-
+    String IP;
     TextView NombreGrupo;
     TextView DescripcionGrupo;
     ListView ListaIntegrantes;
@@ -41,6 +41,7 @@ public class SelectedGroup extends Fragment {
     public View onCreateView(LayoutInflater inflador, ViewGroup grupo, Bundle datos) {
         vistadevuelve = inflador.inflate(R.layout.fragment_selected_group, grupo, false);
         Log.d("onclick", "entra3");
+        IP = getString(R.string.IP);
         Bundle DatosRecibidos = getArguments();
         String Nombre = DatosRecibidos.getString("Nombre");
         String Descripcion = DatosRecibidos.getString("Descripcion");
@@ -72,7 +73,7 @@ public class SelectedGroup extends Fragment {
         @Override
         protected Void doInBackground(Void... voids) {
             try {
-                URL rutatlantica = new URL("http://10.152.2.24:2073/api/Grupos/MiembrosGrupo/" + idGrupo);
+                URL rutatlantica = new URL(IP + "Grupos/MiembrosGrupo/" + idGrupo);
                 HttpURLConnection conexion = (HttpURLConnection) rutatlantica.openConnection();
                 Log.d("AccesoAPI3", "Me conecto");
                 if (conexion.getResponseCode() == 200) {

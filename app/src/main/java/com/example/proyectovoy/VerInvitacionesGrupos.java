@@ -29,13 +29,14 @@ public class VerInvitacionesGrupos extends Fragment {
     Boolean Aceptaono;
     View vistadevuelve;
     ArrayList<InvitacionesGrupos> ListaDeInvitacionesGrupos = new ArrayList<>();
-
+    String IP;
     Bundle usuariologeado;
     Usuarios user = new Usuarios();
 
     public View onCreateView(LayoutInflater inflador, ViewGroup grupo, Bundle datos) {
         vistadevuelve = inflador.inflate(R.layout.fragment_invitaciones_grupos, grupo, false);
 
+        IP = getString(R.string.IP);
         usuariologeado = getArguments();
         user.setContra(usuariologeado.getString("Contra"));
         user.setEdad(usuariologeado.getInt("Edad"));
@@ -63,7 +64,7 @@ public class VerInvitacionesGrupos extends Fragment {
         @Override
         protected Void doInBackground(Void... voids) {
             try {
-                URL rutatlantica = new URL("http://10.152.2.24:2073/api/Invitacion/" + user.IdUsuario);
+                URL rutatlantica = new URL(IP +"Invitacion/" + user.IdUsuario);
                 HttpURLConnection conexion = (HttpURLConnection) rutatlantica.openConnection();
                 Log.d("AccesoAPI2", "Me conecto");
                 if (conexion.getResponseCode() == 200) {
@@ -179,7 +180,7 @@ public class VerInvitacionesGrupos extends Fragment {
 
             try {
 
-                URL rutatlantica = new URL("http://10.152.2.24:2073/api/Invitacion/Aceptar/" + invita.idInv + "/" + Aceptaono);
+                URL rutatlantica = new URL(IP +"Invitacion/Aceptar/" + invita.idInv + "/" + Aceptaono);
                 HttpURLConnection conexion = (HttpURLConnection) rutatlantica.openConnection();
                 conexion.setRequestMethod("POST");
                 conexion.setRequestProperty("Content-Type", "application/json");

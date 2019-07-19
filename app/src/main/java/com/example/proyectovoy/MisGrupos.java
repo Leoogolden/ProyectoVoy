@@ -1,6 +1,6 @@
 package com.example.proyectovoy;
 
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
@@ -31,12 +31,12 @@ public class MisGrupos extends AppCompatActivity {
         Log.d("keloke",user.Nombre+ " "+ user.IdUsuario);
 
 
-        Fragment verGrupos;
-        verGrupos = new VerGrupos();
-        verGrupos.setArguments(usuariologeado);
+        VerGrupos Grupos;
+        Grupos = new VerGrupos();
+        Grupos.setArguments(usuariologeado);
         ManejadorDeFragments = getFragmentManager();
         Transacciones = ManejadorDeFragments.beginTransaction();
-        Transacciones.replace(R.id.AlojadorDeFragmentsGrupos, verGrupos);
+        Transacciones.replace(R.id.AlojadorDeFragmentsGrupos, Grupos);
         Transacciones.commit();
 
         //navigation bar

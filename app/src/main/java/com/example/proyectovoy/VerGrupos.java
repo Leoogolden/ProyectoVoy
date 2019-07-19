@@ -24,7 +24,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class VerGrupos extends Fragment implements View.OnClickListener {
-
+    String IP;
     //declaramos fotos provisorias pa probar
     int[] listviewImage = new int[]{
             R.drawable.ejemploperfilgrupo, R.drawable.ejemploperfilgrupo, R.drawable.ejemploperfilgrupo, R.drawable.ejemploperfilgrupo, R.drawable.ejemploperfilgrupo, R.drawable.ejemploperfilgrupo, R.drawable.ejemploperfilgrupo, R.drawable.ejemploperfilgrupo, R.drawable.ejemploperfilgrupo, R.drawable.ejemploperfilgrupo
@@ -42,7 +42,7 @@ public class VerGrupos extends Fragment implements View.OnClickListener {
 
     public View onCreateView(LayoutInflater inflador, ViewGroup grupo, Bundle datos) {
         vistadevuelve = inflador.inflate(R.layout.fragment_lista_de_grupos, grupo, false);
-
+        IP = getString(R.string.IP);
 
         usuariologeado = getArguments();
         user.setContra(usuariologeado.getString("Contra"));
@@ -107,7 +107,7 @@ public class VerGrupos extends Fragment implements View.OnClickListener {
         @Override
         protected Void doInBackground(Void... voids) {
             try {
-                URL rutatlantica = new URL("http://10.152.2.24:2073/api/Grupos/" + user.IdUsuario);
+                URL rutatlantica = new URL(IP +"Grupos/" + user.IdUsuario);
                 HttpURLConnection conexion = (HttpURLConnection) rutatlantica.openConnection();
                 Log.d("AccesoAPI", "Me conecto");
                 if (conexion.getResponseCode() == 200) {

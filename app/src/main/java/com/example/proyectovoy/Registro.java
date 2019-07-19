@@ -13,7 +13,7 @@ import java.net.URL;
 
 public class Registro extends AppCompatActivity {
 
-
+    String IP;
     String usuarionombre = "", contrasenha = "", nombraso = "", stringmail = "";
     int EdadReal = 0, nrotel = 0;
 
@@ -22,6 +22,7 @@ public class Registro extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+        IP = getString(R.string.IP);
     }
 
     public void ConfirmarRegistro(View vista) {
@@ -52,7 +53,7 @@ public class Registro extends AppCompatActivity {
 
             try {
 
-                URL rutatlantica = new URL("http://10.152.2.24:2073/api/Usuario/Register/" + usuarionombre + "/" + contrasenha + "/" + stringmail + "/" + nombraso + "/" +nrotel + "/" +EdadReal);
+                URL rutatlantica = new URL(IP +"Usuario/Register/" + usuarionombre + "/" + contrasenha + "/" + stringmail + "/" + nombraso + "/" +nrotel + "/" +EdadReal);
                 HttpURLConnection conexion = (HttpURLConnection) rutatlantica.openConnection();
                 conexion.setRequestMethod("POST");
                 conexion.setRequestProperty("Content-Type", "application/json");

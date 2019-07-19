@@ -1,6 +1,8 @@
 package com.example.proyectovoy;
 
 import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,7 +18,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class CrearGrupo extends Fragment implements View.OnClickListener {
-
+    String IP;
     int idUsr;
     String NombreGrupo="";
     String DescripcionGrupo="";
@@ -24,10 +26,14 @@ public class CrearGrupo extends Fragment implements View.OnClickListener {
     EditText Nom;
     EditText Desc;
     View vistadevuelve;
+    FragmentManager ManejadorFragments;
+    FragmentTransaction Transacciones;
+
 
     public View onCreateView(LayoutInflater inflador, ViewGroup grupo, Bundle datos) {
         Log.d("entra", "entro5");
         vistadevuelve = inflador.inflate(R.layout.fragment_crear_grupo, grupo, false);
+        IP = getString(R.string.IP);
         Bundle DatosRecibidos = getArguments();
         idUsr = DatosRecibidos.getInt("IdUsuario");
         Nom = vistadevuelve.findViewById(R.id.txtNombre);
@@ -47,6 +53,16 @@ public class CrearGrupo extends Fragment implements View.OnClickListener {
         Log.d("AccesoAPI6",NombreGrupo+ " "+ DescripcionGrupo+ " "+ idUsr );
         tareaAsincronica miTarea = new tareaAsincronica();
         miTarea.execute();
+
+        Bundle id = new Bundle();
+        id.putInt("id", idUsr);
+        InvitarAlGrupo AgregarUsuarios;
+        AgregarUsuarios = new InvitarAlGrupo();
+        AgregarUsuarios.setArguments(id);
+        ManejadorFragments = getFragmentManager();
+        Transacciones = ManejadorFragments.beginTransaction();
+        Transacciones.replace(R.id.AlojadorDeFragmentsGrupos, AgregarUsuarios);
+        Transacciones.commit();
         Log.d("AccesoAPI6", "funco papa");
     }
 
@@ -55,7 +71,7 @@ public class CrearGrupo extends Fragment implements View.OnClickListener {
         protected Void doInBackground(Void... voids) {
             try {
                 Log.d("AccesoAPI6", "aaaa" + NombreGrupo+ " "+ DescripcionGrupo+ " "+ idUsr);
-                URL rutatlantica = new URL("http://10.152.2.22:2073/api/Grupos/CrearGrupo/" + NombreGrupo+ "/" + DescripcionGrupo+ "/" + idUsr);
+                URL rutatlantica = new URL(IP + "Grupos/CrearGrupo/" + NombreGrupo+ "/" + DescripcionGrupo+ "/" + idUsr);
                 HttpURLConnection conexion = (HttpURLConnection) rutatlantica.openConnection();
                 conexion.setRequestMethod("POST");
                 conexion.setRequestProperty( "Content-Type", "application/json");
