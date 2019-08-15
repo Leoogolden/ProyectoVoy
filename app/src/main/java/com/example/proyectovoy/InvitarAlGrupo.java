@@ -114,6 +114,7 @@ public class InvitarAlGrupo extends Fragment {
                 .setPositiveButton("Agregar", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                    EnviarInvitacion as = new EnviarInvitacion();
 
 
                     }
