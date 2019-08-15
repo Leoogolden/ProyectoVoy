@@ -24,16 +24,21 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 public class IniciarSesion extends AppCompatActivity {
+
+
+
     Usuarios user;
     String Nombreu;
     String pas;
-
+    String IP;
     Boolean entraono = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_iniciar_sesion);
+        Log.d("aver", getString(R.string.IP));
+        IP =  getString(R.string.IP);
     }
 
 
@@ -83,7 +88,7 @@ public class IniciarSesion extends AppCompatActivity {
         @Override
         protected Void doInBackground(Void... voids) {
             try {
-                URL rutatlantica = new URL("http://10.152.2.24:2073/api/Usuario/" + Nombreu + "/" + pas);
+                URL rutatlantica = new URL(IP + "Usuario/" + Nombreu + "/" + pas);
                 HttpURLConnection conexion = (HttpURLConnection) rutatlantica.openConnection();
                 Log.d("AccesoAPI3", "Me conecto");
                 if (conexion.getResponseCode() == 200) {
