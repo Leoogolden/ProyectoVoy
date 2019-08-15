@@ -1,53 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/fondo"
+    android:background="@drawable/degradado"
     android:orientation="vertical">
 
     <EditText
+        android:paddingLeft="10dp"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="22dp"
+        android:textColor="@drawable/txtboton"
+        android:background="@drawable/edittext"
         android:id="@+id/NombreUsuario"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="350dp"
+        android:layout_height="30dp"
         android:hint="Nombre de usuario" />
 
     <EditText
+        android:paddingLeft="10dp"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="22dp"
+        android:textColor="@drawable/txtboton"
+        android:background="@drawable/edittext"
         android:id="@+id/Contrasen"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="350dp"
+        android:layout_height="30dp"
         android:hint="Contraseña"
         android:inputType="textPassword"/>
 
     <EditText
+        android:paddingLeft="10dp"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="22dp"
+        android:textColor="@drawable/txtboton"
+        android:background="@drawable/edittext"
         android:id="@+id/Mail"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="350dp"
+        android:layout_height="30dp"
         android:hint="Mail" />
 
     <EditText
+        android:paddingLeft="10dp"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="22dp"
+        android:textColor="@drawable/txtboton"
+        android:background="@drawable/edittext"
         android:id="@+id/Nombre"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="350dp"
+        android:layout_height="30dp"
         android:hint="Nombre" />
 
     <EditText
+        android:paddingLeft="10dp"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="22dp"
+        android:textColor="@drawable/txtboton"
+        android:background="@drawable/edittext"
         android:id="@+id/NumTel"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="350dp"
+        android:layout_height="30dp"
         android:hint="Numero de telefono"
         android:inputType="number" />
 
     <EditText
+        android:paddingLeft="10dp"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="22dp"
+        android:textColor="@drawable/txtboton"
+        android:background="@drawable/edittext"
         android:id="@+id/Edad"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="350dp"
+        android:layout_height="30dp"
         android:hint="Edad"
         android:inputType="number" />
 
     <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="@drawable/boton"
+        android:textColor="@drawable/txtboton"
+        android:layout_width="355dp"
+        android:layout_height="200px"
         android:hint="Confirmar Registro"
+
         android:onClick="ConfirmarRegistro" />
-</LinearLayout>
+</RelativeLayout>

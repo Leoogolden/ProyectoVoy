@@ -1,39 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
     android:background="@drawable/degradado"
     android:orientation="vertical">
 
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_centerInParent="true"
+        android:layout_width="133dp"
+        android:layout_height="141dp"
+        android:layout_below="@+id/nombreusuariologin"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="-199dp"
+        android:layout_marginBottom="42dp"
+        app:srcCompat="@drawable/voylogointento" />
+
     <Button
         android:id="@+id/botonloginuno"
-        android:layout_width="match_parent"
+        android:layout_width="355dp"
         android:layout_height="200px"
         android:layout_centerInParent="true"
         android:layout_marginBottom="10dp"
-        android:background="@drawable/boton"
+        android:textSize="20dp"
+
         android:onClick="CheckLogIn"
         android:text="Log In"
+        android:background="@drawable/boton"
         android:textColor="@drawable/txtboton" />
 
 
     <EditText
         android:id="@+id/contrasenialogin"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="350dp"
+        android:layout_height="30dp"
         android:layout_above="@+id/botonloginuno"
         android:layout_marginBottom="10dp"
         android:hint="Contraseña"
+        android:paddingLeft="10dp"
+        android:layout_centerInParent="true"
+        android:textColor="@drawable/txtboton"
+        android:background="@drawable/edittext"
         android:inputType="textPassword" />
 
     <EditText
         android:id="@+id/nombreusuariologin"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="350dp"
+        android:layout_height="30dp"
+        android:paddingLeft="10dp"
         android:layout_above="@id/contrasenialogin"
         android:layout_gravity="center"
+        android:layout_centerInParent="true"
+        android:background="@drawable/edittext"
         android:layout_marginBottom="10dp"
+        android:textColor="@drawable/txtboton"
         android:hint="Nombre de usuario" />
 
 
@@ -42,27 +64,24 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/botonloginuno"
         android:orientation="vertical">
-
         <TextView
             android:id="@+id/forpass"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
+
+            android:layout_marginLeft="30dp"
             android:onClick="ForgPass"
             android:text="Forgot Password"
             android:textSize="18sp" />
-
         <TextView
             android:id="@+id/reg"
-
+            android:layout_marginLeft="30dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/forpass"
             android:onClick="ToReg"
             android:text="Register"
             android:textSize="18sp" />
-
     </RelativeLayout>
-
-
 </RelativeLayout>
