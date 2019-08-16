@@ -33,13 +33,13 @@ public class CrearGrupo extends Fragment implements View.OnClickListener {
     View vistadevuelve;
     FragmentManager ManejadorFragments;
     FragmentTransaction Transacciones;
-
+    Bundle DatosRecibidos;
 
     public View onCreateView(LayoutInflater inflador, ViewGroup grupo, Bundle datos) {
         Log.d("entra", "entro5");
         vistadevuelve = inflador.inflate(R.layout.fragment_crear_grupo, grupo, false);
         IP = getString(R.string.IP);
-        Bundle DatosRecibidos = getArguments();
+        DatosRecibidos = getArguments();
         idUsr = DatosRecibidos.getInt("IdUsuario");
         Nom = vistadevuelve.findViewById(R.id.txtNombre);
         Desc = vistadevuelve.findViewById(R.id.txtDescripcion);
@@ -94,12 +94,14 @@ public class CrearGrupo extends Fragment implements View.OnClickListener {
             //Grupos
             super.onPostExecute(aVoid);
 
-            Bundle id = new Bundle();
-            id.putInt("idgru", idgru);
-            id.putInt("id", idUsr);
+            Bundle elgrandote = new Bundle();
+            elgrandote.putInt("idgru", idgru);
+
+
+            elgrandote.putBundle("usuario", DatosRecibidos);
             InvitarAlGrupo AgregarUsuarios;
             AgregarUsuarios = new InvitarAlGrupo();
-            AgregarUsuarios.setArguments(id);
+            AgregarUsuarios.setArguments(elgrandote);
             ManejadorFragments = getFragmentManager();
             Transacciones = ManejadorFragments.beginTransaction();
             Transacciones.replace(R.id.AlojadorDeFragmentsGrupos, AgregarUsuarios);

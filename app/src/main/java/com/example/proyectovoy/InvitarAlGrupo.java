@@ -1,11 +1,10 @@
 package com.example.proyectovoy;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -28,13 +28,17 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
-public class InvitarAlGrupo extends Fragment {
+public class InvitarAlGrupo extends Fragment implements View.OnClickListener {
     String IP;
     int idusr;
     View vistadevuelve;
     ArrayList<Usuarios> ListaDeUsuarios = new ArrayList<>();
     int idusrinvitado;
+    FragmentManager ManejadorDeFragments;
+    FragmentTransaction Transacciones;
     int idgrupo;
+    Button VolveraGrupos;
+    Bundle usuariologeado;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -43,11 +47,24 @@ public class InvitarAlGrupo extends Fragment {
         a.execute();
         IP = getString(R.string.IP);
         Bundle DatosRecibidos = getArguments();
-        idusr = DatosRecibidos.getInt("id");
+        usuariologeado = DatosRecibidos.getBundle("usuario");
+        idusr = usuariologeado.getInt("IdUsuario");
         idgrupo = DatosRecibidos.getInt("idgru");
 
+        VolveraGrupos = vistadevuelve.findViewById(R.id.VolverAGrupos);
+        VolveraGrupos.setOnClickListener(this);
 
         return vistadevuelve;
+    }
+
+    @Override
+    public void onClick(View v) {
+        Fragment dou = new VerGrupos();
+        dou.setArguments(usuariologeado);
+        ManejadorDeFragments = getFragmentManager();
+        Transacciones = ManejadorDeFragments.beginTransaction();
+        Transacciones.replace(R.id.AlojadorDeFragmentsGrupos, dou);
+        Transacciones.commit();
     }
 
     private class TraerAmigos extends AsyncTask<Void, Void, Void> {
@@ -116,10 +133,10 @@ public class InvitarAlGrupo extends Fragment {
                     @Override
                     public void onClick(View v) {
 
-                        Log.d("queonda", "invita"+ idusr +" a "+ idusrinvitado+" grupo "+ idgrupo);
-                    EnviarInvitacion as = new EnviarInvitacion();
-                    as.execute();
-
+                        Log.d("queonda", "invita" + idusr + " a " + idusrinvitado + " grupo " + idgrupo);
+                        EnviarInvitacion as = new EnviarInvitacion();
+                        as.execute();
+                        Toast.makeText(getActivity(), "Has invitado a " + ListaDeUsuarios.get(idusrinvitado).getNombreUsuario() + " al grupo.", Toast.LENGTH_SHORT).show();
                     }
                 })
                 .setNeutralButton("Volver a la lista", null)

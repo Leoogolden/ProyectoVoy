@@ -91,8 +91,8 @@ public class VerGrupos extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         Log.d("entra", "entro");
-        Fragment creargrupo = new CrearGrupo();
 
+        Fragment creargrupo = new CrearGrupo();
         creargrupo.setArguments(usuariologeado);
         ManejadorDeFragments = getFragmentManager();
         Log.d("entra", "entro2");
