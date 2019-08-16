@@ -44,6 +44,7 @@ public class InvitarAlGrupo extends Fragment {
         IP = getString(R.string.IP);
         Bundle DatosRecibidos = getArguments();
         idusr = DatosRecibidos.getInt("id");
+        idgrupo = DatosRecibidos.getInt("idgru");
 
 
         return vistadevuelve;
@@ -94,7 +95,7 @@ public class InvitarAlGrupo extends Fragment {
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     openDialog(ListaDeUsuarios.get(position));
 
-                    idusrinvitado = position;
+                    idusrinvitado = ListaDeUsuarios.get(position).IdUsuario;
 
                 }
             });
@@ -114,8 +115,10 @@ public class InvitarAlGrupo extends Fragment {
                 .setPositiveButton("Agregar", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                    EnviarInvitacion as = new EnviarInvitacion();
 
+                        Log.d("queonda", "invita"+ idusr +" a "+ idusrinvitado+" grupo "+ idgrupo);
+                    EnviarInvitacion as = new EnviarInvitacion();
+                    as.execute();
 
                     }
                 })
@@ -135,6 +138,7 @@ public class InvitarAlGrupo extends Fragment {
             user = new Usuarios();
             JsonObject objPersona;
             objPersona = objetojson.get(i).getAsJsonObject();
+
             user.IdUsuario = objPersona.get("IdUsuario").getAsInt();
             user.Nombre = objPersona.get("Nombre").getAsString();
             user.Mail = objPersona.get("Mail").getAsString();
@@ -163,9 +167,7 @@ public class InvitarAlGrupo extends Fragment {
                 Log.d("AccesoAPI7", "Me conecto");
                 if (conexion.getResponseCode() == 200) {
                     Log.d("AccesoAPI7", "conexion ok");
-//                    InputStream cuerporesspuesta = conexion.getInputStream();
-//                    InputStreamReader lectorrespuesta = new InputStreamReader(cuerporesspuesta, "UTF-8");
-//                    ProcessJSONLeido(lectorrespuesta);
+
                 } else {
                     Log.d("AccesoAPI7", "Error en la conexion " + conexion.getResponseCode());
                 }
