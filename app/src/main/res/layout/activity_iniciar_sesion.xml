@@ -33,6 +33,7 @@
 
 
     <EditText
+
         android:id="@+id/contrasenialogin"
         android:layout_width="350dp"
         android:layout_height="30dp"
@@ -46,6 +47,7 @@
         android:inputType="textPassword" />
 
     <EditText
+
         android:id="@+id/nombreusuariologin"
         android:layout_width="350dp"
         android:layout_height="30dp"

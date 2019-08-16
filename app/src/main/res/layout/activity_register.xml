@@ -1,60 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="center_horizontal"
     android:layout_height="match_parent"
     android:background="@drawable/degradado"
     android:orientation="vertical">
 
-    <EditText
-        android:paddingLeft="10dp"
-        android:layout_centerInParent="true"
-        android:layout_marginBottom="22dp"
-        android:textColor="@drawable/txtboton"
-        android:background="@drawable/edittext"
-        android:id="@+id/NombreUsuario"
-        android:layout_width="350dp"
-        android:layout_height="30dp"
-        android:hint="Nombre de usuario" />
+
+
+    <Button
+        android:id="@+id/botonconf"
+        android:layout_width="355dp"
+        android:layout_height="200px"
+        android:textSize="16dp"
+        android:background="@drawable/boton"
+        android:onClick="ConfirmarRegistro"
+        android:text="Confirmar registro"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginBottom="200dp"
+        android:textColor="@drawable/txtboton" />
+
 
     <EditText
-        android:paddingLeft="10dp"
-        android:layout_centerInParent="true"
+        android:layout_above="@id/botonconf"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/botonconf"
         android:layout_marginBottom="22dp"
+        android:paddingLeft="10dp"
         android:textColor="@drawable/txtboton"
         android:background="@drawable/edittext"
-        android:id="@+id/Contrasen"
+        android:id="@+id/Edad"
         android:layout_width="350dp"
         android:layout_height="30dp"
-        android:hint="Contraseña"
-        android:inputType="textPassword"/>
+        android:hint="Edad"
+        android:inputType="number"
+        />
 
     <EditText
-        android:paddingLeft="10dp"
-        android:layout_centerInParent="true"
-        android:layout_marginBottom="22dp"
-        android:textColor="@drawable/txtboton"
-        android:background="@drawable/edittext"
-        android:id="@+id/Mail"
-        android:layout_width="350dp"
-        android:layout_height="30dp"
-        android:hint="Mail" />
 
-    <EditText
-        android:paddingLeft="10dp"
-        android:layout_centerInParent="true"
+        android:layout_above="@id/Edad"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/Edad"
         android:layout_marginBottom="22dp"
-        android:textColor="@drawable/txtboton"
-        android:background="@drawable/edittext"
-        android:id="@+id/Nombre"
-        android:layout_width="350dp"
-        android:layout_height="30dp"
-        android:hint="Nombre" />
-
-    <EditText
         android:paddingLeft="10dp"
-        android:layout_centerInParent="true"
-        android:layout_marginBottom="22dp"
         android:textColor="@drawable/txtboton"
         android:background="@drawable/edittext"
         android:id="@+id/NumTel"
@@ -64,24 +58,68 @@
         android:inputType="number" />
 
     <EditText
-        android:paddingLeft="10dp"
-        android:layout_centerInParent="true"
+
+        android:layout_above="@id/NumTel"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/NumTel"
         android:layout_marginBottom="22dp"
+        android:paddingLeft="10dp"
         android:textColor="@drawable/txtboton"
         android:background="@drawable/edittext"
-        android:id="@+id/Edad"
+        android:id="@+id/Nombre"
         android:layout_width="350dp"
         android:layout_height="30dp"
-        android:hint="Edad"
-        android:inputType="number" />
+        android:hint="Nombre" />
 
-    <Button
-        android:layout_centerInParent="true"
-        android:background="@drawable/boton"
+    <EditText
+        android:layout_above="@id/Nombre"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/Nombre"
+        android:layout_marginBottom="22dp"
+        android:paddingLeft="10dp"
         android:textColor="@drawable/txtboton"
-        android:layout_width="355dp"
-        android:layout_height="200px"
-        android:hint="Confirmar Registro"
+        android:background="@drawable/edittext"
+        android:id="@+id/Mail"
+        android:layout_width="350dp"
+        android:layout_height="30dp"
+        android:hint="Mail" />
 
-        android:onClick="ConfirmarRegistro" />
-</RelativeLayout>
+    <EditText
+
+        android:layout_above="@id/Mail"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/Mail"
+        android:layout_marginBottom="22dp"
+        android:paddingLeft="10dp"
+        android:textColor="@drawable/txtboton"
+        android:background="@drawable/edittext"
+        android:id="@+id/Contrasen"
+        android:layout_width="350dp"
+        android:layout_height="30dp"
+        android:hint="Contraseña"
+        android:inputType="textPassword"/>
+
+
+    <EditText
+
+        android:layout_above="@id/Contrasen"
+        android:id="@+id/NombreUsuario"
+        android:layout_width="350dp"
+        android:layout_height="30dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/Contrasen"
+        android:layout_marginBottom="22dp"
+        android:background="@drawable/edittext"
+        android:hint="Nombre de usuario"
+        android:paddingLeft="10dp"
+        android:textColor="@drawable/txtboton" />
+
+
+
+
+
+</android.support.constraint.ConstraintLayout>
