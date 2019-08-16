@@ -50,26 +50,7 @@ public class IniciarSesion extends AppCompatActivity {
         tareaAsincronicaLogIn tar = new tareaAsincronicaLogIn();
         tar.execute();
 
-        if (entraono) {
-            Bundle UsuarioBundle = new Bundle();
-            UsuarioBundle.putInt("IdUsuario", user.IdUsuario);
-            UsuarioBundle.putString("Nombre", user.Nombre);
-            UsuarioBundle.putString("Mail", user.Mail);
-            UsuarioBundle.putString("NombreUsuario", user.NombreUsuario);
-            UsuarioBundle.putString("Contra", user.Contra);
-            UsuarioBundle.putInt("NroTel", user.NroTel);
-            UsuarioBundle.putInt("Edad", user.Edad);
-            Log.d("valoruser", "" + UsuarioBundle.getString("IdUsuario"));
-            Toast.makeText(this, " Logeandose...", Toast.LENGTH_SHORT).show();
-            Intent ActividadDestino;
-            ActividadDestino = new Intent(IniciarSesion.this, Home.class);
-            ActividadDestino.putExtras(UsuarioBundle);
-            startActivity(ActividadDestino);
-        } else {
-            Toast.makeText(this, "Contraseña o usuariologeado incorrecto", Toast.LENGTH_SHORT).show();
-//            finish();
-//            startActivity(getIntent());
-        }
+
     }
 
     public void ForgPass(View view) {
@@ -108,7 +89,34 @@ public class IniciarSesion extends AppCompatActivity {
             }
             return null;
         }
+        @Override
+        protected void onPostExecute(Void aVoid)
+        {
+            super.onPostExecute(aVoid);
+            if (entraono) {
+                Bundle UsuarioBundle = new Bundle();
+                UsuarioBundle.putInt("IdUsuario", user.IdUsuario);
+                UsuarioBundle.putString("Nombre", user.Nombre);
+                UsuarioBundle.putString("Mail", user.Mail);
+                UsuarioBundle.putString("NombreUsuario", user.NombreUsuario);
+                UsuarioBundle.putString("Contra", user.Contra);
+                UsuarioBundle.putInt("NroTel", user.NroTel);
+                UsuarioBundle.putInt("Edad", user.Edad);
+                Log.d("valoruser", "" + UsuarioBundle.getString("IdUsuario"));
+                Toast.makeText(IniciarSesion.this, " Logeandose...", Toast.LENGTH_SHORT).show();
+                Intent ActividadDestino;
+                ActividadDestino = new Intent(IniciarSesion.this, Home.class);
+                ActividadDestino.putExtras(UsuarioBundle);
+                startActivity(ActividadDestino);
+            } else {
+                Toast.makeText(IniciarSesion.this, "Contraseña o usuariologeado incorrecto", Toast.LENGTH_SHORT).show();
+//            finish();
+//            startActivity(getIntent());
+            }
+        }
     }
+
+
 
     public void ProcessJSONLeido(InputStreamReader streamLeido) {
 
@@ -127,7 +135,7 @@ public class IniciarSesion extends AppCompatActivity {
             user.Contra = objetojson.get("Contraseña").getAsString();
             user.NroTel = objetojson.get("NroTelefono").getAsInt();
             user.Edad = objetojson.get("Edad").getAsInt();
-        }
+        }else {entraono=false;}
         Log.d("HolaHola3", "que ondaa " + objetojson.get("IdUsuario").getAsInt() + "  " + entraono);
 
 
