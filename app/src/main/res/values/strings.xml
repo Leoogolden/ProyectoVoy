@@ -1,4 +1,4 @@
 <resources>
     <string name="app_name"></string>
-    <string name="IP">http://10.152.2.4:2073/api/</string>
+    <string name="IP">http://10.152.2.70:2073/api/</string>
 </resources>

@@ -5,12 +5,16 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.JsonReader;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+
+import com.google.gson.JsonArray;
+import com.google.gson.JsonParser;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -20,8 +24,9 @@ import java.net.URL;
 public class CrearGrupo extends Fragment implements View.OnClickListener {
     String IP;
     int idUsr;
-    String NombreGrupo="";
-    String DescripcionGrupo="";
+    int idgru;
+    String NombreGrupo = "";
+    String DescripcionGrupo = "";
     Button btn;
     EditText Nom;
     EditText Desc;
@@ -50,19 +55,11 @@ public class CrearGrupo extends Fragment implements View.OnClickListener {
 
         NombreGrupo = Nom.getText().toString();
         DescripcionGrupo = Desc.getText().toString();
-        Log.d("AccesoAPI6",NombreGrupo+ " "+ DescripcionGrupo+ " "+ idUsr );
+        Log.d("AccesoAPI6", NombreGrupo + " " + DescripcionGrupo + " " + idUsr);
         tareaAsincronica miTarea = new tareaAsincronica();
         miTarea.execute();
 
-        Bundle id = new Bundle();
-        id.putInt("id", idUsr);
-        InvitarAlGrupo AgregarUsuarios;
-        AgregarUsuarios = new InvitarAlGrupo();
-        AgregarUsuarios.setArguments(id);
-        ManejadorFragments = getFragmentManager();
-        Transacciones = ManejadorFragments.beginTransaction();
-        Transacciones.replace(R.id.AlojadorDeFragmentsGrupos, AgregarUsuarios);
-        Transacciones.commit();
+
         Log.d("AccesoAPI6", "funco papa");
     }
 
@@ -70,18 +67,18 @@ public class CrearGrupo extends Fragment implements View.OnClickListener {
         @Override
         protected Void doInBackground(Void... voids) {
             try {
-                Log.d("AccesoAPI6", "aaaa" + NombreGrupo+ " "+ DescripcionGrupo+ " "+ idUsr);
-                URL rutatlantica = new URL(IP + "Grupos/CrearGrupo/" + NombreGrupo+ "/" + DescripcionGrupo+ "/" + idUsr);
+                Log.d("AccesoAPI6", "aaaa" + NombreGrupo + " " + DescripcionGrupo + " " + idUsr);
+                URL rutatlantica = new URL(IP + "Grupos/CrearGrupo/" + NombreGrupo + "/" + DescripcionGrupo + "/" + idUsr);
                 HttpURLConnection conexion = (HttpURLConnection) rutatlantica.openConnection();
                 conexion.setRequestMethod("POST");
-                conexion.setRequestProperty( "Content-Type", "application/json");
-                conexion.setRequestProperty( "charset", "utf-8");
+                conexion.setRequestProperty("Content-Type", "application/json");
+                conexion.setRequestProperty("charset", "utf-8");
                 Log.d("AccesoAPI6", "Me conecto");
                 if (conexion.getResponseCode() == 200) {
                     Log.d("AccesoAPI6", "conexion ok");
-//                    InputStream cuerporesspuesta = conexion.getInputStream();
-//                    InputStreamReader lectorrespuesta = new InputStreamReader(cuerporesspuesta, "UTF-8");
-//                    ProcessJSONLeido(lectorrespuesta);
+                    InputStream cuerporesspuesta = conexion.getInputStream();
+                    InputStreamReader lectorrespuesta = new InputStreamReader(cuerporesspuesta, "UTF-8");
+                    ProcessJSONLeido(lectorrespuesta);
                 } else {
                     Log.d("AccesoAPI6", "Error en la conexion " + conexion.getResponseCode());
                 }
@@ -96,7 +93,25 @@ public class CrearGrupo extends Fragment implements View.OnClickListener {
         protected void onPostExecute(Void aVoid) {
             //Grupos
             super.onPostExecute(aVoid);
+
+            Bundle id = new Bundle();
+            id.putInt("idgru", idgru);
+            id.putInt("id", idUsr);
+            InvitarAlGrupo AgregarUsuarios;
+            AgregarUsuarios = new InvitarAlGrupo();
+            AgregarUsuarios.setArguments(id);
+            ManejadorFragments = getFragmentManager();
+            Transacciones = ManejadorFragments.beginTransaction();
+            Transacciones.replace(R.id.AlojadorDeFragmentsGrupos, AgregarUsuarios);
+            Transacciones.commit();
         }
     }
 
+    public void ProcessJSONLeido(InputStreamReader streamLeido) {
+        JsonParser parseador;
+        parseador = new JsonParser();
+
+        idgru = parseador.parse(streamLeido).getAsInt();
+
+    }
 }
