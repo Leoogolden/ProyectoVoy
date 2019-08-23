@@ -64,7 +64,7 @@ public class VerInvitacionesGrupos extends Fragment {
         @Override
         protected Void doInBackground(Void... voids) {
             try {
-                URL rutatlantica = new URL(IP +"Invitacion/" + user.IdUsuario);
+                URL rutatlantica = new URL(IP + "Invitacion/" + user.IdUsuario);
                 HttpURLConnection conexion = (HttpURLConnection) rutatlantica.openConnection();
                 Log.d("AccesoAPI2", "Me conecto");
                 if (conexion.getResponseCode() == 200) {
@@ -98,39 +98,39 @@ public class VerInvitacionesGrupos extends Fragment {
     public void openDialog(final InvitacionesGrupos grupo) {
         invita = grupo;
         new LovelyStandardDialog(getActivity(), LovelyStandardDialog.ButtonLayout.VERTICAL)
-                .setTopColorRes(R.color.colorAccent)
-                .setButtonsColorRes(R.color.colorAccent)
-                .setTitle("Invitacion al grupo")
-                .setMessage("¿Desea unirse al grupo?")
-                .setPositiveButtonColor(ContextCompat.getColor(getActivity(), R.color.sec))
-                .setNegativeButtonColor(ContextCompat.getColor(getActivity(), R.color.sec))
-                .setNeutralButtonColor(ContextCompat.getColor(getActivity(), R.color.sec))
-                .setPositiveButton("Aceptar Invitacion", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Aceptaono = true;
-                        Log.d("olap", "" + invita.getIdInv());
-                        tareaAsincronicaInvitacion asd = new tareaAsincronicaInvitacion();
-                        asd.execute();
-                        Toast.makeText(getActivity(), "Te has unido al grupo " + grupo.getGrupo(), Toast.LENGTH_SHORT).show();
-                        FragmentTransaction ft = getFragmentManager().beginTransaction();
-                        ft.detach(VerInvitacionesGrupos.this).attach(VerInvitacionesGrupos.this).commit();
-                        ListaDeInvitacionesGrupos.clear();
-                    }
-                })
-                .setNegativeButton("Rechazar Invitacion", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Aceptaono = false;
-                        tareaAsincronicaInvitacion asd = new tareaAsincronicaInvitacion();
-                        asd.execute();
-                        FragmentTransaction ft = getFragmentManager().beginTransaction();
-                        ft.detach(VerInvitacionesGrupos.this).attach(VerInvitacionesGrupos.this).commit();
-                        ListaDeInvitacionesGrupos.clear();
-                    }
-                })
-                .setNeutralButton("Volver a la lista", null)
-                .show();
+            .setTopColorRes(R.color.colorAccent)
+            .setButtonsColorRes(R.color.colorAccent)
+            .setTitle("Invitacion al grupo")
+            .setMessage("¿Desea unirse al grupo?")
+            .setPositiveButtonColor(ContextCompat.getColor(getActivity(), R.color.sec))
+            .setNegativeButtonColor(ContextCompat.getColor(getActivity(), R.color.sec))
+            .setNeutralButtonColor(ContextCompat.getColor(getActivity(), R.color.sec))
+            .setPositiveButton("Aceptar Invitacion", new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                Aceptaono = true;
+                Log.d("olap", "" + invita.getIdInv());
+                tareaAsincronicaInvitacion asd = new tareaAsincronicaInvitacion();
+                asd.execute();
+                Toast.makeText(getActivity(), "Te has unido al grupo " + grupo.getGrupo(), Toast.LENGTH_SHORT).show();
+                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                ft.detach(VerInvitacionesGrupos.this).attach(VerInvitacionesGrupos.this).commit();
+                ListaDeInvitacionesGrupos.clear();
+                }
+            })
+            .setNegativeButton("Rechazar Invitacion", new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                Aceptaono = false;
+                tareaAsincronicaInvitacion asd = new tareaAsincronicaInvitacion();
+                asd.execute();
+                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                ft.detach(VerInvitacionesGrupos.this).attach(VerInvitacionesGrupos.this).commit();
+                ListaDeInvitacionesGrupos.clear();
+                }
+            })
+            .setNeutralButton("Volver a la lista", null)
+        .show();
     }
 
     public void ProcessJSONLeido(InputStreamReader streamLeido) {
@@ -180,7 +180,7 @@ public class VerInvitacionesGrupos extends Fragment {
 
             try {
 
-                URL rutatlantica = new URL(IP +"Invitacion/Aceptar/" + invita.idInv + "/" + Aceptaono);
+                URL rutatlantica = new URL(IP + "Invitacion/Aceptar/" + invita.idInv + "/" + Aceptaono);
                 HttpURLConnection conexion = (HttpURLConnection) rutatlantica.openConnection();
                 conexion.setRequestMethod("POST");
                 conexion.setRequestProperty("Content-Type", "application/json");

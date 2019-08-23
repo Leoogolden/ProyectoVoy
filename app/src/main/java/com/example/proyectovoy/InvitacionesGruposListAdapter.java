@@ -1,5 +1,6 @@
 package com.example.proyectovoy;
 
+import android.app.Activity;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
@@ -23,6 +24,8 @@ public class InvitacionesGruposListAdapter extends ArrayAdapter<InvitacionesGrup
         mContext = context;
         mResource = resource;
     }
+
+
 
     @NonNull
     @Override

@@ -67,15 +67,18 @@ public class VerGrupos extends Fragment implements View.OnClickListener {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Log.d("onclick", "entra");
+
                 Bundle pasaje;
                 pasaje = new Bundle();
                 pasaje.putInt("idGrupo", ListaDeGrupos.get(position).IdGrupo);
                 pasaje.putString("Nombre", ListaDeGrupos.get(position).Nombre);
                 pasaje.putString("Descripcion", ListaDeGrupos.get(position).Descripcion);
                 Log.d("onclick", "entra2" + ListaDeGrupos.get(position).Nombre);
+                usuariologeado.putBundle("grupaso", pasaje);
                 Fragment ingreso;
                 ingreso = new SelectedGroup();
-                ingreso.setArguments(pasaje);
+                Log.d("qonda", usuariologeado.toString());
+                ingreso.setArguments(usuariologeado);
                 ManejadorDeFragments = getFragmentManager();
                 Transacciones = ManejadorDeFragments.beginTransaction();
                 Transacciones.replace(R.id.AlojadorDeFragmentsGrupos, ingreso);
