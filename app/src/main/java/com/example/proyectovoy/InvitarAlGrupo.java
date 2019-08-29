@@ -136,7 +136,7 @@ public class InvitarAlGrupo extends Fragment implements View.OnClickListener {
                         Log.d("queonda", "invita" + idusr + " a " + idusrinvitado + " grupo " + idgrupo);
                         EnviarInvitacion as = new EnviarInvitacion();
                         as.execute();
-                        Toast.makeText(getActivity(), "Has invitado a " + ListaDeUsuarios.get(idusrinvitado).getNombreUsuario() + " al grupo.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Has invitado a " + ListaDeUsuarios.get(idusrinvitado - 1).getNombreUsuario() + " al grupo.", Toast.LENGTH_SHORT).show();
                     }
                 })
                 .setNeutralButton("Volver a la lista", null)

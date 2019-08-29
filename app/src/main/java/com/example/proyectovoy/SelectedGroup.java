@@ -12,11 +12,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -30,7 +33,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SelectedGroup extends Fragment implements UsuariosDelGrupoListAdapter.customButtonListener {
+public class SelectedGroup extends Fragment implements UsuariosDelGrupoListAdapter.customButtonListener, View.OnClickListener {
 
     String IP;
     TextView NombreGrupo;
@@ -44,28 +47,32 @@ public class SelectedGroup extends Fragment implements UsuariosDelGrupoListAdapt
     Bundle usuariologeado;
     Usuarios user = new Usuarios();
     Boolean esadmin;
+
+    FragmentManager ManejadorFragments;
+    FragmentTransaction Transacciones;
+    Bundle DatosRecibidos;
     UsuariosDelGrupoListAdapter.customButtonListener customListner;
 
     public View onCreateView(LayoutInflater inflador, ViewGroup grupo, Bundle datos) {
         vistadevuelve = inflador.inflate(R.layout.fragment_selected_group, grupo, false);
         Log.d("onclick", "entra3");
         IP = getString(R.string.IP);
-        Bundle DatosRecibidos = getArguments();
+        DatosRecibidos = getArguments();
         Bundle GrupoElegido = DatosRecibidos.getBundle("grupaso");
         String Nombre = GrupoElegido.getString("Nombre");
         String Descripcion = GrupoElegido.getString("Descripcion");
         Log.d("onclick", "entra4");
         idGrupo = GrupoElegido.getInt("idGrupo");
-
+        usuariologeado = DatosRecibidos.getBundle("usuariologeado");
         Log.d("qonda", DatosRecibidos.toString());
 
-        user.setContra(DatosRecibidos.getString("Contra"));
-        user.setEdad(DatosRecibidos.getInt("Edad"));
-        user.setIdUsuario(DatosRecibidos.getInt("IdUsuario"));
-        user.setMail(DatosRecibidos.getString("Mail"));
-        user.setNombre(DatosRecibidos.getString("Nombre"));
-        user.setNroTel(DatosRecibidos.getInt("NroTel"));
-        user.setNombreUsuario(DatosRecibidos.getString("NombreUsuario"));
+        user.setContra(usuariologeado.getString("Contra"));
+        user.setEdad(usuariologeado.getInt("Edad"));
+        user.setIdUsuario(usuariologeado.getInt("IdUsuario"));
+        user.setMail(usuariologeado.getString("Mail"));
+        user.setNombre(usuariologeado.getString("Nombre"));
+        user.setNroTel(usuariologeado.getInt("NroTel"));
+        user.setNombreUsuario(usuariologeado.getString("NombreUsuario"));
 
         NombreGrupo = vistadevuelve.findViewById(R.id.NombreGrupo);
         DescripcionGrupo = vistadevuelve.findViewById(R.id.DescripcionGrupo);
@@ -79,8 +86,23 @@ public class SelectedGroup extends Fragment implements UsuariosDelGrupoListAdapt
         SelectedGroup = new Grupos(idGrupo, Nombre, Descripcion);
         NombreGrupo.setText(SelectedGroup.Nombre);
         DescripcionGrupo.setText(SelectedGroup.Descripcion);
+        Button a = vistadevuelve.findViewById(R.id.AgregarMiembros);
+        a.setOnClickListener(this);
 
+        Button editar = vistadevuelve.findViewById(R.id.EditarGrupo);
+        editar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditarGrupo edtGrup;
+                edtGrup =new EditarGrupo();
+                edtGrup.setArguments(DatosRecibidos);
+                ManejadorFragments = getFragmentManager();
+                Transacciones = ManejadorFragments.beginTransaction();
+                Transacciones.replace(R.id.AlojadorDeFragmentsGrupos, edtGrup);
+                Transacciones.commit();
 
+            }
+        });
         ListView listaintegrantes = vistadevuelve.findViewById(R.id.ListaIntegrantes);
         listaintegrantes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -112,7 +134,7 @@ public class SelectedGroup extends Fragment implements UsuariosDelGrupoListAdapt
                 .setPositiveButton("Eliminar del grupo", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(getActivity(), "Has eliminado a "+ usuarios.NombreUsuario + " del grupo", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Has eliminado a " + usuarios.NombreUsuario + " del grupo", Toast.LENGTH_SHORT).show();
 
 
                     }
@@ -124,6 +146,20 @@ public class SelectedGroup extends Fragment implements UsuariosDelGrupoListAdapt
     @Override
     public void onButtonClickListner(int position, String value) {
 
+    }
+
+    @Override
+    public void onClick(View v) {
+        Bundle cosaspaso = new Bundle();
+        cosaspaso.putBundle("usuario", usuariologeado);
+        cosaspaso.putInt("idgru", idGrupo);
+        InvitarAlGrupo AgregarUsuarios;
+        AgregarUsuarios = new InvitarAlGrupo();
+        AgregarUsuarios.setArguments(cosaspaso);
+        ManejadorFragments = getFragmentManager();
+        Transacciones = ManejadorFragments.beginTransaction();
+        Transacciones.replace(R.id.AlojadorDeFragmentsGrupos, AgregarUsuarios);
+        Transacciones.commit();
     }
 
 

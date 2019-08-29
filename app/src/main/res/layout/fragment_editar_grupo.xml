@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/RelativeCrearGrupo"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true">
+
+        <TextView
+            android:id="@+id/TextViewNombreEG"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:text="Nombre: " />
+
+        <EditText
+            android:id="@+id/txtNombreEG"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/TextViewNombreEG" />
+
+
+        <TextView
+            android:id="@+id/TextViewDescEG"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txtNombreEG"
+            android:layout_marginTop="40dp"
+            android:text="Descripcion: " />
+
+        <EditText
+            android:id="@+id/txtDescripcionEG"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/TextViewDescEG" />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Ingresar Datos"
+            android:layout_below="@id/txtDescripcionEG"
+            android:id="@+id/btnEditarGrupo"
+            android:onClick="ConfirmarEditarGrupo"
+            />
+    </RelativeLayout>
+
+
+
+</RelativeLayout>
