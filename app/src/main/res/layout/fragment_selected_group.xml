@@ -32,7 +32,7 @@
         android:id="@+id/EditarGrupo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/ImagenGrupo"
+        android:layout_below="@id/DescripcionGrupo"
         android:layout_alignParentRight="true"
         android:text="Editar Datos" />
 
@@ -42,7 +42,7 @@
         android:layout_height="wrap_content"
 
         android:layout_toLeftOf="@+id/EditarGrupo"
-        android:layout_below="@id/ImagenGrupo"
+        android:layout_below="@id/DescripcionGrupo"
         android:text="Invitar Usuarios" />
 
     <ListView

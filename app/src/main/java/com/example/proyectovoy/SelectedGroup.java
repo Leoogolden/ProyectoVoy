@@ -20,6 +20,7 @@ import android.widget.Toast;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -33,7 +34,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SelectedGroup extends Fragment implements UsuariosDelGrupoListAdapter.customButtonListener, View.OnClickListener {
+public class SelectedGroup extends Fragment implements  View.OnClickListener {
 
     String IP;
     TextView NombreGrupo;
@@ -51,7 +52,6 @@ public class SelectedGroup extends Fragment implements UsuariosDelGrupoListAdapt
     FragmentManager ManejadorFragments;
     FragmentTransaction Transacciones;
     Bundle DatosRecibidos;
-    UsuariosDelGrupoListAdapter.customButtonListener customListner;
 
     public View onCreateView(LayoutInflater inflador, ViewGroup grupo, Bundle datos) {
         vistadevuelve = inflador.inflate(R.layout.fragment_selected_group, grupo, false);
@@ -76,7 +76,7 @@ public class SelectedGroup extends Fragment implements UsuariosDelGrupoListAdapt
 
         NombreGrupo = vistadevuelve.findViewById(R.id.NombreGrupo);
         DescripcionGrupo = vistadevuelve.findViewById(R.id.DescripcionGrupo);
-        ListaIntegrantes = vistadevuelve.findViewById(R.id.ListaIntegrantes);
+
         FotoGrupo = vistadevuelve.findViewById(R.id.ImagenGrupo);
         Log.d("onclick", "entra5" + idGrupo);
 
@@ -94,7 +94,7 @@ public class SelectedGroup extends Fragment implements UsuariosDelGrupoListAdapt
             @Override
             public void onClick(View v) {
                 EditarGrupo edtGrup;
-                edtGrup =new EditarGrupo();
+                edtGrup = new EditarGrupo();
                 edtGrup.setArguments(DatosRecibidos);
                 ManejadorFragments = getFragmentManager();
                 Transacciones = ManejadorFragments.beginTransaction();
@@ -103,6 +103,12 @@ public class SelectedGroup extends Fragment implements UsuariosDelGrupoListAdapt
 
             }
         });
+        VerificarAdmin vamos = new VerificarAdmin();
+        vamos.execute();
+
+        tareaAsincronica miTarea = new tareaAsincronica();
+        miTarea.execute();
+        Log.d("wow", ListaDeUsuarios.toString());
         ListView listaintegrantes = vistadevuelve.findViewById(R.id.ListaIntegrantes);
         listaintegrantes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -110,14 +116,6 @@ public class SelectedGroup extends Fragment implements UsuariosDelGrupoListAdapt
                 openDialog(ListaDeUsuarios.get(position));
             }
         });
-
-        VerificarAdmin vamos = new VerificarAdmin();
-        vamos.execute();
-
-        tareaAsincronica miTarea = new tareaAsincronica();
-        miTarea.execute();
-
-
         return vistadevuelve;
     }
 
@@ -143,10 +141,7 @@ public class SelectedGroup extends Fragment implements UsuariosDelGrupoListAdapt
                 .show();
     }
 
-    @Override
-    public void onButtonClickListner(int position, String value) {
 
-    }
 
     @Override
     public void onClick(View v) {
@@ -195,12 +190,13 @@ public class SelectedGroup extends Fragment implements UsuariosDelGrupoListAdapt
 
 
             List<Usuarios> DatosLista = new ArrayList<Usuarios>();
-            int lenght = ListaDeUsuarios.size();
 
             UsuariosDelGrupoListAdapter miAdaptador;
             miAdaptador = new UsuariosDelGrupoListAdapter(getActivity(), R.layout.lista_usuariosgrupo, ListaDeUsuarios);
             ListView ListaMiembros = vistadevuelve.findViewById(R.id.ListaIntegrantes);
             ListaMiembros.setAdapter(miAdaptador);
+            int lenght = ListaDeUsuarios.size();
+            Log.d("wow", "son " + lenght);
         }
     }
 
@@ -259,9 +255,6 @@ public class SelectedGroup extends Fragment implements UsuariosDelGrupoListAdapt
         }
     }
 
-    public void setCustomButtonListner(UsuariosDelGrupoListAdapter.customButtonListener listener) {
-        this.customListner = listener;
-    }
 
 
     public void EsAdminProcesa(InputStreamReader streamLeido) {

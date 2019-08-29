@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.gson.JsonParser;
 
@@ -33,8 +34,8 @@ public class EditarGrupo extends Fragment implements View.OnClickListener {
     EditText Nom;
     EditText Desc;
     Bundle DatosRecibidos;
-    Bundle usuariologeado;
-Usuarios user;
+    Bundle usuariologeado = new Bundle();
+Usuarios user = new Usuarios();
 Grupos grupaso;
     public View onCreateView(LayoutInflater inflador, ViewGroup grupo, Bundle datos) {
         vistadevuelve = inflador.inflate(R.layout.fragment_editar_grupo, grupo, false);
@@ -43,20 +44,22 @@ Grupos grupaso;
 
 
         DatosRecibidos = getArguments();
+        Log.d("qonda", DatosRecibidos.toString());
         Bundle GrupoElegido = DatosRecibidos.getBundle("grupaso");
         String Nombre = GrupoElegido.getString("Nombre");
         String Descripcion = GrupoElegido.getString("Descripcion");
-        Log.d("onclick", "entra4");
+        Log.d("onclick", "entra4 " + Nombre);
         int idGrupo = GrupoElegido.getInt("idGrupo");
         grupaso = new Grupos(idGrupo, Nombre, Descripcion);
         usuariologeado = DatosRecibidos.getBundle("usuariologeado");
-        Log.d("qonda", usuariologeado.toString());
 
+
+
+        user.setNombre(usuariologeado.getString("Nombre"));
         user.setContra(usuariologeado.getString("Contra"));
         user.setEdad(usuariologeado.getInt("Edad"));
         user.setIdUsuario(usuariologeado.getInt("IdUsuario"));
         user.setMail(usuariologeado.getString("Mail"));
-        user.setNombre(usuariologeado.getString("Nombre"));
         user.setNroTel(usuariologeado.getInt("NroTel"));
         user.setNombreUsuario(usuariologeado.getString("NombreUsuario"));
 
@@ -89,7 +92,7 @@ Grupos grupaso;
         protected Void doInBackground(Void... voids) {
             try {
                 Log.d("AccesoAPI6", "aaaa" + NombreGrupo + " " + DescripcionGrupo + " " + idUsr);
-                URL rutatlantica = new URL(IP + "Grupos/EditGrupo/" + NombreGrupo + "/" + DescripcionGrupo + "/" + idUsr);
+                URL rutatlantica = new URL(IP + "Grupos/EditGrupo/" + NombreGrupo + "/" + DescripcionGrupo + "/" + grupaso.IdGrupo + "/"+ user.IdUsuario);
                 HttpURLConnection conexion = (HttpURLConnection) rutatlantica.openConnection();
                 conexion.setRequestMethod("POST");
                 conexion.setRequestProperty("Content-Type", "application/json");
@@ -114,6 +117,18 @@ Grupos grupaso;
         protected void onPostExecute(Void aVoid) {
             //Grupos
             super.onPostExecute(aVoid);
+
+
+            Toast.makeText(getActivity(), "Has cambiado la informacion correctamente ", Toast.LENGTH_SHORT).show();
+
+            VerGrupos a;
+            a = new VerGrupos();
+            a.setArguments(usuariologeado);
+            ManejadorFragments = getFragmentManager();
+            Transacciones = ManejadorFragments.beginTransaction();
+            Transacciones.replace(R.id.AlojadorDeFragmentsGrupos, a);
+            Transacciones.commit();
+
         }
     }
 
