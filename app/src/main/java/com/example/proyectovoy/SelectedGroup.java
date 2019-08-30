@@ -103,6 +103,19 @@ public class SelectedGroup extends Fragment implements View.OnClickListener {
 
             }
         });
+        Button evento = vistadevuelve.findViewById(R.id.CrearEvento);
+        evento.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CrearEvento event;
+                event = new CrearEvento();
+                ManejadorFragments = getFragmentManager();
+                Transacciones = ManejadorFragments.beginTransaction();
+                Transacciones.replace(R.id.AlojadorDeFragmentsGrupos, event);
+                Transacciones.commit();
+            }
+        });
+
         VerificarAdmin vamos = new VerificarAdmin();
         vamos.execute();
 
@@ -158,6 +171,7 @@ public class SelectedGroup extends Fragment implements View.OnClickListener {
             Bundle cosaspaso = new Bundle();
             cosaspaso.putBundle("usuario", usuariologeado);
             cosaspaso.putInt("idgru", idGrupo);
+            cosaspaso.putBoolean("esadmin", esadmin);
             InvitarAlGrupo AgregarUsuarios;
             AgregarUsuarios = new InvitarAlGrupo();
             AgregarUsuarios.setArguments(cosaspaso);

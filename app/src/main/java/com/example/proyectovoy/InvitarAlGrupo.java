@@ -39,6 +39,7 @@ public class InvitarAlGrupo extends Fragment implements View.OnClickListener {
     int idgrupo;
     Button VolveraGrupos;
     Bundle usuariologeado;
+    Boolean esono;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -50,7 +51,6 @@ public class InvitarAlGrupo extends Fragment implements View.OnClickListener {
         usuariologeado = DatosRecibidos.getBundle("usuario");
         idusr = usuariologeado.getInt("IdUsuario");
         idgrupo = DatosRecibidos.getInt("idgru");
-
         VolveraGrupos = vistadevuelve.findViewById(R.id.VolverAGrupos);
         VolveraGrupos.setOnClickListener(this);
 
