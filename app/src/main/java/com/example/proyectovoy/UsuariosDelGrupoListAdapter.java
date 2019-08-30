@@ -26,12 +26,6 @@ public class UsuariosDelGrupoListAdapter extends ArrayAdapter<Usuarios> {
         mResource = resource;
     }
 
-    customButtonListener customListner;
-
-    public interface customButtonListener {
-        public void onButtonClickListner(int position, String value);
-    }
-
     @NonNull
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
@@ -44,15 +38,7 @@ public class UsuariosDelGrupoListAdapter extends ArrayAdapter<Usuarios> {
         TextView NombreInvite = convertView.findViewById(R.id.NombreUsuarioGrupo);
 
         NombreInvite.setText(NombreUsuario);
-        Button boton = convertView.findViewById(R.id.BotonSelectedGroup);
-        boton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (customListner != null) {
-                    customListner.onButtonClickListner(position, NombreUsuario);
-                }
-            }
-        });
+
 
         return convertView;
     }

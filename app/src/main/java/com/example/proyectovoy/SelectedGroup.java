@@ -1,23 +1,19 @@
 package com.example.proyectovoy;
 
-import android.app.Activity;
 import android.app.Fragment;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
-import android.util.JsonReader;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 
@@ -34,7 +30,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SelectedGroup extends Fragment implements  View.OnClickListener {
+public class SelectedGroup extends Fragment implements View.OnClickListener {
 
     String IP;
     TextView NombreGrupo;
@@ -47,11 +43,12 @@ public class SelectedGroup extends Fragment implements  View.OnClickListener {
     View vistadevuelve;
     Bundle usuariologeado;
     Usuarios user = new Usuarios();
-    Boolean esadmin;
-
+    Boolean esadmin = false;
+    Grupos grupaso = new Grupos();
     FragmentManager ManejadorFragments;
     FragmentTransaction Transacciones;
     Bundle DatosRecibidos;
+    Usuarios uselected = new Usuarios();
 
     public View onCreateView(LayoutInflater inflador, ViewGroup grupo, Bundle datos) {
         vistadevuelve = inflador.inflate(R.layout.fragment_selected_group, grupo, false);
@@ -63,6 +60,9 @@ public class SelectedGroup extends Fragment implements  View.OnClickListener {
         String Descripcion = GrupoElegido.getString("Descripcion");
         Log.d("onclick", "entra4");
         idGrupo = GrupoElegido.getInt("idGrupo");
+        grupaso.IdGrupo = idGrupo;
+        grupaso.Nombre = Nombre;
+        grupaso.Descripcion = Descripcion;
         usuariologeado = DatosRecibidos.getBundle("usuariologeado");
         Log.d("qonda", DatosRecibidos.toString());
 
@@ -106,21 +106,15 @@ public class SelectedGroup extends Fragment implements  View.OnClickListener {
         VerificarAdmin vamos = new VerificarAdmin();
         vamos.execute();
 
-        tareaAsincronica miTarea = new tareaAsincronica();
+        TraerMiembrosDelGrupo miTarea = new TraerMiembrosDelGrupo();
         miTarea.execute();
         Log.d("wow", ListaDeUsuarios.toString());
-        ListView listaintegrantes = vistadevuelve.findViewById(R.id.ListaIntegrantes);
-        listaintegrantes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                openDialog(ListaDeUsuarios.get(position));
-            }
-        });
+
         return vistadevuelve;
     }
 
-    public void openDialog(final Usuarios usuarios) {
-
+    public void openDialog(final Usuarios usuarioseleccionado) {
+        uselected = usuarioseleccionado;
         new LovelyStandardDialog(getActivity(), LovelyStandardDialog.ButtonLayout.VERTICAL)
                 .setTopColorRes(R.color.colorAccent)
                 .setButtonsColorRes(R.color.colorAccent)
@@ -132,9 +126,24 @@ public class SelectedGroup extends Fragment implements  View.OnClickListener {
                 .setPositiveButton("Eliminar del grupo", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(getActivity(), "Has eliminado a " + usuarios.NombreUsuario + " del grupo", Toast.LENGTH_SHORT).show();
-
-
+                        if (esadmin) {
+                            EliminarUsuario elimino = new EliminarUsuario();
+                            elimino.execute();
+                            Toast.makeText(getActivity(), "Has eliminado a " + usuarioseleccionado.NombreUsuario + " del grupo", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getActivity(), "No tienes permisos de Admin", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                })
+                .setNegativeButton("Hacer Administrador", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (esadmin) {
+                            HacerAdmin a = new HacerAdmin();
+                            a.execute();
+                        } else {
+                            Toast.makeText(getActivity(), "No tienes permisos de Admin", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 })
                 .setNeutralButton("Volver a la lista", null)
@@ -142,23 +151,27 @@ public class SelectedGroup extends Fragment implements  View.OnClickListener {
     }
 
 
-
     @Override
     public void onClick(View v) {
-        Bundle cosaspaso = new Bundle();
-        cosaspaso.putBundle("usuario", usuariologeado);
-        cosaspaso.putInt("idgru", idGrupo);
-        InvitarAlGrupo AgregarUsuarios;
-        AgregarUsuarios = new InvitarAlGrupo();
-        AgregarUsuarios.setArguments(cosaspaso);
-        ManejadorFragments = getFragmentManager();
-        Transacciones = ManejadorFragments.beginTransaction();
-        Transacciones.replace(R.id.AlojadorDeFragmentsGrupos, AgregarUsuarios);
-        Transacciones.commit();
+
+        if (esadmin) {
+            Bundle cosaspaso = new Bundle();
+            cosaspaso.putBundle("usuario", usuariologeado);
+            cosaspaso.putInt("idgru", idGrupo);
+            InvitarAlGrupo AgregarUsuarios;
+            AgregarUsuarios = new InvitarAlGrupo();
+            AgregarUsuarios.setArguments(cosaspaso);
+            ManejadorFragments = getFragmentManager();
+            Transacciones = ManejadorFragments.beginTransaction();
+            Transacciones.replace(R.id.AlojadorDeFragmentsGrupos, AgregarUsuarios);
+            Transacciones.commit();
+        } else {
+            Toast.makeText(getActivity(), "No tienes permisos de Admin", Toast.LENGTH_SHORT).show();
+
+        }
     }
 
-
-    private class tareaAsincronica extends AsyncTask<Void, Void, Void> {
+    private class TraerMiembrosDelGrupo extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... voids) {
             try {
@@ -171,7 +184,7 @@ public class SelectedGroup extends Fragment implements  View.OnClickListener {
                     InputStreamReader lectorrespuesta = new InputStreamReader(cuerporesspuesta, StandardCharsets.UTF_8);
                     Log.d("AccesoAPI3", "conexioion ok seguimos");
 
-                    ProcessJSONLeido(lectorrespuesta);
+                    TraerIntegrantesProcesa(lectorrespuesta);
                     Log.d("AccesoAPI3", "conexion ok daaale");
                 } else {
                     Log.d("AccesoAPI3", "Error en la conexion");
@@ -200,6 +213,7 @@ public class SelectedGroup extends Fragment implements  View.OnClickListener {
         }
     }
 
+
     private class VerificarAdmin extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... voids) {
@@ -227,11 +241,90 @@ public class SelectedGroup extends Fragment implements  View.OnClickListener {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            Log.d("qonda", "" + esadmin.toString());
+            Log.d("qonda", "es admin " + esadmin.toString());
+
+            ListView listaintegrantes = vistadevuelve.findViewById(R.id.ListaIntegrantes);
+            listaintegrantes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                    openDialog(ListaDeUsuarios.get(position));
+
+
+                }
+            });
         }
     }
 
-    public void ProcessJSONLeido(InputStreamReader streamLeido) {
+
+    private class EliminarUsuario extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected Void doInBackground(Void... voids) {
+            try {
+                Log.d("AccesoAPI6", "aaaa " + uselected.NombreUsuario);
+                URL rutatlantica = new URL(IP + "Grupos/EliminarUsDelGrupo/" + uselected.IdUsuario + "/" + grupaso.IdGrupo);
+                HttpURLConnection conexion = (HttpURLConnection) rutatlantica.openConnection();
+                conexion.setRequestMethod("POST");
+                conexion.setRequestProperty("Content-Type", "application/json");
+                conexion.setRequestProperty("charset", "utf-8");
+                Log.d("AccesoAPI6", "Me conecto");
+                if (conexion.getResponseCode() == 200) {
+                    Log.d("AccesoAPI6", "conexion ok");
+                    InputStream cuerporesspuesta = conexion.getInputStream();
+                    InputStreamReader lectorrespuesta = new InputStreamReader(cuerporesspuesta, "UTF-8");
+                } else {
+                    Log.d("AccesoAPI6", "Error en la conexion " + conexion.getResponseCode());
+                }
+                conexion.disconnect();
+            } catch (Exception error) {
+                Log.d("AccesoAPI6", "Huno un error al conectarme" + error.getMessage());
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            //Grupos
+            super.onPostExecute(aVoid);
+        }
+
+    }
+
+    private class HacerAdmin extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected Void doInBackground(Void... voids) {
+            try {
+                Log.d("AccesoAPI6", "aaaa " + uselected.NombreUsuario);
+                URL rutatlantica = new URL(IP + "Grupos/HacerAdminDelGrupo/" + uselected.IdUsuario + "/" + grupaso.IdGrupo);
+                HttpURLConnection conexion = (HttpURLConnection) rutatlantica.openConnection();
+                conexion.setRequestMethod("POST");
+                conexion.setRequestProperty("Content-Type", "application/json");
+                conexion.setRequestProperty("charset", "utf-8");
+                Log.d("AccesoAPI6", "Me conecto");
+                if (conexion.getResponseCode() == 200) {
+                    Log.d("AccesoAPI6", "conexion ok");
+                    InputStream cuerporesspuesta = conexion.getInputStream();
+                    InputStreamReader lectorrespuesta = new InputStreamReader(cuerporesspuesta, "UTF-8");
+                } else {
+                    Log.d("AccesoAPI6", "Error en la conexion " + conexion.getResponseCode());
+                }
+                conexion.disconnect();
+            } catch (Exception error) {
+                Log.d("AccesoAPI6", "Huno un error al conectarme" + error.getMessage());
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            //Grupos
+            super.onPostExecute(aVoid);
+        }
+
+    }
+
+
+    public void TraerIntegrantesProcesa(InputStreamReader streamLeido) {
 
         JsonParser parseador;
         parseador = new JsonParser();
@@ -255,8 +348,6 @@ public class SelectedGroup extends Fragment implements  View.OnClickListener {
         }
     }
 
-
-
     public void EsAdminProcesa(InputStreamReader streamLeido) {
         JsonParser parseador;
         parseador = new JsonParser();
@@ -264,4 +355,6 @@ public class SelectedGroup extends Fragment implements  View.OnClickListener {
         esadmin = parseador.parse(streamLeido).getAsBoolean();
 
     }
+
+
 }

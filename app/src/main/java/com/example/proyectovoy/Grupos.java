@@ -10,4 +10,10 @@ public class Grupos {
         Nombre = b;
         Descripcion = c;
     }
+    Grupos() {
+        IdGrupo = 0;
+        Nombre = "";
+        Descripcion = "";
+    }
+
 }
