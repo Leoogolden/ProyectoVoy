@@ -1,5 +1,7 @@
 package com.example.proyectovoy;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -13,6 +15,12 @@ import java.text.DateFormat;
 
 public class Home extends AppCompatActivity {
     Bundle usuario = new Bundle();
+
+    //declaracion de fragments
+    FragmentManager ManejadorDeFragments;
+    FragmentTransaction Transacciones;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,6 +29,16 @@ public class Home extends AppCompatActivity {
         Usuarios user = new Usuarios(usuario.getInt("IdUsuario"), usuario.getString("Nombre"), usuario.getString("Mail"), usuario.getString("NombreUsuario"), usuario.getString("Contra"), usuario.getInt("NroTel"), usuario.getInt("Edad"));
         Log.d("Logeadisimo","ahi va "+ user.NombreUsuario);
         DateFormat dateFormat = android.text.format.DateFormat.getDateFormat(getApplicationContext());
+
+        VerActivs activs = new VerActivs();
+        activs.setArguments(usuario);
+        ManejadorDeFragments = getFragmentManager();
+        Transacciones = ManejadorDeFragments.beginTransaction();
+        Transacciones.replace(R.id.AlojadorDeFragmentsGrupos, activs);
+        Transacciones.commit();
+
+
+
         BottomNavigationView bNavView = (BottomNavigationView) findViewById(R.id.navigation_view);
         Menu menunav = bNavView.getMenu();
         MenuItem itemseleccionado = menunav.getItem(0);
@@ -60,4 +78,7 @@ public class Home extends AppCompatActivity {
             }
         });
     }
+
+
+
 }

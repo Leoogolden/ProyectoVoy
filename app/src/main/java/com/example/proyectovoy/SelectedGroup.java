@@ -107,8 +107,8 @@ public class SelectedGroup extends Fragment implements View.OnClickListener {
         evento.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CrearEvento event;
-                event = new CrearEvento();
+                CrearActiv event;
+                event = new CrearActiv();
                 ManejadorFragments = getFragmentManager();
                 Transacciones = ManejadorFragments.beginTransaction();
                 Transacciones.replace(R.id.AlojadorDeFragmentsGrupos, event);
