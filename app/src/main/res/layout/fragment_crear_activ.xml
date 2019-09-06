@@ -178,6 +178,7 @@
         </LinearLayout>
 
         <Button
+            android:onClick="PasoSiguienteCrearActiv"
             android:id="@+id/ConfirmarDatosEvento"
             android:layout_width="match_parent"
             android:layout_height="80dp"

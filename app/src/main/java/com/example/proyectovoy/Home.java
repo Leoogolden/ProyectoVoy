@@ -34,7 +34,7 @@ public class Home extends AppCompatActivity {
         activs.setArguments(usuario);
         ManejadorDeFragments = getFragmentManager();
         Transacciones = ManejadorDeFragments.beginTransaction();
-        Transacciones.replace(R.id.AlojadorDeFragmentsGrupos, activs);
+        Transacciones.replace(R.id.AlojadorDeFragmentsHome, activs);
         Transacciones.commit();
 
 
