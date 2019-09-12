@@ -53,10 +53,19 @@
         android:text="CREAR EVENTO" />
 
     <ListView
+        android:id="@+id/ListaEventos"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_below="@id/CrearEvento">
+
+    </ListView>
+
+    <ListView
         android:id="@+id/ListaIntegrantes"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/AgregarMiembros">
+        android:layout_below="@+id/ListaEventos">
+
 
     </ListView>
 

@@ -122,6 +122,16 @@ public class SelectedGroup extends Fragment implements View.OnClickListener {
         TraerMiembrosDelGrupo miTarea = new TraerMiembrosDelGrupo();
         miTarea.execute();
         Log.d("wow", ListaDeUsuarios.toString());
+ ListView listaactivs = vistadevuelve.findViewById(R.id.ListaActivs);
+ listaactivs.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+     @Override
+     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+         //Te lleva a ver la info de la actividad
+
+     }
+ });
+
 
         return vistadevuelve;
     }
