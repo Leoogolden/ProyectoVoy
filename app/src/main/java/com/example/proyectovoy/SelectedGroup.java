@@ -27,6 +27,9 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,6 +42,7 @@ public class SelectedGroup extends Fragment implements View.OnClickListener {
     ImageView FotoGrupo;
     Grupos SelectedGroup;
     ArrayList<Usuarios> ListaDeUsuarios = new ArrayList<>();
+    ArrayList<Actividades> ListaActivs = new ArrayList<>();
     int idGrupo;
     View vistadevuelve;
     Bundle usuariologeado;
@@ -226,7 +230,7 @@ public class SelectedGroup extends Fragment implements View.OnClickListener {
             Log.d("HolaHola3", "ueso, que pasoa");
 
 
-            List<Usuarios> DatosLista = new ArrayList<Usuarios>();
+
 
             UsuariosDelGrupoListAdapter miAdaptador;
             miAdaptador = new UsuariosDelGrupoListAdapter(getActivity(), R.layout.lista_usuariosgrupo, ListaDeUsuarios);
@@ -257,6 +261,15 @@ private class TraerActivs extends AsyncTask<Void, Void, Void>{
             Log.d("AccesoAPI2", "Huno un error al conectarme" + error.getMessage());
         }
         return null;
+    }
+
+    @Override
+    protected void onPostExecute(Void aVoid) {
+        ActividadesListAdapter miAdaptador;
+        miAdaptador = new ActividadesListAdapter(getActivity(), R.layout.lista_activs_grupo, ListaActivs);
+        ListView ListaMiembros = vistadevuelve.findViewById(R.id.ListaActivs);
+        ListaMiembros.setAdapter(miAdaptador);
+        int lenght = ListaDeUsuarios.size();
     }
 }
 
@@ -370,25 +383,27 @@ private class TraerActivs extends AsyncTask<Void, Void, Void>{
         }
 
     }
-    private void ProcesarJsonActivs(InputStreamReader lectorrespuesta) {
+    private void ProcesarJsonActivs(InputStreamReader lectorrespuesta) throws ParseException {
         JsonParser parseador;
         parseador = new JsonParser();
         JsonArray objetojson;
         objetojson = parseador.parse(lectorrespuesta).getAsJsonArray();
         for (int i = 0; i < objetojson.size(); i++) {
-            Usuarios user;
-            user = new Usuarios();
+            Actividades activ;
+            activ = new Actividades();
             JsonObject objPersona;
             objPersona = objetojson.get(i).getAsJsonObject();
-            user.IdUsuario = objPersona.get("IdUsuario").getAsInt();
-            user.Nombre = objPersona.get("Nombre").getAsString();
-            user.Mail = objPersona.get("Mail").getAsString();
-            user.NombreUsuario = objPersona.get("NombreUsuario").getAsString();
-            user.Contra = objPersona.get("Contraseña").getAsString();
-            user.NroTel = objPersona.get("NroTelefono").getAsInt();
-            user.Edad = objPersona.get("Edad").getAsInt();
-            Log.d("HolaHola3", "que ondaa " + user.NombreUsuario);
-            ListaDeUsuarios.add(user);
+            activ.setIdActiv( objPersona.get("IdActiv").getAsInt());
+            activ.setNombreActiv(objPersona.get("Nombre").getAsString());
+            activ.setDescActiv(objPersona.get("Descripcion").getAsString());
+            activ.setEdMin(objPersona.get("EdadMin").getAsInt());
+            activ.setEdMax(objPersona.get("EdadMax").getAsInt());
+            activ.setLimPer(objPersona.get("LimPer").getAsInt());
+            activ.setNombreCalle(objPersona.get("Calle").getAsString());
+            activ.setNumeroCalle(objPersona.get("Direccion").getAsInt());
+            activ.setFechaActiv(new SimpleDateFormat("dd/MM/yyyy").parse(objPersona.get("Fecha").getAsString()));
+            Log.d("HolaHola3", "que ondaa " + activ.NombreActiv);
+            ListaActivs.add(activ);
         }
 
     }
