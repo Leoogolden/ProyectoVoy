@@ -236,6 +236,30 @@ public class SelectedGroup extends Fragment implements View.OnClickListener {
             Log.d("wow", "son " + lenght);
         }
     }
+private class TraerActivs extends AsyncTask<Void, Void, Void>{
+
+    @Override
+    protected Void doInBackground(Void... voids) {
+        try {
+            URL rutatlantica = new URL(IP + "Invitacion/" + user.IdUsuario);
+            HttpURLConnection conexion = (HttpURLConnection) rutatlantica.openConnection();
+            Log.d("AccesoAPI2", "Me conecto");
+            if (conexion.getResponseCode() == 200) {
+                Log.d("AccesoAPI2", "conexion ok");
+                InputStream cuerporesspuesta = conexion.getInputStream();
+                InputStreamReader lectorrespuesta = new InputStreamReader(cuerporesspuesta, "UTF-8");
+                ProcesarJsonActivs(lectorrespuesta);
+            } else {
+                Log.d("AccesoAPI2", "Error en la conexion");
+            }
+            conexion.disconnect();
+        } catch (Exception error) {
+            Log.d("AccesoAPI2", "Huno un error al conectarme" + error.getMessage());
+        }
+        return null;
+    }
+}
+
 
 
     private class VerificarAdmin extends AsyncTask<Void, Void, Void> {
@@ -343,6 +367,28 @@ public class SelectedGroup extends Fragment implements View.OnClickListener {
         protected void onPostExecute(Void aVoid) {
             //Grupos
             super.onPostExecute(aVoid);
+        }
+
+    }
+    private void ProcesarJsonActivs(InputStreamReader lectorrespuesta) {
+        JsonParser parseador;
+        parseador = new JsonParser();
+        JsonArray objetojson;
+        objetojson = parseador.parse(lectorrespuesta).getAsJsonArray();
+        for (int i = 0; i < objetojson.size(); i++) {
+            Usuarios user;
+            user = new Usuarios();
+            JsonObject objPersona;
+            objPersona = objetojson.get(i).getAsJsonObject();
+            user.IdUsuario = objPersona.get("IdUsuario").getAsInt();
+            user.Nombre = objPersona.get("Nombre").getAsString();
+            user.Mail = objPersona.get("Mail").getAsString();
+            user.NombreUsuario = objPersona.get("NombreUsuario").getAsString();
+            user.Contra = objPersona.get("Contraseña").getAsString();
+            user.NroTel = objPersona.get("NroTelefono").getAsInt();
+            user.Edad = objPersona.get("Edad").getAsInt();
+            Log.d("HolaHola3", "que ondaa " + user.NombreUsuario);
+            ListaDeUsuarios.add(user);
         }
 
     }
