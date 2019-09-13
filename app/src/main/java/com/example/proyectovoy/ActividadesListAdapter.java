@@ -38,9 +38,10 @@ public class ActividadesListAdapter extends ArrayAdapter<Actividades> {
         convertView = inflater.inflate(mResource, parent, false);
 
         TextView NombreAc = convertView.findViewById(R.id.NombreActivLista);
-        TextView Fechita = convertView.findViewById(R.id.FechaActivLista);
+
         NombreAc.setText(NombreE);
-        Fechita.setText(Fecha.toString());
+//        TextView Fechita = convertView.findViewById(R.id.FechaActivLista);
+//        Fechita.setText(Fecha.toString());
 
         return convertView;
     }

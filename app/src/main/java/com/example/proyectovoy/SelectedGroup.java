@@ -113,6 +113,7 @@ public class SelectedGroup extends Fragment implements View.OnClickListener {
             public void onClick(View v) {
                 CrearActiv event;
                 event = new CrearActiv();
+                event.setArguments(usuariologeado);
                 ManejadorFragments = getFragmentManager();
                 Transacciones = ManejadorFragments.beginTransaction();
                 Transacciones.replace(R.id.AlojadorDeFragmentsGrupos, event);
@@ -122,19 +123,20 @@ public class SelectedGroup extends Fragment implements View.OnClickListener {
 
         VerificarAdmin vamos = new VerificarAdmin();
         vamos.execute();
-
+        TraerActivs actividadesgrupo = new TraerActivs();
+        actividadesgrupo.execute();
         TraerMiembrosDelGrupo miTarea = new TraerMiembrosDelGrupo();
         miTarea.execute();
         Log.d("wow", ListaDeUsuarios.toString());
- ListView listaactivs = vistadevuelve.findViewById(R.id.ListaActivs);
- listaactivs.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-     @Override
-     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
-         //Te lleva a ver la info de la actividad
-
-     }
- });
+//        ListView listaactivs = vistadevuelve.findViewById(R.id.ListaActivs);
+//        listaactivs.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//
+//                //Te lleva a ver la info de la actividad
+//
+//            }
+//        });
 
 
         return vistadevuelve;
@@ -230,8 +232,6 @@ public class SelectedGroup extends Fragment implements View.OnClickListener {
             Log.d("HolaHola3", "ueso, que pasoa");
 
 
-
-
             UsuariosDelGrupoListAdapter miAdaptador;
             miAdaptador = new UsuariosDelGrupoListAdapter(getActivity(), R.layout.lista_usuariosgrupo, ListaDeUsuarios);
             ListView ListaMiembros = vistadevuelve.findViewById(R.id.ListaIntegrantes);
@@ -240,39 +240,39 @@ public class SelectedGroup extends Fragment implements View.OnClickListener {
             Log.d("wow", "son " + lenght);
         }
     }
-private class TraerActivs extends AsyncTask<Void, Void, Void>{
 
-    @Override
-    protected Void doInBackground(Void... voids) {
-        try {
-            URL rutatlantica = new URL(IP + "Invitacion/" + user.IdUsuario);
-            HttpURLConnection conexion = (HttpURLConnection) rutatlantica.openConnection();
-            Log.d("AccesoAPI2", "Me conecto");
-            if (conexion.getResponseCode() == 200) {
-                Log.d("AccesoAPI2", "conexion ok");
-                InputStream cuerporesspuesta = conexion.getInputStream();
-                InputStreamReader lectorrespuesta = new InputStreamReader(cuerporesspuesta, "UTF-8");
-                ProcesarJsonActivs(lectorrespuesta);
-            } else {
-                Log.d("AccesoAPI2", "Error en la conexion");
+    private class TraerActivs extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            try {
+                URL rutatlantica = new URL(IP + "ActivsGrupo/" + idGrupo);
+                HttpURLConnection conexion = (HttpURLConnection) rutatlantica.openConnection();
+                Log.d("AccesoAPI2", "Me conecto");
+                if (conexion.getResponseCode() == 200) {
+                    Log.d("AccesoAPI2", "conexion ok");
+                    InputStream cuerporesspuesta = conexion.getInputStream();
+                    InputStreamReader lectorrespuesta = new InputStreamReader(cuerporesspuesta, "UTF-8");
+                    ProcesarJsonActivs(lectorrespuesta);
+                } else {
+                    Log.d("AccesoAPI2", "Error en la conexion");
+                }
+                conexion.disconnect();
+            } catch (Exception error) {
+                Log.d("AccesoAPI2", "Huno un error al conectarme" + error.getMessage());
             }
-            conexion.disconnect();
-        } catch (Exception error) {
-            Log.d("AccesoAPI2", "Huno un error al conectarme" + error.getMessage());
+            return null;
         }
-        return null;
-    }
 
-    @Override
-    protected void onPostExecute(Void aVoid) {
-        ActividadesListAdapter miAdaptador;
-        miAdaptador = new ActividadesListAdapter(getActivity(), R.layout.lista_activs_grupo, ListaActivs);
-        ListView ListaMiembros = vistadevuelve.findViewById(R.id.ListaActivs);
-        ListaMiembros.setAdapter(miAdaptador);
-        int lenght = ListaDeUsuarios.size();
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            ActividadesListAdapter miAdaptador;
+            miAdaptador = new ActividadesListAdapter(getActivity(), R.layout.lista_activs_grupo, ListaActivs);
+            ListView ListaMiembros = vistadevuelve.findViewById(R.id.ListaEventos);
+            ListaMiembros.setAdapter(miAdaptador);
+            int lenght = ListaDeUsuarios.size();
+        }
     }
-}
-
 
 
     private class VerificarAdmin extends AsyncTask<Void, Void, Void> {
@@ -383,6 +383,7 @@ private class TraerActivs extends AsyncTask<Void, Void, Void>{
         }
 
     }
+
     private void ProcesarJsonActivs(InputStreamReader lectorrespuesta) throws ParseException {
         JsonParser parseador;
         parseador = new JsonParser();
@@ -393,7 +394,7 @@ private class TraerActivs extends AsyncTask<Void, Void, Void>{
             activ = new Actividades();
             JsonObject objPersona;
             objPersona = objetojson.get(i).getAsJsonObject();
-            activ.setIdActiv( objPersona.get("IdActiv").getAsInt());
+            activ.setIdActiv(objPersona.get("IdActiv").getAsInt());
             activ.setNombreActiv(objPersona.get("Nombre").getAsString());
             activ.setDescActiv(objPersona.get("Descripcion").getAsString());
             activ.setEdMin(objPersona.get("EdadMin").getAsInt());
@@ -401,7 +402,7 @@ private class TraerActivs extends AsyncTask<Void, Void, Void>{
             activ.setLimPer(objPersona.get("LimPer").getAsInt());
             activ.setNombreCalle(objPersona.get("Calle").getAsString());
             activ.setNumeroCalle(objPersona.get("Direccion").getAsInt());
-            activ.setFechaActiv(new SimpleDateFormat("dd/MM/yyyy").parse(objPersona.get("Fecha").getAsString()));
+           // activ.setFechaActiv(new SimpleDateFormat("dd/MM/yyyy").parse(objPersona.get("Fecha").getAsString()));
             Log.d("HolaHola3", "que ondaa " + activ.NombreActiv);
             ListaActivs.add(activ);
         }

@@ -1,73 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:fillViewport="true">
 
-    <ImageView
-        android:id="@+id/ImagenGrupo"
-        android:layout_width="250dp"
-        android:layout_height="250dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-
-
-        />
-
-    <TextView
-        android:id="@+id/NombreGrupo"
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/ImagenGrupo"
-        android:layout_alignParentStart="true" />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/DescripcionGrupo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/NombreGrupo"
-        android:text="ejemplo" />
-
-    <Button
-        android:id="@+id/EditarGrupo"
-        android:layout_width="100dp"
-        android:layout_height="60dp"
-        android:layout_below="@id/DescripcionGrupo"
-        android:layout_alignParentRight="true"
-        android:text="Editar Datos" />
-
-    <Button
-        android:id="@+id/AgregarMiembros"
-        android:layout_width="100dp"
-        android:layout_height="60dp"
-        android:layout_below="@id/DescripcionGrupo"
-        android:layout_alignParentLeft="true"
-        android:text="Invitar Usuarios" />
-
-    <Button
-        android:id="@+id/CrearEvento"
-        android:layout_width="200dp"
-        android:layout_height="60dp"
-        android:layout_below="@id/DescripcionGrupo"
-        android:layout_centerHorizontal="true"
-        android:text="CREAR EVENTO" />
-
-    <ListView
-        android:id="@+id/ListaEventos"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_below="@id/CrearEvento">
-
-    </ListView>
-
-    <ListView
-        android:id="@+id/ListaIntegrantes"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/ListaEventos">
+        <ImageView
+            android:id="@+id/ImagenGrupo"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
 
 
-    </ListView>
+            />
+
+        <TextView
+            android:id="@+id/NombreGrupo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ImagenGrupo"
+            android:layout_alignParentStart="true" />
+
+        <TextView
+            android:id="@+id/DescripcionGrupo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/NombreGrupo"
+            android:text="ejemplo" />
+
+        <Button
+            android:id="@+id/EditarGrupo"
+            android:layout_width="100dp"
+            android:layout_height="60dp"
+            android:layout_below="@id/DescripcionGrupo"
+            android:layout_alignParentRight="true"
+            android:text="Editar Datos" />
+
+        <Button
+            android:id="@+id/AgregarMiembros"
+            android:layout_width="100dp"
+            android:layout_height="60dp"
+            android:layout_below="@id/DescripcionGrupo"
+            android:layout_alignParentLeft="true"
+            android:text="Invitar Usuarios" />
+
+        <Button
+            android:id="@+id/CrearEvento"
+            android:layout_width="200dp"
+            android:layout_height="60dp"
+            android:layout_below="@id/DescripcionGrupo"
+            android:layout_centerHorizontal="true"
+            android:text="CREAR EVENTO" />
+
+        <ListView
+            android:id="@+id/ListaEventos"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_below="@id/CrearEvento">
+
+        </ListView>
+
+        <TextView
+            android:id="@+id/TextoSepara"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ListaEventos"
+            android:text="Miembros del grupo"
+            android:textSize="20dp" />
+
+        <ListView
+            android:id="@+id/ListaIntegrantes"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_below="@+id/TextoSepara">
 
 
-</RelativeLayout>
+        </ListView>
+
+
+    </RelativeLayout>
+</ScrollView>

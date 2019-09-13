@@ -52,26 +52,26 @@ public class CrearActiv extends Fragment {
     private class tareaCrarActiv extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... voids) {
-            try {
-//                Log.d("AccesoAPI6", "aaaa" + NombreGrupo + " " + DescripcionGrupo + " " + idUsr);
-//                URL rutatlantica = new URL(IP + "Grupos/CrearGrupo/" + NombreGrupo + "/" + DescripcionGrupo + "/" + idUsr);
-//                HttpURLConnection conexion = (HttpURLConnection) rutatlantica.openConnection();
-//                conexion.setRequestMethod("POST");
-//                conexion.setRequestProperty("Content-Type", "application/json");
-//                conexion.setRequestProperty("charset", "utf-8");
-//                Log.d("AccesoAPI6", "Me conecto");
-//                if (conexion.getResponseCode() == 200) {
-//                    Log.d("AccesoAPI6", "conexion ok");
-//                    InputStream cuerporesspuesta = conexion.getInputStream();
-//                    InputStreamReader lectorrespuesta = new InputStreamReader(cuerporesspuesta, "UTF-8");
-//                    ProcessJSONLeido(lectorrespuesta);
-//                } else {
-//                    Log.d("AccesoAPI6", "Error en la conexion " + conexion.getResponseCode());
-//                }
-//                conexion.disconnect();
-            } catch (Exception error) {
-                Log.d("AccesoAPI6", "Huno un error al conectarme" + error.getMessage());
-            }
+//            try {
+////                Log.d("AccesoAPI6", "aaaa");
+////                URL rutatlantica = new URL(R.string.IP + "ActivsGrupo/CrearActiv/" + NombreGrupo + "/" + DescripcionGrupo + "/" + idUsr);
+////                HttpURLConnection conexion = (HttpURLConnection) rutatlantica.openConnection();
+////                conexion.setRequestMethod("POST");
+////                conexion.setRequestProperty("Content-Type", "application/json");
+////                conexion.setRequestProperty("charset", "utf-8");
+////                Log.d("AccesoAPI6", "Me conecto");
+////                if (conexion.getResponseCode() == 200) {
+////                    Log.d("AccesoAPI6", "conexion ok");
+////                    InputStream cuerporesspuesta = conexion.getInputStream();
+////                    InputStreamReader lectorrespuesta = new InputStreamReader(cuerporesspuesta, "UTF-8");
+////                    ProcessJSONLeido(lectorrespuesta);
+////                } else {
+////                    Log.d("AccesoAPI6", "Error en la conexion " + conexion.getResponseCode());
+////                }
+////                conexion.disconnect();
+////            } catch (Exception error) {
+////                Log.d("AccesoAPI6", "Huno un error al conectarme" + error.getMessage());
+////            }
             return null;
         }
 
