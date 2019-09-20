@@ -23,8 +23,8 @@
                 android:text="Ingresar nombre del evento: " />
 
             <EditText
-                android:layout_width="match_parent"
                 android:id="@+id/NombreDelEvento"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Ej: Concierto Rock Nacional" />
 
@@ -44,6 +44,7 @@
                 android:text="Ingresar Descripcion del evento: " />
 
             <EditText
+                android:id="@+id/DescActiv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Ej: El mejor concierto de rock nacional de todo baires" />
@@ -69,6 +70,7 @@
                     android:text="Ingresar Calle: " />
 
                 <EditText
+                    android:id="@+id/NombreDeCalle"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:hint="Ej: Yatay" />
@@ -87,10 +89,11 @@
                     android:text="Ingresar Numero: " />
 
                 <EditText
+                    android:id="@+id/NumCalle"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="number"
-                    android:hint="Ej: 240" />
+                    android:hint="Ej: 240"
+                    android:inputType="number" />
 
             </LinearLayout>
 
@@ -116,6 +119,7 @@
                     android:text="Ingresar edad minima: " />
 
                 <EditText
+                    android:id="@+id/EdadMin"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:inputType="number" />
@@ -132,6 +136,7 @@
                     android:text="Ingresar edad maxima: " />
 
                 <EditText
+                    android:id="@+id/EdadMax"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:inputType="number" />
@@ -153,6 +158,7 @@
                 android:text="Ingresar limite de personas" />
 
             <EditText
+                android:id="@+id/LimPer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
@@ -172,18 +178,19 @@
                 android:text="Ingresar fecha del evento" />
 
             <DatePicker
+                android:id="@+id/FechaActiv"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-            </DatePicker>
+
+                android:layout_height="wrap_content"></DatePicker>
 
         </LinearLayout>
 
         <Button
-            android:onClick="PasoSiguienteCrearActiv"
             android:id="@+id/ConfirmarDatosEvento"
             android:layout_width="match_parent"
             android:layout_height="80dp"
             android:layout_below="@+id/LayoutFechaEvento"
+            android:onClick="PasoSiguienteCrearActiv"
             android:text="Siguiente" />
 
 

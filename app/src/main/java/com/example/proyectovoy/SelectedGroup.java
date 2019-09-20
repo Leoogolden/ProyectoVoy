@@ -52,6 +52,7 @@ public class SelectedGroup extends Fragment implements View.OnClickListener {
     FragmentManager ManejadorFragments;
     FragmentTransaction Transacciones;
     Bundle DatosRecibidos;
+    Bundle GrupoElegido;
     Usuarios uselected = new Usuarios();
 
     public View onCreateView(LayoutInflater inflador, ViewGroup grupo, Bundle datos) {
@@ -59,7 +60,7 @@ public class SelectedGroup extends Fragment implements View.OnClickListener {
         Log.d("onclick", "entra3");
         IP = getString(R.string.IP);
         DatosRecibidos = getArguments();
-        Bundle GrupoElegido = DatosRecibidos.getBundle("grupaso");
+        GrupoElegido = DatosRecibidos.getBundle("grupaso");
         String Nombre = GrupoElegido.getString("Nombre");
         String Descripcion = GrupoElegido.getString("Descripcion");
         Log.d("onclick", "entra4");
@@ -111,9 +112,14 @@ public class SelectedGroup extends Fragment implements View.OnClickListener {
         evento.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                Bundle pasaje = new Bundle();
+                pasaje.putBundle("usuariologeado", usuariologeado);
+                pasaje.putBundle("grupaso", GrupoElegido);
                 CrearActiv event;
                 event = new CrearActiv();
-                event.setArguments(usuariologeado);
+
+                event.setArguments(pasaje);
                 ManejadorFragments = getFragmentManager();
                 Transacciones = ManejadorFragments.beginTransaction();
                 Transacciones.replace(R.id.AlojadorDeFragmentsGrupos, event);
@@ -402,7 +408,7 @@ public class SelectedGroup extends Fragment implements View.OnClickListener {
             activ.setLimPer(objPersona.get("LimPer").getAsInt());
             activ.setNombreCalle(objPersona.get("Calle").getAsString());
             activ.setNumeroCalle(objPersona.get("Direccion").getAsInt());
-           // activ.setFechaActiv(new SimpleDateFormat("dd/MM/yyyy").parse(objPersona.get("Fecha").getAsString()));
+            // activ.setFechaActiv(new SimpleDateFormat("dd/MM/yyyy").parse(objPersona.get("Fecha").getAsString()));
             Log.d("HolaHola3", "que ondaa " + activ.NombreActiv);
             ListaActivs.add(activ);
         }
