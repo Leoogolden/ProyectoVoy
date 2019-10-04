@@ -100,7 +100,7 @@ public class CrearActiv extends Fragment {
                 LimPersona = Integer.parseInt(LimPerson.getText().toString());
 
                 int mes = FechaDeActiv.getMonth() + 1;
-                FechaConvertida= "" + FechaDeActiv.getDayOfMonth() + "-" + mes + "-" + FechaDeActiv.getYear();
+                FechaConvertida = "" + FechaDeActiv.getDayOfMonth() + "-" + mes + "-" + FechaDeActiv.getYear();
 
                 tareaCrarActiv asd = new tareaCrarActiv();
                 asd.execute();
@@ -133,7 +133,7 @@ public class CrearActiv extends Fragment {
         protected Void doInBackground(Void... voids) {
             try {
                 Log.d("AccesoAPI6", "aaaa234");
-                URL rutatlantica = new URL(getString(R.string.IP) + "ActivsGrupo/CrearActiv/" + NombreActividad + "/" + DescActividad + "/" + FechaConvertida + "/" + EdadMinima + "/" + EdadMaxima + "/" + LimPersona + "/" + NombreDeCalle + "/" + NumeroDeCalle + "/" + grupaso.IdGrupo);
+                URL rutatlantica = new URL(getString(R.string.IP) + "ActivsGrupo/CrearActiv/" + NombreActividad + "/" + DescActividad + "/" + FechaConvertida + "/" + EdadMinima + "/" + EdadMaxima + "/" + LimPersona + "/" + NombreDeCalle + "/" + NumeroDeCalle + "/" + grupaso.IdGrupo + "/" + user.IdUsuario);
                 Log.d("AccesoAPI6", "vaaa " + rutatlantica.toString());
                 HttpURLConnection conexion = (HttpURLConnection) rutatlantica.openConnection();
                 conexion.setRequestMethod("POST");

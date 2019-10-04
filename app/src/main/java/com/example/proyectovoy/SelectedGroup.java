@@ -44,6 +44,7 @@ public class SelectedGroup extends Fragment implements View.OnClickListener {
     ArrayList<Usuarios> ListaDeUsuarios = new ArrayList<>();
     ArrayList<Actividades> ListaActivs = new ArrayList<>();
     int idGrupo;
+    int idactividad;
     View vistadevuelve;
     Bundle usuariologeado;
     Usuarios user = new Usuarios();
@@ -147,7 +148,36 @@ public class SelectedGroup extends Fragment implements View.OnClickListener {
 
         return vistadevuelve;
     }
+public void openDialogActiv(final Actividades activsl, final int pos){
+    new LovelyStandardDialog(getActivity(), LovelyStandardDialog.ButtonLayout.VERTICAL)
+            .setTopColorRes(R.color.colorAccent)
+            .setButtonsColorRes(R.color.colorAccent)
+            .setTitle("Actividad "+ activsl.NombreActiv)
+            .setMessage("Descripcion: "+ activsl.DescActiv+" en " + activsl.NombreCalle+" al "+activsl.NumeroCalle + " . ¿Desea participar en la actividad?")
+            .setPositiveButtonColor(ContextCompat.getColor(getActivity(), R.color.sec))
+            .setNegativeButtonColor(ContextCompat.getColor(getActivity(), R.color.sec))
+            .setNeutralButtonColor(ContextCompat.getColor(getActivity(), R.color.sec))
+            .setPositiveButton("Voy!", new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 
+                    idactividad = pos+1;
+                    Log.d("wow", "actividades, elegiste la "+ pos);
+                    tareaAsistencia a;
+                    a = new tareaAsistencia();
+                    a.execute();
+                        Toast.makeText(getActivity(), "Te anotaste a la actividad " + activsl.NombreActiv + " del grupo", Toast.LENGTH_SHORT).show();
+                }
+            })
+            .setNegativeButton("Volver a la lista", new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            })
+            .show();
+
+}
     public void openDialog(final Usuarios usuarioseleccionado) {
         uselected = usuarioseleccionado;
         new LovelyStandardDialog(getActivity(), LovelyStandardDialog.ButtonLayout.VERTICAL)
@@ -246,6 +276,43 @@ public class SelectedGroup extends Fragment implements View.OnClickListener {
             Log.d("wow", "son " + lenght);
         }
     }
+    private class tareaAsistencia extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected Void doInBackground(Void... voids) {
+            try {
+                Log.d("AccesoAPI6", "aaaa234");
+                URL rutatlantica = new URL(getString(R.string.IP) + "ActivsGrupo/ConfAsis/"+grupaso.IdGrupo+"/"+idactividad+"/" + grupaso.IdGrupo);
+                Log.d("AccesoAPI6", "vaaa " + rutatlantica.toString());
+                HttpURLConnection conexion = (HttpURLConnection) rutatlantica.openConnection();
+                conexion.setRequestMethod("POST");
+                conexion.setRequestProperty("Content-Type", "application/json");
+                conexion.setRequestProperty("charset", "utf-8");
+                Log.d("AccesoAPI6", "Me conecto");
+                if (conexion.getResponseCode() == 200) {
+                    Log.d("AccesoAPI6", "conexion ok");
+                    InputStream cuerporesspuesta = conexion.getInputStream();
+                    InputStreamReader lectorrespuesta = new InputStreamReader(cuerporesspuesta, "UTF-8");
+                    ProcessJSONConf(lectorrespuesta);
+                } else {
+                    Log.d("AccesoAPI8", "Error en la conexion " + conexion.getResponseCode());
+                }
+                conexion.disconnect();
+            } catch (Exception error) {
+                Log.d("AccesoAPI9", "Huno un error al conectarme" + error.getMessage());
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+        }
+    }
+    public void ProcessJSONConf(InputStreamReader streamLeido) {
+        JsonParser parseador;
+        parseador = new JsonParser();
+    }
 
     private class TraerActivs extends AsyncTask<Void, Void, Void> {
 
@@ -274,12 +341,19 @@ public class SelectedGroup extends Fragment implements View.OnClickListener {
         protected void onPostExecute(Void aVoid) {
             ActividadesListAdapter miAdaptador;
             miAdaptador = new ActividadesListAdapter(getActivity(), R.layout.lista_activs_grupo, ListaActivs);
-            ListView ListaMiembros = vistadevuelve.findViewById(R.id.ListaEventos);
-            ListaMiembros.setAdapter(miAdaptador);
-            int lenght = ListaDeUsuarios.size();
+            ListView ListaEven = vistadevuelve.findViewById(R.id.ListaEventos);
+            ListaEven.setAdapter(miAdaptador);
+            int lenght = ListaActivs.size();
+            ListaEven.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    openDialogActiv(ListaActivs.get(position), position);
+
+                }
+            });
         }
     }
-
 
     private class VerificarAdmin extends AsyncTask<Void, Void, Void> {
         @Override
@@ -314,6 +388,7 @@ public class SelectedGroup extends Fragment implements View.OnClickListener {
             listaintegrantes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
 
                     openDialog(ListaDeUsuarios.get(position));
 
@@ -390,7 +465,8 @@ public class SelectedGroup extends Fragment implements View.OnClickListener {
 
     }
 
-    private void ProcesarJsonActivs(InputStreamReader lectorrespuesta) throws ParseException {
+    private void ProcesarJsonActivs(InputStreamReader lectorrespuesta) throws
+            ParseException {
         JsonParser parseador;
         parseador = new JsonParser();
         JsonArray objetojson;
