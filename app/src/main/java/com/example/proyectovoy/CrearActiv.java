@@ -19,6 +19,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -47,7 +49,10 @@ public class CrearActiv extends Fragment {
     int EdadMinima;
     int EdadMaxima;
     int LimPersona;
-    SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+    String FechaConvertida;
+    SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd yyyy HH:mm:ss zzz");
+
+
     Date FechaDeActividad;
 
 
@@ -94,9 +99,27 @@ public class CrearActiv extends Fragment {
                 EdadMaxima = Integer.parseInt(EdadMaxim.getText().toString());
                 LimPersona = Integer.parseInt(LimPerson.getText().toString());
 
+                int mes = FechaDeActiv.getMonth() + 1;
+                FechaConvertida= "" + FechaDeActiv.getDayOfMonth() + "-" + mes + "-" + FechaDeActiv.getYear();
+
                 tareaCrarActiv asd = new tareaCrarActiv();
                 asd.execute();
-                Log.d("keloke", sdf.format(FechaDeActiv.getDayOfMonth() + "-" + FechaDeActiv.getMonth() + "-" + FechaDeActiv.getYear()));
+//                try {
+//                    FechaDeActividad = sdf.parse(fecha);
+//                } catch (ParseException e) {
+//                    e.printStackTrace();
+//                }
+//                Log.d("sape", fecha);
+//                try {
+//                    Log.d("sape", "" + sdf.parse(fecha));
+//                } catch (ParseException e) {
+//                    e.printStackTrace();
+//                }
+//                SimpleDateFormat sdf=new SimpleDateFormat("dd/M/yyyy");
+//                FechaConvertida=sdf.format(FechaDeActividad.getTime());
+//                Log.d("sape", FechaConvertida);
+
+                //Log.d("keloke", sdf.format(Date.parse(FechaDeActiv.getDayOfMonth() + "-" + FechaDeActiv.getMonth() + "-" + FechaDeActiv.getYear())));
 
             }
         });
@@ -110,7 +133,7 @@ public class CrearActiv extends Fragment {
         protected Void doInBackground(Void... voids) {
             try {
                 Log.d("AccesoAPI6", "aaaa234");
-                URL rutatlantica = new URL(R.string.IP + "ActivsGrupo/CrearActiv/" + NombreActividad + "/" + DescActividad + "/" + sdf.format(DescActividad) + "/" + EdadMinima + "/" + EdadMaxima + "/" + LimPersona + "/" + NombreDeCalle + "/" + NumeroDeCalle + "/" + grupaso.IdGrupo);
+                URL rutatlantica = new URL(getString(R.string.IP) + "ActivsGrupo/CrearActiv/" + NombreActividad + "/" + DescActividad + "/" + FechaConvertida + "/" + EdadMinima + "/" + EdadMaxima + "/" + LimPersona + "/" + NombreDeCalle + "/" + NumeroDeCalle + "/" + grupaso.IdGrupo);
                 Log.d("AccesoAPI6", "vaaa " + rutatlantica.toString());
                 HttpURLConnection conexion = (HttpURLConnection) rutatlantica.openConnection();
                 conexion.setRequestMethod("POST");
@@ -123,11 +146,11 @@ public class CrearActiv extends Fragment {
                     InputStreamReader lectorrespuesta = new InputStreamReader(cuerporesspuesta, "UTF-8");
                     ProcessJSONLeido(lectorrespuesta);
                 } else {
-                    Log.d("AccesoAPI6", "Error en la conexion " + conexion.getResponseCode());
+                    Log.d("AccesoAPI8", "Error en la conexion " + conexion.getResponseCode());
                 }
                 conexion.disconnect();
             } catch (Exception error) {
-                Log.d("AccesoAPI6", "Huno un error al conectarme" + error.getMessage());
+                Log.d("AccesoAPI9", "Huno un error al conectarme" + error.getMessage());
             }
             return null;
         }
