@@ -18,6 +18,8 @@
             android:orientation="vertical">
 
             <TextView
+                android:textColor="@drawable/txtboton"
+                android:textSize="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Ingresar nombre del evento: " />
@@ -39,6 +41,8 @@
             android:orientation="vertical">
 
             <TextView
+                android:textColor="@drawable/txtboton"
+                android:textSize="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Ingresar Descripcion del evento: " />
@@ -65,11 +69,15 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:textColor="@drawable/txtboton"
+                    android:textSize="20dp"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:text="Ingresar Calle: " />
 
                 <EditText
+                    android:textColor="@drawable/txtboton"
+                    android:textSize="20dp"
                     android:id="@+id/NombreDeCalle"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
@@ -84,9 +92,11 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:textColor="@drawable/txtboton"
+                    android:textSize="20dp"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:text="Ingresar Numero: " />
+                    android:text=" Numero: " />
 
                 <EditText
                     android:id="@+id/NumCalle"
@@ -114,6 +124,8 @@
 
 
                 <TextView
+                    android:textColor="@drawable/txtboton"
+                    android:textSize="20dp"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:text="Ingresar edad minima: " />
@@ -131,6 +143,8 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:textColor="@drawable/txtboton"
+                    android:textSize="20dp"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:text="Ingresar edad maxima: " />
@@ -153,6 +167,8 @@
             android:orientation="vertical">
 
             <TextView
+                android:textColor="@drawable/txtboton"
+                android:textSize="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Ingresar limite de personas" />
@@ -168,24 +184,32 @@
         <LinearLayout
             android:id="@+id/LayoutFechaEvento"
             android:layout_width="match_parent"
+
             android:layout_height="wrap_content"
             android:layout_below="@+id/LayoutLimEvento"
             android:orientation="vertical">
 
             <TextView
                 android:layout_width="match_parent"
+
                 android:layout_height="wrap_content"
-                android:text="Ingresar fecha del evento" />
+                android:text="Ingresar fecha del evento"
+                android:textColor="@drawable/txtboton"
+                android:textSize="20dp" />
 
             <DatePicker
                 android:id="@+id/FechaActiv"
                 android:layout_width="match_parent"
 
-                android:layout_height="wrap_content"></DatePicker>
+                android:layout_height="match_parent"></DatePicker>
 
         </LinearLayout>
 
         <Button
+            android:background="@drawable/boton2"
+            android:textSize="18dp"
+
+            android:textColor="@drawable/txtboton2"
             android:id="@+id/ConfirmarDatosEvento"
             android:layout_width="match_parent"
             android:layout_height="80dp"

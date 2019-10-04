@@ -37,6 +37,9 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/TextViewDesc" />
     <Button
+        android:textSize="19dp"
+        android:background="@drawable/boton2"
+        android:textColor="@drawable/txtboton2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Ingresar Datos"

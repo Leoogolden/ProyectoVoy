@@ -28,41 +28,64 @@
             android:layout_alignParentStart="true" />
 
         <TextView
+            android:textSize="20dp"
             android:id="@+id/DescripcionGrupo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/NombreGrupo"
-            android:text="ejemplo" />
+            android:padding="5dp"
+            android:text="Ejemplo"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textColor="@drawable/txtboton" />
 
         <Button
             android:id="@+id/EditarGrupo"
             android:layout_width="100dp"
+
             android:layout_height="60dp"
             android:layout_below="@id/DescripcionGrupo"
             android:layout_alignParentRight="true"
-            android:text="Editar Datos" />
+            android:background="@drawable/boton2"
+            android:padding="4dp"
+            android:text="Editar Datos"
+            android:textColor="@drawable/txtboton2"
+            android:textSize="15dp" />
 
         <Button
             android:id="@+id/AgregarMiembros"
             android:layout_width="100dp"
+
             android:layout_height="60dp"
             android:layout_below="@id/DescripcionGrupo"
             android:layout_alignParentLeft="true"
-            android:text="Invitar Usuarios" />
+            android:background="@drawable/boton2"
+            android:padding="4dp"
+            android:text="Invitar Usuarios"
+            android:textColor="@drawable/txtboton2"
+            android:textSize="15dp" />
 
         <Button
             android:id="@+id/CrearEvento"
             android:layout_width="200dp"
+
             android:layout_height="60dp"
             android:layout_below="@id/DescripcionGrupo"
             android:layout_centerHorizontal="true"
-            android:text="CREAR EVENTO" />
+            android:background="@drawable/boton2"
+            android:padding="4dp"
+            android:text="CREAR EVENTO"
+            android:textColor="@drawable/txtboton2"
+            android:textSize="15dp" />
 
         <ListView
             android:id="@+id/ListaEventos"
             android:layout_width="match_parent"
             android:layout_height="150dp"
-            android:layout_below="@id/CrearEvento">
+            android:layout_below="@id/CrearEvento"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="48dp"
+            android:layout_marginEnd="0dp"
+            android:padding="1dp">
 
         </ListView>
 
@@ -71,14 +94,21 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/ListaEventos"
+            android:layout_marginTop="22dp"
+            android:padding="5dp"
+            android:paddingStart="5dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="5dp"
             android:text="Miembros del grupo"
+            android:textColor="@drawable/txtboton"
             android:textSize="20dp" />
 
         <ListView
             android:id="@+id/ListaIntegrantes"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:layout_below="@+id/TextoSepara">
+            android:layout_below="@+id/TextoSepara"
+            android:layout_marginTop="0dp">
 
 
         </ListView>

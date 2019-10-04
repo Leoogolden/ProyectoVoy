@@ -8,6 +8,9 @@
     android:orientation="vertical"
     tools:context="MisGrupos">
     <Button
+        android:textSize="20dp"
+        android:background="@drawable/boton"
+        android:textColor="@drawable/txtboton"
         android:id="@+id/CrearGrupo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

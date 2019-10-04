@@ -4,6 +4,9 @@
     android:layout_height="match_parent">
 
     <Button
+        android:textSize="20dp"
+        android:background="@drawable/boton"
+        android:textColor="@drawable/txtboton"
         android:id="@+id/BtnCrearActividad"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

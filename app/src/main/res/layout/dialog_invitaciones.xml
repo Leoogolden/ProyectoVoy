@@ -1,27 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/TextoInvitacionDialog"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true" />
-
-    <Button
-        android:id="@+id/AceptaInvitacion"
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Aceptar"
-        android:layout_alignParentStart="true"/>
+        android:layout_centerVertical="true"
+        android:paddingStart="110dp">
 
-    <Button
-        android:id="@+id/RechazaInvitacion"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/AceptaInvitacion"
+        <TextView
+            android:id="@+id/TextoInvitacionDialog"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
-        android:layout_marginEnd="-112dp"
-        android:text="Rechazar" />
+        <Button
+            android:id="@+id/AceptaInvitacion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:background="@drawable/boton2"
+            android:text="Aceptar"
+            android:textColor="@drawable/txtboton2"
+            android:textSize="15dp" />
+
+        <Button
+            android:id="@+id/RechazaInvitacion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/AceptaInvitacion"
+            android:layout_marginEnd="-112dp"
+            android:background="@drawable/boton2"
+            android:textSize="15dp"
+
+            android:textColor="@drawable/txtboton2"
+            android:text="Rechazar"
+            />
+    </RelativeLayout>
 </RelativeLayout>

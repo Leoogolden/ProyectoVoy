@@ -24,10 +24,10 @@
         android:layout_height="200px"
         android:layout_centerInParent="true"
         android:layout_marginBottom="10dp"
-        android:textSize="20dp"
 
-        android:onClick="CheckLogIn"
         android:text="Log In"
+        android:onClick="CheckLogIn"
+        android:textSize="20dp"
         android:background="@drawable/boton"
         android:textColor="@drawable/txtboton" />
 
