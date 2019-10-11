@@ -50,10 +50,11 @@ public class SelectedGroup extends Fragment implements View.OnClickListener {
     Usuarios user = new Usuarios();
     Boolean esadmin = false;
     Grupos grupaso = new Grupos();
-    FragmentManager ManejadorFragments;
-    FragmentTransaction Transacciones;
     Bundle DatosRecibidos;
     Bundle GrupoElegido;
+    FragmentManager ManejadorFragments;
+    FragmentTransaction Transacciones;
+
     Usuarios uselected = new Usuarios();
 
     public View onCreateView(LayoutInflater inflador, ViewGroup grupo, Bundle datos) {
@@ -148,36 +149,63 @@ public class SelectedGroup extends Fragment implements View.OnClickListener {
 
         return vistadevuelve;
     }
-public void openDialogActiv(final Actividades activsl, final int pos){
-    new LovelyStandardDialog(getActivity(), LovelyStandardDialog.ButtonLayout.VERTICAL)
-            .setTopColorRes(R.color.colorAccent)
-            .setButtonsColorRes(R.color.colorAccent)
-            .setTitle("Actividad "+ activsl.NombreActiv)
-            .setMessage("Descripcion: "+ activsl.DescActiv+" en " + activsl.NombreCalle+" al "+activsl.NumeroCalle + " . ¿Desea participar en la actividad?")
-            .setPositiveButtonColor(ContextCompat.getColor(getActivity(), R.color.sec))
-            .setNegativeButtonColor(ContextCompat.getColor(getActivity(), R.color.sec))
-            .setNeutralButtonColor(ContextCompat.getColor(getActivity(), R.color.sec))
-            .setPositiveButton("Voy!", new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
 
-                    idactividad = pos+1;
-                    Log.d("wow", "actividades, elegiste la "+ pos);
-                    tareaAsistencia a;
-                    a = new tareaAsistencia();
-                    a.execute();
+    public void openDialogActiv(final Actividades activsl, final int pos) {
+        new LovelyStandardDialog(getActivity(), LovelyStandardDialog.ButtonLayout.VERTICAL)
+                .setTopColorRes(R.color.colorAccent)
+                .setButtonsColorRes(R.color.colorAccent)
+                .setTitle("Actividad " + activsl.NombreActiv)
+                .setMessage("Descripcion: " + activsl.DescActiv + " en " + activsl.NombreCalle + " al " + activsl.NumeroCalle + " . ¿Desea participar en la actividad?")
+                .setPositiveButtonColor(ContextCompat.getColor(getActivity(), R.color.sec))
+                .setNegativeButtonColor(ContextCompat.getColor(getActivity(), R.color.sec))
+                .setNeutralButtonColor(ContextCompat.getColor(getActivity(), R.color.sec))
+                .setPositiveButton("Voy!", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        idactividad = pos + 1;
+                        Log.d("wow", "actividades, elegiste la " + pos);
+                        tareaAsistencia a;
+                        a = new tareaAsistencia();
+                        a.execute();
                         Toast.makeText(getActivity(), "Te anotaste a la actividad " + activsl.NombreActiv + " del grupo", Toast.LENGTH_SHORT).show();
-                }
-            })
-            .setNegativeButton("Volver a la lista", new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+                    }
+                })
+                .setNeutralButton("Ver mas info", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Bundle Actividad = new Bundle();
+                        Actividad.putString("Nombre", activsl.NombreActiv);
+                        Actividad.putString("Desc", activsl.DescActiv);
+                        Actividad.putString("NombreCalle", activsl.NombreCalle);
+                        Actividad.putInt("NroCalle", activsl.NumeroCalle);
+                        Actividad.putInt("EdadMax", activsl.EdMax);
+                        Actividad.putInt("EdadMin", activsl.EdMin);
+                        Actividad.putInt("LimPer", activsl.LimPer);
+                        Actividad.putInt("IdAct", activsl.IdActiv);
+                        Actividad.putSerializable("FechaAct", activsl.FechaActiv);
+                        DatosRecibidos.putBundle("Activ", Actividad);
 
-                }
-            })
-            .show();
+                        SelectedEvent Evento;
+                        Evento = new SelectedEvent();
+                        Evento.setArguments(DatosRecibidos);
+                        ManejadorFragments = getFragmentManager();
+                        Transacciones = ManejadorFragments.beginTransaction();
+                        Transacciones.replace(R.id.AlojadorDeFragmentsGrupos, Evento);
+                        Transacciones.commit();
+                    }
+                })
 
-}
+                .setNegativeButton("Volver a la lista", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                    }
+                })
+                .show();
+
+    }
+
     public void openDialog(final Usuarios usuarioseleccionado) {
         uselected = usuarioseleccionado;
         new LovelyStandardDialog(getActivity(), LovelyStandardDialog.ButtonLayout.VERTICAL)
@@ -276,12 +304,13 @@ public void openDialogActiv(final Actividades activsl, final int pos){
             Log.d("wow", "son " + lenght);
         }
     }
+
     private class tareaAsistencia extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... voids) {
             try {
                 Log.d("AccesoAPI6", "aaaa234");
-                URL rutatlantica = new URL(getString(R.string.IP) + "ActivsGrupo/ConfAsis/"+grupaso.IdGrupo+"/"+idactividad+"/" + grupaso.IdGrupo);
+                URL rutatlantica = new URL(getString(R.string.IP) + "ActivsGrupo/ConfAsis/" + grupaso.IdGrupo + "/" + idactividad + "/" + user.IdUsuario);
                 Log.d("AccesoAPI6", "vaaa " + rutatlantica.toString());
                 HttpURLConnection conexion = (HttpURLConnection) rutatlantica.openConnection();
                 conexion.setRequestMethod("POST");
@@ -309,6 +338,7 @@ public void openDialogActiv(final Actividades activsl, final int pos){
 
         }
     }
+
     public void ProcessJSONConf(InputStreamReader streamLeido) {
         JsonParser parseador;
         parseador = new JsonParser();

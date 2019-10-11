@@ -41,15 +41,16 @@
         <Button
             android:id="@+id/EditarGrupo"
             android:layout_width="100dp"
-
+            android:textColor="@drawable/txtboton2"
+            android:textSize="15dp"
+            android:background="@drawable/boton2"
             android:layout_height="60dp"
             android:layout_below="@id/DescripcionGrupo"
             android:layout_alignParentRight="true"
-            android:background="@drawable/boton2"
+
             android:padding="4dp"
             android:text="Editar Datos"
-            android:textColor="@drawable/txtboton2"
-            android:textSize="15dp" />
+            />
 
         <Button
             android:id="@+id/AgregarMiembros"

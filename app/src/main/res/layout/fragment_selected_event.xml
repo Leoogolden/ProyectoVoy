@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scrollView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/VolveralGrupo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_margin="30px"
+            android:text="VolverAlGrupo" />
+
+        <Button
+            android:id="@+id/EditarActiv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_margin="30px"
+            android:text="Editar info" />
+
+        <TextView
+            android:id="@+id/tituloactiv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/VolveralGrupo"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30px"
+            android:text="lalocuralacura"
+            android:textSize="40dp" />
+
+        <TextView
+            android:id="@+id/descripcionactiv"
+            android:layout_width="700px"
+            android:layout_height="200px"
+            android:layout_below="@+id/tituloactiv"
+
+            android:layout_marginLeft="20px"
+            android:layout_marginTop="10px"
+            android:layout_marginRight="10px"
+            android:layout_marginBottom="10px"
+
+            android:text="adsfagfdshtrsbfdsgfsncbhvrqvahygfimkuyfbtgrdsyn htrsytrm yhtrwshyd"
+            android:textSize="20dp" />
+
+        <Button
+            android:id="@+id/BotonConfirmar"
+            android:layout_width="340px"
+            android:layout_height="200px"
+            android:layout_below="@+id/tituloactiv"
+            android:layout_alignParentRight="true"
+            android:layout_margin="10px"
+            android:background="@drawable/boton2"
+            android:text="VOY!"
+            android:textColor="@drawable/txtboton2"
+            android:textSize="20dp" />
+
+        <Button
+            android:id="@+id/UnirseAlGrupo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/BotonConfirmar"
+            android:layout_marginTop="50px"
+
+            android:text="Unirse al grupo"
+            android:textColor="@drawable/txtboton" />
+
+        <LinearLayout
+            android:id="@+id/LinearDireccion"
+            android:layout_width="500px"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/UnirseAlGrupo"
+            android:layout_margin="40px"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/Direccion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Direccion:"
+                android:textSize="20dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:text="av jb justo 2261" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/LinearFecha"
+            android:layout_width="400px"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/UnirseAlGrupo"
+            android:layout_alignParentRight="true"
+            android:layout_margin="40px"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/Fecha"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Fecha:"
+                android:textSize="20dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:text="2/05/2019" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/TextListadeconf"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/LinearDireccion"
+            android:layout_margin="30px"
+            android:text="Lista de confirmados: "
+            android:textSize="20dp" />
+
+        <ListView
+            android:id="@+id/listadeconf"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/TextListadeconf">
+
+        </ListView>
+
+    </RelativeLayout>
+</ScrollView>
