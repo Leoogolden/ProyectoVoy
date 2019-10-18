@@ -70,6 +70,7 @@ public class IniciarSesion extends AppCompatActivity {
         protected Void doInBackground(Void... voids) {
             try {
                 URL rutatlantica = new URL(IP + "Usuario/" + Nombreu + "/" + pas);
+                Log.d("AccesoAPI3", rutatlantica.toString());
                 HttpURLConnection conexion = (HttpURLConnection) rutatlantica.openConnection();
                 Log.d("AccesoAPI3", "Me conecto");
                 if (conexion.getResponseCode() == 200) {

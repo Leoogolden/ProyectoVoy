@@ -186,6 +186,10 @@ public class SelectedGroup extends Fragment implements View.OnClickListener {
                         Actividad.putSerializable("FechaAct", activsl.FechaActiv);
                         DatosRecibidos.putBundle("Activ", Actividad);
 
+                        Log.d("kova", Actividad.toString());
+                        Log.d("kova", "" + Actividad.getInt("IdAct"));
+                        Log.d("kova", DatosRecibidos.toString());
+
                         SelectedEvent Evento;
                         Evento = new SelectedEvent();
                         Evento.setArguments(DatosRecibidos);
