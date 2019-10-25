@@ -1,6 +1,7 @@
 package com.example.proyectovoy;
 
 import android.app.Fragment;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -105,6 +107,8 @@ public class SelectedEvent extends Fragment {
         UnirseAlGrupo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
 
 
             }
@@ -254,7 +258,43 @@ public class SelectedEvent extends Fragment {
         parseador = new JsonParser();
     }
 
+    private class SolicitudAlGrupo extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected Void doInBackground(Void... voids) {
+            try {
+                URL rutatlantica = new URL(getString(R.string.IP) + "Invitacion/SolicitaUnirse/" + grupaso.IdGrupo+"/"+user.IdUsuario);
+                HttpURLConnection conexion = (HttpURLConnection) rutatlantica.openConnection();
+                Log.d("AccesoAPI3", "Me conecto" + rutatlantica.toString());
+                Log.d("qonda", "miembros activ " + rutatlantica.toString());
+                conexion.setRequestMethod("POST");
+                conexion.setRequestProperty("Content-Type", "application/json");
+                conexion.setRequestProperty("charset", "utf-8");
+                if (conexion.getResponseCode() == 200) {
+                    Log.d("AccesoAPI3", "conexion ok");
+                    InputStream cuerporesspuesta = conexion.getInputStream();
+                    InputStreamReader lectorrespuesta = new InputStreamReader(cuerporesspuesta, StandardCharsets.UTF_8);
+                    Log.d("AccesoAPI3", "conexioion ok seguimos");
 
+                    ProcesaSolicitudGrupo(lectorrespuesta);
+                    Log.d("AccesoAPI3", "conexion ok daaale");
+                } else {
+                    Log.d("AccesoAPI3", "Error en la conexion");
+                }
+                conexion.disconnect();
+            } catch (Exception error) {
+                Log.d("AccesoAPI3", "Hubo un error al conectarme: " + error.getMessage());
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            Log.d("HolaHola3", "ueso, que pasoa");
+
+            Toast.makeText(getActivity(), "Solicitud Enviada", Toast.LENGTH_SHORT).show();
+        }
+    }
     public void ProcesaMiembrosActiv(InputStreamReader streamLeido) {
 
         JsonParser parseador;
@@ -279,6 +319,12 @@ public class SelectedEvent extends Fragment {
             Log.d("HolaHola3", "que ondaa " + aux.NombreUsuario);
             ListaDeUsuarios.add(aux);
         }
+    }
+    public void ProcesaSolicitudGrupo(InputStreamReader streamLeido) {
+
+        JsonParser parseador;
+        parseador = new JsonParser();
+
     }
 
 
