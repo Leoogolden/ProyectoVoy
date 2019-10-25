@@ -54,7 +54,8 @@ public class SelectedEvent extends Fragment {
         UnirseAlGrupo.setVisibility(View.VISIBLE);
 
         DatosRecibidos = getArguments();
-        GrupoElegido = DatosRecibidos.getBundle("grupaso");
+        GrupoElegido = DatosRecibidos.getBundle("grupardo");
+        Log.d("kovacho", GrupoElegido.toString());
         String Nombre = GrupoElegido.getString("Nombre");
         String Descripcion = GrupoElegido.getString("Descripcion");
         int IdGrupo = GrupoElegido.getInt("idGrupo");
@@ -74,11 +75,9 @@ public class SelectedEvent extends Fragment {
         user.setNroTel(usuariologeado.getInt("NroTel"));
         user.setNombreUsuario(usuariologeado.getString("NombreUsuario"));
         user.setIdUsuario(usuariologeado.getInt("IdUsuario"));
+
+
         Activ = DatosRecibidos.getBundle("Activ");
-        Log.d("kova", Activ.toString());
-        Log.d("kova", "" + Activ.getInt("IdAct"));
-
-
         activ.setIdActiv(Activ.getInt("IdAct"));
         activ.setNombreActiv(Activ.getString("Nombre"));
         activ.setDescActiv(Activ.getString("Desc"));
@@ -88,6 +87,9 @@ public class SelectedEvent extends Fragment {
         activ.setEdMin(Activ.getInt("EdadMin"));
         activ.setLimPer(Activ.getInt("LimPer"));
         activ.setFechaActiv((Date) Activ.getSerializable("FechaAct"));
+        Log.d("kova", Activ.toString());
+        Log.d("kova", "" + Activ.getInt("IdAct"));
+
         TextView titulo = vistadevuelve.findViewById(R.id.tituloactiv);
         titulo.setText(activ.NombreActiv);
         TextView Desc = vistadevuelve.findViewById(R.id.descripcionactiv);
@@ -108,8 +110,8 @@ public class SelectedEvent extends Fragment {
             @Override
             public void onClick(View v) {
 
-
-
+                SolicitudAlGrupo a = new SolicitudAlGrupo();
+                a.execute();
 
             }
         });
@@ -117,7 +119,7 @@ public class SelectedEvent extends Fragment {
             @Override
             public void onClick(View v) {
 
-                tareaAsistencia j= new tareaAsistencia();
+                tareaAsistencia j = new tareaAsistencia();
                 j.execute();
             }
         });
@@ -157,6 +159,8 @@ public class SelectedEvent extends Fragment {
             if (esmiembro) {
                 UnirseAlGrupo.setVisibility(View.GONE);
                 UnirseAlGrupo.setEnabled(false);
+
+            } else {
                 ConfirmarAsistencia.setEnabled(false);
             }
         }
@@ -174,10 +178,10 @@ public class SelectedEvent extends Fragment {
         @Override
         protected Void doInBackground(Void... voids) {
             try {
-                URL rutatlantica = new URL(getString(R.string.IP) + "ActivsGrupo/TraerMiembrosActv/" + activ.IdActiv);
-                HttpURLConnection conexion = (HttpURLConnection) rutatlantica.openConnection();
-                Log.d("AccesoAPI3", "Me conecto" + rutatlantica.toString());
-                Log.d("qonda", "miembros activ " + rutatlantica.toString());
+                URL rutatlantica2 = new URL(getString(R.string.IP) + "ActivsGrupo/TraerMiembrosActv/" + activ.IdActiv);
+                HttpURLConnection conexion = (HttpURLConnection) rutatlantica2.openConnection();
+                Log.d("AccesoAPI3", "Me conecto" + rutatlantica2.toString());
+                Log.d("qonda", "miembros activ " + rutatlantica2.toString());
                 if (conexion.getResponseCode() == 200) {
                     Log.d("AccesoAPI3", "conexion ok");
                     InputStream cuerporesspuesta = conexion.getInputStream();
@@ -209,9 +213,9 @@ public class SelectedEvent extends Fragment {
             int lenght = ListaDeUsuarios.size();
             Log.d("wow", "son " + lenght);
             Log.d("wow", "avergaston " + ListaDeUsuarios.toString());
-            for (int i=0;i<lenght;i++){
+            for (int i = 0; i < lenght; i++) {
                 int idus = ListaDeUsuarios.get(i).IdUsuario;
-                if(user.IdUsuario ==idus){
+                if (user.IdUsuario == idus) {
                     ConfirmarAsistencia.setEnabled(false);
                     Log.d("wow", "ya participa!");
                 }
@@ -219,6 +223,7 @@ public class SelectedEvent extends Fragment {
             }
         }
     }
+
     private class tareaAsistencia extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... voids) {
@@ -262,7 +267,7 @@ public class SelectedEvent extends Fragment {
         @Override
         protected Void doInBackground(Void... voids) {
             try {
-                URL rutatlantica = new URL(getString(R.string.IP) + "Invitacion/SolicitaUnirse/" + grupaso.IdGrupo+"/"+user.IdUsuario);
+                URL rutatlantica = new URL(getString(R.string.IP) + "Invitacion/SolicitaUnirse/" + grupaso.IdGrupo + "/" + user.IdUsuario);
                 HttpURLConnection conexion = (HttpURLConnection) rutatlantica.openConnection();
                 Log.d("AccesoAPI3", "Me conecto" + rutatlantica.toString());
                 Log.d("qonda", "miembros activ " + rutatlantica.toString());
@@ -295,6 +300,7 @@ public class SelectedEvent extends Fragment {
             Toast.makeText(getActivity(), "Solicitud Enviada", Toast.LENGTH_SHORT).show();
         }
     }
+
     public void ProcesaMiembrosActiv(InputStreamReader streamLeido) {
 
         JsonParser parseador;
@@ -320,6 +326,7 @@ public class SelectedEvent extends Fragment {
             ListaDeUsuarios.add(aux);
         }
     }
+
     public void ProcesaSolicitudGrupo(InputStreamReader streamLeido) {
 
         JsonParser parseador;

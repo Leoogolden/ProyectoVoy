@@ -78,7 +78,7 @@ public class CrearActiv extends Fragment {
 
 
         Log.d("keloke", user.Nombre + " " + user.IdUsuario);
-        GrupoElegido = bundleaso.getBundle("grupaso");
+        GrupoElegido = bundleaso.getBundle("grupo");
         String Nombre = GrupoElegido.getString("Nombre");
         String Descripcion = GrupoElegido.getString("Descripcion");
         int idGrupo = GrupoElegido.getInt("idGrupo");
@@ -162,7 +162,7 @@ public class CrearActiv extends Fragment {
 
             Bundle bundel = new Bundle();
             bundel.putBundle("usuariologeado", usuariologeado);
-            bundel.putBundle("grupaso", GrupoElegido);
+            bundel.putBundle("grupo", GrupoElegido);
             SelectedGroup AgregarUsuarios;
             AgregarUsuarios = new SelectedGroup();
             AgregarUsuarios.setArguments(bundel);

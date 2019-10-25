@@ -75,7 +75,7 @@ public class VerGrupos extends Fragment implements View.OnClickListener {
                 grupaso.putString("Descripcion", ListaDeGrupos.get(position).Descripcion);
                 Bundle paso = new Bundle();
 
-                paso.putBundle("grupaso", grupaso);
+                paso.putBundle("grupardo", grupaso);
                 paso.putBundle("usuariologeado", usuariologeado);
                 Log.d("onclick", "entra2" + ListaDeGrupos.get(position).Nombre);
 

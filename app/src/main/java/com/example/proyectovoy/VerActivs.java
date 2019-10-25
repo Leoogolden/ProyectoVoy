@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -36,7 +35,8 @@ public class VerActivs extends Fragment {
     FragmentTransaction Transacciones;
     int idactividad;
     Bundle DatosRecibidos;
-
+    Grupos grupo = new Grupos();
+Actividades activseleccionada = new Actividades();
     public View onCreateView(LayoutInflater inflador, ViewGroup grupo, Bundle datos) {
         vistadevuelve = inflador.inflate(R.layout.fragment_mis_activs, grupo, false);
         DatosRecibidos = getArguments();
@@ -68,7 +68,7 @@ public class VerActivs extends Fragment {
                 .setTopColorRes(R.color.colorAccent)
                 .setButtonsColorRes(R.color.colorAccent)
                 .setTitle("Actividad " + activsl.NombreActiv)
-                .setMessage("Descripcion: " + activsl.DescActiv + " en " + activsl.NombreCalle + " al " + activsl.NumeroCalle + " . ¿Desea participar en la actividad?")
+                .setMessage("Descripcion: " + activsl.DescActiv + " en " + activsl.NombreCalle + " al " + activsl.NumeroCalle)
                 .setPositiveButtonColor(ContextCompat.getColor(getActivity(), R.color.sec))
                 .setNegativeButtonColor(ContextCompat.getColor(getActivity(), R.color.sec))
                 .setNeutralButtonColor(ContextCompat.getColor(getActivity(), R.color.sec))
@@ -76,32 +76,17 @@ public class VerActivs extends Fragment {
                 .setNeutralButton("Ver mas info", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Bundle Actividad = new Bundle();
-                        Actividad.putString("Nombre", activsl.NombreActiv);
-                        Actividad.putString("Desc", activsl.DescActiv);
-                        Actividad.putString("NombreCalle", activsl.NombreCalle);
-                        Actividad.putInt("NroCalle", activsl.NumeroCalle);
-                        Actividad.putInt("EdadMax", activsl.EdMax);
-                        Actividad.putInt("EdadMin", activsl.EdMin);
-                        Actividad.putInt("LimPer", activsl.LimPer);
-                        Actividad.putInt("IdAct", activsl.IdActiv);
-                        Actividad.putSerializable("FechaAct", activsl.FechaActiv);
-                        DatosRecibidos.putBundle("Activ", Actividad);
+                        activseleccionada = activsl;
 
-                        Log.d("kova", Actividad.toString());
-                        Log.d("kova", "" + Actividad.getInt("IdAct"));
+                        TraerGrupo dou = new TraerGrupo();
+                        dou.execute();
+
+
+
+                        Log.d("kova", "vamos por todo cagon");
+                        Log.d("kova", "a los hinchas de river les digo que crean, porque tienen con que creer");
                         Log.d("kova", DatosRecibidos.toString());
 
-                        SelectedEvent Evento;
-                        Evento = new SelectedEvent();
-                        Bundle pasaje = new Bundle();
-                        pasaje.putBundle("usuariologeado", usuariologeado);
-                        pasaje.putBundle("Activ", Actividad);
-                        Evento.setArguments(DatosRecibidos);
-                        ManejadorFragments = getFragmentManager();
-                        Transacciones = ManejadorFragments.beginTransaction();
-                        Transacciones.replace(R.id.AlojadorDeFragmentsGrupos, Evento);
-                        Transacciones.commit();
                     }
                 })
 
@@ -113,6 +98,77 @@ public class VerActivs extends Fragment {
                 })
                 .show();
 
+    }
+
+    private class TraerGrupo extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            try {
+                URL rutatlantica = new URL(getString(R.string.IP) + "Activs/TraerGrupo/" + idactividad);
+                HttpURLConnection conexion = (HttpURLConnection) rutatlantica.openConnection();
+                Log.d("AccesoAPI2", "Me conecto");
+                if (conexion.getResponseCode() == 200) {
+                    Log.d("AccesoAPI2", "conexion ok");
+                    InputStream cuerporesspuesta = conexion.getInputStream();
+                    InputStreamReader lectorrespuesta = new InputStreamReader(cuerporesspuesta, "UTF-8");
+                    ProcesarJsonGrupo(lectorrespuesta);
+                } else {
+                    Log.d("AccesoAPI2", "Error en la conexion");
+                }
+                conexion.disconnect();
+            } catch (Exception error) {
+                Log.d("AccesoAPI2", "Huno un error al conectarme" + error.getMessage());
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            Bundle Actividad = new Bundle();
+            Actividad.putString("Nombre", activseleccionada.NombreActiv);
+            Actividad.putString("Desc", activseleccionada.DescActiv);
+            Actividad.putString("NombreCalle", activseleccionada.NombreCalle);
+            Actividad.putInt("NroCalle", activseleccionada.NumeroCalle);
+            Actividad.putInt("EdadMax", activseleccionada.EdMax);
+            Actividad.putInt("EdadMin", activseleccionada.EdMin);
+            Actividad.putInt("LimPer", activseleccionada.LimPer);
+            Actividad.putInt("IdAct", activseleccionada.IdActiv);
+            Actividad.putSerializable("FechaAct", activseleccionada.FechaActiv);
+            Bundle grupardo = new Bundle();
+            grupardo.putInt("idGrupo", grupo.IdGrupo);
+            grupardo.putString("Nombre", grupo.Nombre);
+            grupardo.putString("Descripcion", grupo.Descripcion);
+            Bundle pasaje = new Bundle();
+            pasaje.putBundle("usuariologeado", usuariologeado);
+            pasaje.putBundle("Activ", Actividad);
+            pasaje.putBundle("grupardo",grupardo);
+
+            SelectedEvent Evento;
+            Evento = new SelectedEvent();
+            Evento.setArguments(pasaje);
+            ManejadorFragments = getFragmentManager();
+            Transacciones = ManejadorFragments.beginTransaction();
+            Transacciones.replace(R.id.AlojadorDeFragmentsHome, Evento);
+            Transacciones.commit();
+
+        }
+    }
+
+    private void ProcesarJsonGrupo(InputStreamReader lectorrespuesta) {
+        Log.d("grupoactiv", "pedimos");
+        JsonParser parseador;
+        parseador = new JsonParser();
+        JsonObject objetojson;
+        objetojson = parseador.parse(lectorrespuesta).getAsJsonObject();
+        int idGru = objetojson.get("IdGrupo").getAsInt();
+        Log.d("grupoactiv", "pedimos2");
+        String nombre = objetojson.get("Nombre").getAsString();
+        String desc = objetojson.get("Descripcion").getAsString();
+        Log.d("grupoactiv", "pedimos3");
+        Grupos a = new Grupos(idGru, nombre, desc);
+        Log.d("grupoactiv", "dou " + a.Nombre);
+        grupo = a;
     }
 
     private class TraerActivs extends AsyncTask<Void, Void, Void> {
