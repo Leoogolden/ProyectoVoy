@@ -114,4 +114,9 @@ public class Actividades {
         FechaActiv = fechaActiv;
     }
 
+
+    public String toString(){
+        return this.NombreActiv;
+
+    }
 }

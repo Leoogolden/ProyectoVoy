@@ -6,12 +6,15 @@ import android.app.FragmentTransaction;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 
 import com.google.gson.JsonArray;
@@ -25,6 +28,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class VerActivs extends Fragment {
     View vistadevuelve;
@@ -33,9 +37,10 @@ public class VerActivs extends Fragment {
     Usuarios user = new Usuarios();
     FragmentManager ManejadorFragments;
     FragmentTransaction Transacciones;
-    int idactividad;
+
     Bundle DatosRecibidos;
     Grupos grupo = new Grupos();
+    EditText filtro;
 Actividades activseleccionada = new Actividades();
     public View onCreateView(LayoutInflater inflador, ViewGroup grupo, Bundle datos) {
         vistadevuelve = inflador.inflate(R.layout.fragment_mis_activs, grupo, false);
@@ -47,6 +52,7 @@ Actividades activseleccionada = new Actividades();
         user = new Usuarios(usuariologeado.getInt("IdUsuario"), usuariologeado.getString("Nombre"), usuariologeado.getString("Mail"), usuariologeado.getString("NombreUsuario"), usuariologeado.getString("Contra"), usuariologeado.getInt("NroTel"), usuariologeado.getInt("Edad"));
         Log.d("keloke", user.Nombre + " " + user.IdUsuario);
         Button crearactiv = vistadevuelve.findViewById(R.id.BtnCrearActividad);
+        filtro = vistadevuelve.findViewById(R.id.ActivsFilter);
         crearactiv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -105,9 +111,10 @@ Actividades activseleccionada = new Actividades();
         @Override
         protected Void doInBackground(Void... voids) {
             try {
-                URL rutatlantica = new URL(getString(R.string.IP) + "Activs/TraerGrupo/" + idactividad);
+                URL rutatlantica = new URL(getString(R.string.IP) + "Activs/TraerGrupo/" + activseleccionada.IdActiv);
                 HttpURLConnection conexion = (HttpURLConnection) rutatlantica.openConnection();
-                Log.d("AccesoAPI2", "Me conecto");
+
+                Log.d("AccesoAPI2", "Me conecto "+rutatlantica.toString());
                 if (conexion.getResponseCode() == 200) {
                     Log.d("AccesoAPI2", "conexion ok");
                     InputStream cuerporesspuesta = conexion.getInputStream();
@@ -196,11 +203,29 @@ Actividades activseleccionada = new Actividades();
 
         @Override
         protected void onPostExecute(Void aVoid) {
-            ActividadesListAdapter miAdaptador;
+            final ActividadesListAdapter miAdaptador;
             miAdaptador = new ActividadesListAdapter(getActivity(), R.layout.lista_activs_grupo, ListaActivs);
-            ListView ListaEven = vistadevuelve.findViewById(R.id.ListaActivs);
+            final ListView ListaEven = vistadevuelve.findViewById(R.id.ListaActivs);
+            Log.d("onPostExecute", "onPostExecute");
             ListaEven.setAdapter(miAdaptador);
             int lenght = ListaActivs.size();
+            filtro.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    miAdaptador.getFilter().filter(s);
+                    Log.d("filtro", s.toString());
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+
+                }
+            });
             ListaEven.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
                 @Override
@@ -211,6 +236,7 @@ Actividades activseleccionada = new Actividades();
             });
         }
     }
+
 
     private void ProcesarJsonActivs(InputStreamReader lectorrespuesta) throws
             ParseException {

@@ -4,20 +4,28 @@
     android:layout_height="match_parent">
 
     <Button
-        android:textSize="20dp"
-        android:background="@drawable/boton"
-        android:textColor="@drawable/txtboton"
         android:id="@+id/BtnCrearActividad"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/boton"
         android:onClick="NuevaActiv"
         android:text="Nueva Actividad"
-        android:layout_alignParentTop="true"/>
+        android:textColor="@drawable/txtboton"
+        android:textSize="20dp" />
+
+    <EditText
+        android:id="@+id/ActivsFilter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/BtnCrearActividad">
+    </EditText>
+
     <ListView
+        android:id="@+id/ListaActivs"
         android:layout_width="wrap_content"
         android:layout_height="500dp"
-        android:id="@+id/ListaActivs"
-        android:layout_below="@+id/BtnCrearActividad">
+        android:layout_below="@+id/ActivsFilter">
 
     </ListView>
 

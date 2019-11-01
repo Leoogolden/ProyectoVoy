@@ -112,6 +112,8 @@ public class SelectedEvent extends Fragment {
 
                 SolicitudAlGrupo a = new SolicitudAlGrupo();
                 a.execute();
+                UnirseAlGrupo.setEnabled(false);
+
 
             }
         });
@@ -121,6 +123,7 @@ public class SelectedEvent extends Fragment {
 
                 tareaAsistencia j = new tareaAsistencia();
                 j.execute();
+                UnirseAlGrupo.setEnabled(false);
             }
         });
 
