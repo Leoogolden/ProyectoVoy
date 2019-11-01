@@ -64,21 +64,13 @@
             android:textColor="@drawable/txtboton2"
             android:textSize="20dp" />
 
-        <Button
-            android:id="@+id/UnirseAlGrupo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/BotonConfirmar"
-            android:layout_marginTop="50px"
 
-            android:text="Unirse al grupo"
-            android:textColor="@drawable/txtboton" />
 
         <LinearLayout
             android:id="@+id/LinearDireccion"
             android:layout_width="500px"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/UnirseAlGrupo"
+            android:layout_below="@+id/BotonConfirmar"
             android:layout_margin="40px"
             android:orientation="vertical">
 
@@ -101,7 +93,7 @@
             android:id="@+id/LinearFecha"
             android:layout_width="400px"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/UnirseAlGrupo"
+            android:layout_below="@+id/BotonConfirmar"
             android:layout_alignParentRight="true"
             android:layout_margin="40px"
             android:orientation="vertical">

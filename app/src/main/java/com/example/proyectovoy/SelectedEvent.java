@@ -40,9 +40,9 @@ public class SelectedEvent extends Fragment {
 
     ArrayList<Usuarios> ListaDeUsuarios = new ArrayList<>();
     Boolean esmiembro = false;
-
+    Boolean yaparticipa = false;
     Button ConfirmarAsistencia;
-    Button UnirseAlGrupo;
+
     int idactividad;
 
     public View onCreateView(LayoutInflater inflador, ViewGroup grupo, Bundle datos) {
@@ -50,8 +50,6 @@ public class SelectedEvent extends Fragment {
 
 
         ConfirmarAsistencia = vistadevuelve.findViewById(R.id.BotonConfirmar);
-        UnirseAlGrupo = vistadevuelve.findViewById(R.id.UnirseAlGrupo);
-        UnirseAlGrupo.setVisibility(View.VISIBLE);
 
         DatosRecibidos = getArguments();
         GrupoElegido = DatosRecibidos.getBundle("grupardo");
@@ -106,24 +104,35 @@ public class SelectedEvent extends Fragment {
         lol.execute();
 
 
-        UnirseAlGrupo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+//        for (Usuarios aux : ListaDeUsuarios
+//        ) {Log.d("kovacho", "en el foreach papa" );
+//            if (user.IdUsuario == aux.IdUsuario){
+//                Log.d("kovacho", "ya esta en la activ" );
+//                yaparticipa = true;
+//                ConfirmarAsistencia.setText("NO IR");
+//            }
+//
+//        }
 
-                SolicitudAlGrupo a = new SolicitudAlGrupo();
-                a.execute();
-                UnirseAlGrupo.setEnabled(false);
-
-
-            }
-        });
         ConfirmarAsistencia.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (yaparticipa) {
+                    
 
-                tareaAsistencia j = new tareaAsistencia();
-                j.execute();
-                UnirseAlGrupo.setEnabled(false);
+                } else {
+
+                    if (esmiembro) {
+
+                        Log.d("vachito", "es miembro");
+                        tareaAsistencia j = new tareaAsistencia();
+                        j.execute();
+                    } else {
+                        SolicitudAlGrupo a = new SolicitudAlGrupo();
+                        a.execute();
+                        Log.d("vachito", "no es miembro");
+                    }
+                }
             }
         });
 
@@ -160,11 +169,10 @@ public class SelectedEvent extends Fragment {
             super.onPostExecute(aVoid);
             Log.d("qonda", "esta en el grupo " + esmiembro.toString());
             if (esmiembro) {
-                UnirseAlGrupo.setVisibility(View.GONE);
-                UnirseAlGrupo.setEnabled(false);
+                ConfirmarAsistencia.setText("Voy!");
 
             } else {
-                ConfirmarAsistencia.setEnabled(false);
+                ConfirmarAsistencia.setText("Unirse al grupo");
             }
         }
     }
@@ -219,8 +227,9 @@ public class SelectedEvent extends Fragment {
             for (int i = 0; i < lenght; i++) {
                 int idus = ListaDeUsuarios.get(i).IdUsuario;
                 if (user.IdUsuario == idus) {
-                    ConfirmarAsistencia.setEnabled(false);
+                    ConfirmarAsistencia.setText("NO IR");
                     Log.d("wow", "ya participa!");
+                    yaparticipa = true;
                 }
 
             }
@@ -270,7 +279,7 @@ public class SelectedEvent extends Fragment {
         @Override
         protected Void doInBackground(Void... voids) {
             try {
-                URL rutatlantica = new URL(getString(R.string.IP) + "Invitacion/SolicitaUnirse/" + grupaso.IdGrupo + "/" + user.IdUsuario +"/"+ activ.IdActiv);
+                URL rutatlantica = new URL(getString(R.string.IP) + "Invitacion/SolicitaUnirse/" + grupaso.IdGrupo + "/" + user.IdUsuario + "/" + activ.IdActiv);
                 HttpURLConnection conexion = (HttpURLConnection) rutatlantica.openConnection();
                 Log.d("AccesoAPI3", "Me conecto" + rutatlantica.toString());
                 Log.d("qonda", "miembros activ " + rutatlantica.toString());
