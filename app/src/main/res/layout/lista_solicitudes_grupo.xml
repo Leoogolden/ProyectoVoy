@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/android_list_view_tutorial_with_example"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:padding="7dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/QuienInvita"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:text="vfwvnjufsvnkj"/>
+
+        <TextView
+            android:id="@+id/invitacion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/QuienInvita"
+            android:layout_marginLeft="134dp"
+            android:text=" quiere unirse al grupo: " />
+
+        <TextView
+            android:id="@+id/QueGrupo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/invitacion"
+            android:layout_marginLeft="165dp"
+            android:text="vfwvnjufsvnkj" />
+
+
+    </RelativeLayout>
+
+
+</LinearLayout>

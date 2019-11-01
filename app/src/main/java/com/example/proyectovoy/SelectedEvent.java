@@ -270,7 +270,7 @@ public class SelectedEvent extends Fragment {
         @Override
         protected Void doInBackground(Void... voids) {
             try {
-                URL rutatlantica = new URL(getString(R.string.IP) + "Invitacion/SolicitaUnirse/" + grupaso.IdGrupo + "/" + user.IdUsuario);
+                URL rutatlantica = new URL(getString(R.string.IP) + "Invitacion/SolicitaUnirse/" + grupaso.IdGrupo + "/" + user.IdUsuario +"/"+ activ.IdActiv);
                 HttpURLConnection conexion = (HttpURLConnection) rutatlantica.openConnection();
                 Log.d("AccesoAPI3", "Me conecto" + rutatlantica.toString());
                 Log.d("qonda", "miembros activ " + rutatlantica.toString());

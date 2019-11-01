@@ -3,10 +3,38 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <TextView
+        android:id="@+id/TextoInvitaciones"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="20dp"
+        android:text="Invitaciones a grupos: "
+        android:textSize="20dp" />
+
     <ListView
         android:id="@+id/ListaInvitacionGrupo"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/TextoInvitaciones">
+
+    </ListView>
+
+    <TextView
+        android:id="@+id/TextoSolicitudes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ListaInvitacionGrupo"
+        android:layout_marginTop="20dp"
+        android:text="Solicitudes a grupos: "
+        android:textSize="20dp" />
+
+    <ListView
+        android:id="@+id/ListaSolicitudGrupo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/TextoSolicitudes"
+        android:layout_marginTop="30dp">
 
     </ListView>
 
