@@ -51,21 +51,9 @@ Actividades activseleccionada = new Actividades();
         usuariologeado = getArguments();
         user = new Usuarios(usuariologeado.getInt("IdUsuario"), usuariologeado.getString("Nombre"), usuariologeado.getString("Mail"), usuariologeado.getString("NombreUsuario"), usuariologeado.getString("Contra"), usuariologeado.getInt("NroTel"), usuariologeado.getInt("Edad"));
         Log.d("keloke", user.Nombre + " " + user.IdUsuario);
-        Button crearactiv = vistadevuelve.findViewById(R.id.BtnCrearActividad);
+
         filtro = vistadevuelve.findViewById(R.id.ActivsFilter);
-        crearactiv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-
-                CrearActiv nuevaactiv = new CrearActiv();
-                nuevaactiv.setArguments(usuariologeado);
-                ManejadorFragments = getFragmentManager();
-                Transacciones = ManejadorFragments.beginTransaction();
-                Transacciones.replace(R.id.AlojadorDeFragmentsHome, nuevaactiv);
-                Transacciones.commit();
-            }
-        });
         return vistadevuelve;
     }
 

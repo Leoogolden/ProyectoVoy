@@ -40,7 +40,6 @@ public class InvitarAlGrupo extends Fragment implements View.OnClickListener {
     Button VolveraGrupos;
     Bundle usuariologeado;
     Boolean esono;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         vistadevuelve = inflater.inflate(R.layout.fragment_invitarusuarios, container, false);
@@ -50,6 +49,7 @@ public class InvitarAlGrupo extends Fragment implements View.OnClickListener {
         Bundle DatosRecibidos = getArguments();
         usuariologeado = DatosRecibidos.getBundle("usuario");
         idusr = usuariologeado.getInt("IdUsuario");
+
         idgrupo = DatosRecibidos.getInt("idgru");
         VolveraGrupos = vistadevuelve.findViewById(R.id.VolverAGrupos);
         VolveraGrupos.setOnClickListener(this);
@@ -164,7 +164,9 @@ public class InvitarAlGrupo extends Fragment implements View.OnClickListener {
             user.NroTel = objPersona.get("NroTelefono").getAsInt();
             user.Edad = objPersona.get("Edad").getAsInt();
             Log.d("HolaHola3", "que ondaa " + user.NombreUsuario);
-            ListaDeUsuarios.add(user);
+            if(idusr != user.IdUsuario) {
+                ListaDeUsuarios.add(user);
+            }
         }
 
     }

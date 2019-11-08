@@ -3,22 +3,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/BtnCrearActividad"
+
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/TextoAyuda"
         android:layout_alignParentTop="true"
-        android:background="@drawable/boton"
-        android:onClick="NuevaActiv"
-        android:text="Nueva Actividad"
+        android:text="Actividades: "
         android:textColor="@drawable/txtboton"
-        android:textSize="20dp" />
-
+        android:textSize="20dp"
+        android:layout_marginTop="5dp"/>
     <EditText
+        android:layout_marginTop="20dp"
         android:id="@+id/ActivsFilter"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/BtnCrearActividad">
+        android:layout_below="@+id/TextoAyuda">
     </EditText>
 
     <ListView

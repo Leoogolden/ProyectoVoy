@@ -282,7 +282,7 @@ public class SelectedEvent extends Fragment {
             Evento.setArguments(DatosRecibidos);
             ManejadorFragments = getFragmentManager();
             Transacciones = ManejadorFragments.beginTransaction();
-            Transacciones.replace(R.id.AlojadorDeFragmentsHome, Evento);
+            Transacciones.replace(R.id.AlojadorDeFragmentsGrupos, Evento);
             Transacciones.commit();
         }
     }
@@ -330,7 +330,7 @@ public class SelectedEvent extends Fragment {
             Evento.setArguments(DatosRecibidos);
             ManejadorFragments = getFragmentManager();
             Transacciones = ManejadorFragments.beginTransaction();
-            Transacciones.replace(R.id.AlojadorDeFragmentsHome, Evento);
+            Transacciones.replace(R.id.AlojadorDeFragmentsGrupos, Evento);
             Transacciones.commit();
             Toast.makeText(getActivity(), "Solicitud Enviada", Toast.LENGTH_SHORT).show();
         }
@@ -406,7 +406,7 @@ public class SelectedEvent extends Fragment {
             Evento.setArguments(DatosRecibidos);
             ManejadorFragments = getFragmentManager();
             Transacciones = ManejadorFragments.beginTransaction();
-            Transacciones.replace(R.id.AlojadorDeFragmentsHome, Evento);
+            Transacciones.replace(R.id.AlojadorDeFragmentsGrupos, Evento);
             Transacciones.commit();
         }
     }
