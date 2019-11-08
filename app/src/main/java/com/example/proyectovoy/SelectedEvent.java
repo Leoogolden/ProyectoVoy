@@ -1,9 +1,12 @@
 package com.example.proyectovoy;
 
 import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.TextureView;
@@ -37,6 +40,9 @@ public class SelectedEvent extends Fragment {
     Bundle DatosRecibidos;
     Bundle GrupoElegido;
     Bundle Activ;
+
+    FragmentManager ManejadorFragments;
+    FragmentTransaction Transacciones;
 
     ArrayList<Usuarios> ListaDeUsuarios = new ArrayList<>();
     Boolean esmiembro = false;
@@ -118,7 +124,9 @@ public class SelectedEvent extends Fragment {
             @Override
             public void onClick(View v) {
                 if (yaparticipa) {
-                    
+
+                    tareaBajaActiv a = new tareaBajaActiv();
+                    a.execute();
 
                 } else {
 
@@ -169,7 +177,6 @@ public class SelectedEvent extends Fragment {
             super.onPostExecute(aVoid);
             Log.d("qonda", "esta en el grupo " + esmiembro.toString());
             if (esmiembro) {
-                ConfirmarAsistencia.setText("Voy!");
 
             } else {
                 ConfirmarAsistencia.setText("Unirse al grupo");
@@ -227,9 +234,12 @@ public class SelectedEvent extends Fragment {
             for (int i = 0; i < lenght; i++) {
                 int idus = ListaDeUsuarios.get(i).IdUsuario;
                 if (user.IdUsuario == idus) {
-                    ConfirmarAsistencia.setText("NO IR");
+                    ConfirmarAsistencia.setText("De Baja");
                     Log.d("wow", "ya participa!");
                     yaparticipa = true;
+
+                    ConfirmarAsistencia.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.boton3));
+                    ConfirmarAsistencia.setTextColor(R.drawable.txtboton3);
                 }
 
             }
@@ -266,7 +276,14 @@ public class SelectedEvent extends Fragment {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-
+            Toast.makeText(getActivity(), "Ahora participas del evento!", Toast.LENGTH_SHORT).show();
+            SelectedEvent Evento;
+            Evento = new SelectedEvent();
+            Evento.setArguments(DatosRecibidos);
+            ManejadorFragments = getFragmentManager();
+            Transacciones = ManejadorFragments.beginTransaction();
+            Transacciones.replace(R.id.AlojadorDeFragmentsHome, Evento);
+            Transacciones.commit();
         }
     }
 
@@ -308,7 +325,13 @@ public class SelectedEvent extends Fragment {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
             Log.d("HolaHola3", "ueso, que pasoa");
-
+            SelectedEvent Evento;
+            Evento = new SelectedEvent();
+            Evento.setArguments(DatosRecibidos);
+            ManejadorFragments = getFragmentManager();
+            Transacciones = ManejadorFragments.beginTransaction();
+            Transacciones.replace(R.id.AlojadorDeFragmentsHome, Evento);
+            Transacciones.commit();
             Toast.makeText(getActivity(), "Solicitud Enviada", Toast.LENGTH_SHORT).show();
         }
     }
@@ -340,6 +363,55 @@ public class SelectedEvent extends Fragment {
     }
 
     public void ProcesaSolicitudGrupo(InputStreamReader streamLeido) {
+
+        JsonParser parseador;
+        parseador = new JsonParser();
+
+    }
+
+    private class tareaBajaActiv extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected Void doInBackground(Void... voids) {
+            try {
+                Log.d("AccesoAPI6", "aaaa234");
+                URL rutatlantica = new URL(getString(R.string.IP) + "ActivsGrupo/BajaDeActiv/" + user.IdUsuario + "/" + activ.IdActiv);
+                Log.d("AccesoAPI6", "vaaa " + rutatlantica.toString());
+                HttpURLConnection conexion = (HttpURLConnection) rutatlantica.openConnection();
+                conexion.setRequestMethod("POST");
+                conexion.setRequestProperty("Content-Type", "application/json");
+                conexion.setRequestProperty("charset", "utf-8");
+                Log.d("AccesoAPI6", "Me conecto");
+                if (conexion.getResponseCode() == 200) {
+                    Log.d("AccesoAPI6", "conexion ok");
+                    InputStream cuerporesspuesta = conexion.getInputStream();
+                    InputStreamReader lectorrespuesta = new InputStreamReader(cuerporesspuesta, "UTF-8");
+                    ProcessJSONBaja(lectorrespuesta);
+                } else {
+                    Log.d("AccesoAPI8", "Error en la conexion " + conexion.getResponseCode());
+                }
+                conexion.disconnect();
+            } catch (Exception error) {
+                Log.d("AccesoAPI9", "Huno un error al conectarme" + error.getMessage());
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+            Toast.makeText(getActivity(), "Baja Exitosa", Toast.LENGTH_SHORT).show();
+            SelectedEvent Evento;
+            Evento = new SelectedEvent();
+            Evento.setArguments(DatosRecibidos);
+            ManejadorFragments = getFragmentManager();
+            Transacciones = ManejadorFragments.beginTransaction();
+            Transacciones.replace(R.id.AlojadorDeFragmentsHome, Evento);
+            Transacciones.commit();
+        }
+    }
+
+    public void ProcessJSONBaja(InputStreamReader streamLeido) {
 
         JsonParser parseador;
         parseador = new JsonParser();

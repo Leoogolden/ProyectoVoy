@@ -19,14 +19,7 @@
             android:layout_margin="30px"
             android:text="VolverAlGrupo" />
 
-        <Button
-            android:id="@+id/EditarActiv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentRight="true"
-            android:layout_margin="30px"
-            android:text="Editar info" />
+
 
         <TextView
             android:id="@+id/tituloactiv"

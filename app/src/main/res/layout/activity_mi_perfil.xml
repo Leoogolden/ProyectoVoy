@@ -6,12 +6,24 @@
     android:layout_height="match_parent"
     tools:context=".MiPerfil">
 
-    <TextView
-        android:layout_width="match_parent"
+    <Button
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAlignment="center"
-        android:text="Mi Perfil"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:id="@+id/BtnCerrarSesion"
+        android:text="Cerrar Sesion"
+        android:background="@andro"
         />
+    <FrameLayout
+        android:id="@+id/AlojadorDeFragmentsPerfil"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/BtnCerrarSesion"
+        android:layout_height="600dp">
+
+
+    </FrameLayout>
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigation_view"
         android:layout_width="match_parent"
