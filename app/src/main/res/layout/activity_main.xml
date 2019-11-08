@@ -4,8 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/degradado"
-    android:padding="32dp"
-    android:gravity="center">
+    android:gravity="center"
+    android:padding="32dp">
 
 
     <Button
@@ -13,11 +13,9 @@
         android:layout_width="match_parent"
         android:layout_height="200px"
 
+        android:background="@drawable/boton"
         android:onClick="InSec"
         android:text="EMPEZA!"
-        android:background="@drawable/boton"
         android:textColor="@drawable/txtboton"
         android:textSize="20dp" />
-
-
 </RelativeLayout>
