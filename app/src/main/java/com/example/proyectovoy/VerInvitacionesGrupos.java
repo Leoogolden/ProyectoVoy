@@ -209,6 +209,8 @@ public class VerInvitacionesGrupos extends Fragment {
                         FragmentTransaction ft = getFragmentManager().beginTransaction();
                         ft.detach(VerInvitacionesGrupos.this).attach(VerInvitacionesGrupos.this).commit();
                         ListaDeInvitacionesGrupos.clear();
+                        ListaDeSolicitudesGrupos.clear();
+                        ListaDeSolPendientes.clear();
                     }
                 })
                 .setNegativeButton("Rechazar Invitacion", new View.OnClickListener() {
@@ -220,6 +222,8 @@ public class VerInvitacionesGrupos extends Fragment {
                         FragmentTransaction ft = getFragmentManager().beginTransaction();
                         ft.detach(VerInvitacionesGrupos.this).attach(VerInvitacionesGrupos.this).commit();
                         ListaDeInvitacionesGrupos.clear();
+                        ListaDeSolicitudesGrupos.clear();
+                        ListaDeSolPendientes.clear();
                     }
                 })
                 .setNeutralButton("Volver a la lista", null)

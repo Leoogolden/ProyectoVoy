@@ -139,8 +139,8 @@ Actividades activseleccionada = new Actividades();
             pasaje.putBundle("Activ", Actividad);
             pasaje.putBundle("grupardo",grupardo);
 
-            SelectedEvent Evento;
-            Evento = new SelectedEvent();
+            SelectedEventHome Evento;
+            Evento = new SelectedEventHome();
             Evento.setArguments(pasaje);
             ManejadorFragments = getFragmentManager();
             Transacciones = ManejadorFragments.beginTransaction();

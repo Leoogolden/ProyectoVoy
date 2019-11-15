@@ -87,6 +87,9 @@ public class SelectedGroup extends Fragment implements View.OnClickListener {
         FotoGrupo = vistadevuelve.findViewById(R.id.ImagenGrupo);
         Log.d("onclick", "entra5" + idGrupo);
 
+        VerificarAdmin vamos = new VerificarAdmin();
+        vamos.execute();
+
         NombreGrupo.setText(Nombre);
         DescripcionGrupo.setText(Descripcion);
         Log.d("onclick", "entra5");
@@ -129,8 +132,7 @@ public class SelectedGroup extends Fragment implements View.OnClickListener {
             }
         });
 
-        VerificarAdmin vamos = new VerificarAdmin();
-        vamos.execute();
+
         TraerActivs actividadesgrupo = new TraerActivs();
         actividadesgrupo.execute();
         TraerMiembrosDelGrupo miTarea = new TraerMiembrosDelGrupo();
@@ -363,7 +365,7 @@ public class SelectedGroup extends Fragment implements View.OnClickListener {
         @Override
         protected void onPostExecute(Void aVoid) {
             ActividadesListAdapter miAdaptador;
-            miAdaptador = new ActividadesListAdapter(getActivity(), R.layout.lista_activs_grupo, ListaActivs);
+            miAdaptador = new ActividadesListAdapter(getContext(), R.layout.lista_activs_grupo, ListaActivs);
             ListView ListaEven = vistadevuelve.findViewById(R.id.ListaEventos);
             ListaEven.setAdapter(miAdaptador);
             int lenght = ListaActivs.size();
@@ -456,7 +458,6 @@ public class SelectedGroup extends Fragment implements View.OnClickListener {
     }
 
 
-
     private void ProcesarJsonActivs(InputStreamReader lectorrespuesta) throws
             ParseException {
         JsonParser parseador;
@@ -511,9 +512,14 @@ public class SelectedGroup extends Fragment implements View.OnClickListener {
     public void EsAdminProcesa(InputStreamReader streamLeido) {
         JsonParser parseador;
         parseador = new JsonParser();
+        int idadmin = Integer.parseInt(parseador.parse(streamLeido).getAsString());
+        Log.d("ydale", parseador.parse(streamLeido).getAsString());
+        Log.d("ydale","crode es el "+ user.IdUsuario+ "adm es el "+ idadmin);
 
-        if(user.IdUsuario == parseador.parse(streamLeido).getAsInt()) {
-            esadmin = parseador.parse(streamLeido).getAsBoolean();
+        Log.d("ydale","adm es el "+ idadmin);
+        if (user.IdUsuario == parseador.parse(streamLeido).getAsInt()) {
+            esadmin = true;
+            Log.d("ydale", "es admin");
         }
 
     }

@@ -3,13 +3,11 @@ package com.example.proyectovoy;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.TextureView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -29,7 +27,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class SelectedEvent extends Fragment {
+public class SelectedEventHome extends Fragment {
     View vistadevuelve;
 
     Bundle usuariologeado;
@@ -277,12 +275,12 @@ ViewGroup a;
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
             Toast.makeText(getActivity(), "Ahora participas del evento!", Toast.LENGTH_SHORT).show();
-            SelectedEvent Evento;
-            Evento = new SelectedEvent();
+            SelectedEventHome Evento;
+            Evento = new SelectedEventHome();
             Evento.setArguments(DatosRecibidos);
             ManejadorFragments = getFragmentManager();
             Transacciones = ManejadorFragments.beginTransaction();
-                Transacciones.replace(R.id.AlojadorDeFragmentsGrupos, Evento);
+                Transacciones.replace(R.id.AlojadorDeFragmentsHome, Evento);
                 Transacciones.commit();
 // if(ManejadorFragments. == R.id.AlojadorDeFragmentsGrupos){
 //                Transacciones = ManejadorFragments.beginTransaction();
@@ -336,12 +334,12 @@ ViewGroup a;
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
             Log.d("HolaHola3", "ueso, que pasoa");
-            SelectedEvent Evento;
-            Evento = new SelectedEvent();
+            SelectedEventHome Evento;
+            Evento = new SelectedEventHome();
             Evento.setArguments(DatosRecibidos);
             ManejadorFragments = getFragmentManager();
             Transacciones = ManejadorFragments.beginTransaction();
-            Transacciones.replace(R.id.AlojadorDeFragmentsGrupos, Evento);
+            Transacciones.replace(R.id.AlojadorDeFragmentsHome, Evento);
             Transacciones.commit();
             Toast.makeText(getActivity(), "Solicitud Enviada", Toast.LENGTH_SHORT).show();
         }
@@ -412,12 +410,12 @@ ViewGroup a;
             super.onPostExecute(aVoid);
 
             Toast.makeText(getActivity(), "Baja Exitosa", Toast.LENGTH_SHORT).show();
-            SelectedEvent Evento;
-            Evento = new SelectedEvent();
+            SelectedEventHome Evento;
+            Evento = new SelectedEventHome();
             Evento.setArguments(DatosRecibidos);
             ManejadorFragments = getFragmentManager();
             Transacciones = ManejadorFragments.beginTransaction();
-            Transacciones.replace(R.id.AlojadorDeFragmentsGrupos, Evento);
+            Transacciones.replace(R.id.AlojadorDeFragmentsHome, Evento);
             Transacciones.commit();
         }
     }
