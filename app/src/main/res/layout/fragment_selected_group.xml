@@ -81,7 +81,7 @@
         <ListView
             android:id="@+id/ListaEventos"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="200dp"
             android:layout_below="@id/CrearEvento"
             android:layout_alignParentEnd="true"
             android:layout_marginTop="48dp"
@@ -107,7 +107,7 @@
         <ListView
             android:id="@+id/ListaIntegrantes"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="500dp"
             android:layout_below="@+id/TextoSepara"
             android:layout_marginTop="0dp">
 

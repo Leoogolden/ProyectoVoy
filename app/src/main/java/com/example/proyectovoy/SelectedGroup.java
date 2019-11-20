@@ -512,12 +512,12 @@ public class SelectedGroup extends Fragment implements View.OnClickListener {
     public void EsAdminProcesa(InputStreamReader streamLeido) {
         JsonParser parseador;
         parseador = new JsonParser();
-        int idadmin = Integer.parseInt(parseador.parse(streamLeido).getAsString());
-        Log.d("ydale", parseador.parse(streamLeido).getAsString());
+        int idadmin = 0;
+        idadmin = Integer.parseInt(parseador.parse(streamLeido).getAsString());
         Log.d("ydale","crode es el "+ user.IdUsuario+ "adm es el "+ idadmin);
 
         Log.d("ydale","adm es el "+ idadmin);
-        if (user.IdUsuario == parseador.parse(streamLeido).getAsInt()) {
+        if (user.IdUsuario ==idadmin) {
             esadmin = true;
             Log.d("ydale", "es admin");
         }

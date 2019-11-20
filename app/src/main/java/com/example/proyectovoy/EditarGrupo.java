@@ -45,7 +45,7 @@ Grupos grupaso;
 
         DatosRecibidos = getArguments();
         Log.d("qonda", DatosRecibidos.toString());
-        Bundle GrupoElegido = DatosRecibidos.getBundle("grupo");
+        Bundle GrupoElegido = DatosRecibidos.getBundle("grupardo");
         String Nombre = GrupoElegido.getString("Nombre");
         String Descripcion = GrupoElegido.getString("Descripcion");
         Log.d("onclick", "entra4 " + Nombre);
