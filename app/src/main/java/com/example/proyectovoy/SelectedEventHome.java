@@ -48,7 +48,8 @@ public class SelectedEventHome extends Fragment {
     Button ConfirmarAsistencia;
 
     int idactividad;
-ViewGroup a;
+    ViewGroup a;
+
     public View onCreateView(LayoutInflater inflador, ViewGroup grupo, Bundle datos) {
         vistadevuelve = inflador.inflate(R.layout.fragment_selected_event, grupo, false);
         a = grupo;
@@ -106,7 +107,8 @@ ViewGroup a;
         a.execute();
         TraerMiembrosActiv lol = new TraerMiembrosActiv();
         lol.execute();
-
+        tareaEstaEnGrupo estaono = new tareaEstaEnGrupo();
+        estaono.execute();
 
 //        for (Usuarios aux : ListaDeUsuarios
 //        ) {Log.d("kovacho", "en el foreach papa" );
@@ -280,8 +282,8 @@ ViewGroup a;
             Evento.setArguments(DatosRecibidos);
             ManejadorFragments = getFragmentManager();
             Transacciones = ManejadorFragments.beginTransaction();
-                Transacciones.replace(R.id.AlojadorDeFragmentsHome, Evento);
-                Transacciones.commit();
+            Transacciones.replace(R.id.AlojadorDeFragmentsHome, Evento);
+            Transacciones.commit();
 // if(ManejadorFragments. == R.id.AlojadorDeFragmentsGrupos){
 //                Transacciones = ManejadorFragments.beginTransaction();
 //                Transacciones.replace(R.id.AlojadorDeFragmentsGrupos, Evento);
@@ -378,6 +380,34 @@ ViewGroup a;
 
     }
 
+    private class tareaEstaEnGrupo extends AsyncTask<Void, Void, Void> {
+
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+
+            try {
+                Log.d("AccesoAPI6", "aaaa234");
+                URL rutatlantica = new URL(getString(R.string.IP) + "Grupos/Pendiente/" + user.IdUsuario + "/" + grupaso.IdGrupo);
+                Log.d("AccesoAPI6", "vaaa " + rutatlantica.toString());
+                HttpURLConnection conexion = (HttpURLConnection) rutatlantica.openConnection();
+                Log.d("AccesoAPI6", "Me conecto");
+                if (conexion.getResponseCode() == 200) {
+                    Log.d("AccesoAPI6", "conexion ok");
+                    InputStream cuerporesspuesta = conexion.getInputStream();
+                    InputStreamReader lectorrespuesta = new InputStreamReader(cuerporesspuesta, "UTF-8");
+                    ProcessJSONpendiente(lectorrespuesta);
+                } else {
+                    Log.d("AccesoAPI8", "Error en la conexion " + conexion.getResponseCode());
+                }
+                conexion.disconnect();
+            } catch (Exception error) {
+                Log.d("AccesoAPI9", "Huno un error al conectarme" + error.getMessage());
+            }
+            return null;
+        }
+    }
+
     private class tareaBajaActiv extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... voids) {
@@ -424,6 +454,19 @@ ViewGroup a;
 
         JsonParser parseador;
         parseador = new JsonParser();
+
+    }
+
+    public void ProcessJSONpendiente(InputStreamReader streamLeido) {
+        JsonParser parseador;
+        parseador = new JsonParser();
+        Boolean estaono;
+        estaono = Boolean.parseBoolean(parseador.parse(streamLeido).getAsString());
+
+        if (estaono) {
+            ConfirmarAsistencia.setText("EN ESPERA");
+        }
+
 
     }
 
