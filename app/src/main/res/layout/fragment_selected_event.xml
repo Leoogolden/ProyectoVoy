@@ -11,23 +11,15 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <Button
-            android:id="@+id/VolveralGrupo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_margin="30px"
-            android:text="VolverAlGrupo" />
-
 
 
         <TextView
             android:id="@+id/tituloactiv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/VolveralGrupo"
+            android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="30px"
+            android:layout_marginTop="60px"
             android:text="lalocuralacura"
             android:textSize="40dp" />
 

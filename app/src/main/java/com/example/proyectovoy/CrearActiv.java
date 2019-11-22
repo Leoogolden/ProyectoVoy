@@ -78,7 +78,7 @@ public class CrearActiv extends Fragment {
 
 
         Log.d("keloke", user.Nombre + " " + user.IdUsuario);
-        GrupoElegido = bundleaso.getBundle("grupo");
+        GrupoElegido = bundleaso.getBundle("grupardo");
         String Nombre = GrupoElegido.getString("Nombre");
         String Descripcion = GrupoElegido.getString("Descripcion");
         int idGrupo = GrupoElegido.getInt("idGrupo");
@@ -133,7 +133,7 @@ public class CrearActiv extends Fragment {
         protected Void doInBackground(Void... voids) {
             try {
                 Log.d("AccesoAPI6", "aaaa234");
-                URL rutatlantica = new URL(getString(R.string.IP) + "ActivsGrupo/CrearActiv/" + NombreActividad + "/" + DescActividad + "/" + FechaConvertida + "/" + EdadMinima + "/" + EdadMaxima + "/" + LimPersona + "/" + NombreDeCalle + "/" + NumeroDeCalle + "/" + grupaso.IdGrupo + "/" + user.IdUsuario);
+                URL rutatlantica = new URL(getString(R.string.IP) + "ActivsGrupo/CrearActiv/" + NombreActividad + "/" + DescActividad + "/" +  EdadMinima + "/" + EdadMaxima + "/" + LimPersona + "/" + NombreDeCalle + "/" + NumeroDeCalle + "/" + grupaso.IdGrupo + "/" + user.IdUsuario);
                 Log.d("AccesoAPI6", "vaaa " + rutatlantica.toString());
                 HttpURLConnection conexion = (HttpURLConnection) rutatlantica.openConnection();
                 conexion.setRequestMethod("POST");
@@ -162,7 +162,7 @@ public class CrearActiv extends Fragment {
 
             Bundle bundel = new Bundle();
             bundel.putBundle("usuariologeado", usuariologeado);
-            bundel.putBundle("grupo", GrupoElegido);
+            bundel.putBundle("grupardo", GrupoElegido);
             SelectedGroup AgregarUsuarios;
             AgregarUsuarios = new SelectedGroup();
             AgregarUsuarios.setArguments(bundel);

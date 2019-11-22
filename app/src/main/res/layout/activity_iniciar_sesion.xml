@@ -74,7 +74,7 @@
 
             android:layout_marginLeft="30dp"
             android:onClick="ForgPass"
-            android:text="Forgot Password"
+            android:text="Olvide mi contraseña"
             android:textSize="18sp" />
         <TextView
             android:id="@+id/reg"
@@ -83,7 +83,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/forpass"
             android:onClick="ToReg"
-            android:text="Register"
+            android:text="Registrarse"
             android:textSize="18sp" />
     </RelativeLayout>
 </RelativeLayout>

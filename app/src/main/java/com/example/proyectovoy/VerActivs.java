@@ -41,7 +41,8 @@ public class VerActivs extends Fragment {
     Bundle DatosRecibidos;
     Grupos grupo = new Grupos();
     EditText filtro;
-Actividades activseleccionada = new Actividades();
+    Actividades activseleccionada = new Actividades();
+
     public View onCreateView(LayoutInflater inflador, ViewGroup grupo, Bundle datos) {
         vistadevuelve = inflador.inflate(R.layout.fragment_mis_activs, grupo, false);
         DatosRecibidos = getArguments();
@@ -71,23 +72,17 @@ Actividades activseleccionada = new Actividades();
                     @Override
                     public void onClick(View v) {
                         activseleccionada = activsl;
-
                         TraerGrupo dou = new TraerGrupo();
                         dou.execute();
-
-
-
                         Log.d("kova", "vamos por todo cagon");
                         Log.d("kova", "a los hinchas de river les digo que crean, porque tienen con que creer");
                         Log.d("kova", DatosRecibidos.toString());
-
                     }
                 })
 
                 .setNegativeButton("Volver a la lista", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
                     }
                 })
                 .show();
@@ -102,7 +97,7 @@ Actividades activseleccionada = new Actividades();
                 URL rutatlantica = new URL(getString(R.string.IP) + "Activs/TraerGrupo/" + activseleccionada.IdActiv);
                 HttpURLConnection conexion = (HttpURLConnection) rutatlantica.openConnection();
 
-                Log.d("AccesoAPI2", "Me conecto "+rutatlantica.toString());
+                Log.d("AccesoAPI2", "Me conecto " + rutatlantica.toString());
                 if (conexion.getResponseCode() == 200) {
                     Log.d("AccesoAPI2", "conexion ok");
                     InputStream cuerporesspuesta = conexion.getInputStream();
@@ -137,7 +132,7 @@ Actividades activseleccionada = new Actividades();
             Bundle pasaje = new Bundle();
             pasaje.putBundle("usuariologeado", usuariologeado);
             pasaje.putBundle("Activ", Actividad);
-            pasaje.putBundle("grupardo",grupardo);
+            pasaje.putBundle("grupardo", grupardo);
 
             SelectedEventHome Evento;
             Evento = new SelectedEventHome();
