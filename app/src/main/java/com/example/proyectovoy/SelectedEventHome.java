@@ -138,6 +138,8 @@ public class SelectedEventHome extends Fragment {
                     } else {
                         SolicitudAlGrupo a = new SolicitudAlGrupo();
                         a.execute();
+                        ConfirmarAsistencia.setText("EN ESPERA");
+                        ConfirmarAsistencia.setEnabled(false);
                         Log.d("vachito", "no es miembro");
                     }
                 }
@@ -344,6 +346,7 @@ public class SelectedEventHome extends Fragment {
             Transacciones.replace(R.id.AlojadorDeFragmentsHome, Evento);
             Transacciones.commit();
             Toast.makeText(getActivity(), "Solicitud Enviada", Toast.LENGTH_SHORT).show();
+
         }
     }
 
@@ -464,7 +467,9 @@ public class SelectedEventHome extends Fragment {
         estaono = Boolean.parseBoolean(parseador.parse(streamLeido).getAsString());
 
         if (estaono) {
+
             ConfirmarAsistencia.setText("EN ESPERA");
+            ConfirmarAsistencia.setEnabled(false);
         }
 
 

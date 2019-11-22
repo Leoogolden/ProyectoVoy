@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.yarolegovich.lovelydialog.LovelyStandardDialog;
@@ -37,6 +38,9 @@ public class VerInvitacionesGrupos extends Fragment {
     Bundle usuariologeado;
     Usuarios user = new Usuarios();
     Boolean AceptaSol;
+    TextView NoHaySol;
+    TextView NoHayInvitaciones;
+    TextView NoTienesRequests;
 
     public View onCreateView(LayoutInflater inflador, ViewGroup grupo, Bundle datos) {
         vistadevuelve = inflador.inflate(R.layout.fragment_invitaciones_grupos, grupo, false);
@@ -50,6 +54,13 @@ public class VerInvitacionesGrupos extends Fragment {
         user.setNombre(usuariologeado.getString("Nombre"));
         user.setNroTel(usuariologeado.getInt("NroTel"));
         user.setNombreUsuario(usuariologeado.getString("NombreUsuario"));
+        NoTienesRequests=vistadevuelve.findViewById(R.id.Estadosolicitudes);
+        NoHaySol= vistadevuelve.findViewById(R.id.UsuariosSolicitan);
+        NoHayInvitaciones=vistadevuelve.findViewById(R.id.InvitacionesAGrupos);
+        NoHayInvitaciones.setVisibility(View.GONE);
+        NoHaySol.setVisibility(View.GONE);
+        NoTienesRequests.setVisibility(View.GONE);
+
 
         asincronicainvitaciones miTarea = new asincronicainvitaciones();
         miTarea.execute();
@@ -107,6 +118,10 @@ public class VerInvitacionesGrupos extends Fragment {
             adapter = new InvitacionesGruposListAdapter(getActivity(), R.layout.lista_invitaciones_grupos, ListaDeInvitacionesGrupos);
             ListView lista = vistadevuelve.findViewById(R.id.ListaInvitacionGrupo);
             lista.setAdapter(adapter);
+            if(ListaDeInvitacionesGrupos.isEmpty()){
+                NoHayInvitaciones.setVisibility(View.VISIBLE);
+
+            }
         }
     }
 
@@ -142,6 +157,11 @@ public class VerInvitacionesGrupos extends Fragment {
             adapter = new InvitacionesGruposListAdapter(getActivity(), R.layout.lista_solicitudes_grupo, ListaDeSolicitudesGrupos);
             ListView lista = vistadevuelve.findViewById(R.id.ListaSolicitudGrupo);
             lista.setAdapter(adapter);
+
+            if(ListaDeSolicitudesGrupos.isEmpty()){
+                NoHaySol.setVisibility(View.VISIBLE);
+
+            }
         }
     }
 
@@ -183,7 +203,13 @@ public class VerInvitacionesGrupos extends Fragment {
             ArrayAdapter<String> Adaptador = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, grupos);
             ListView lista = vistadevuelve.findViewById(R.id.ListaEstadoSol);
             lista.setAdapter(Adaptador);
+
+            if(ListaDeSolPendientes.isEmpty()){
+                NoTienesRequests.setVisibility(View.VISIBLE);
+
+            }
         }
+
 
     }
 

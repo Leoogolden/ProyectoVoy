@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -33,18 +34,24 @@ public class Registro extends AppCompatActivity {
         EditText numtel = findViewById(R.id.NumTel);
         EditText edad = findViewById(R.id.Edad);
 
-        usuarionombre = username.getText().toString();
-        contrasenha = contra.getText().toString();
-        stringmail = mail.getText().toString();
-        nombraso = nombretext.getText().toString();
-        nrotel = Integer.parseInt(numtel.getText().toString());
-        EdadReal = Integer.parseInt(edad.getText().toString());
-        tareaAsincronicaRegistro r = new tareaAsincronicaRegistro();
-        r.execute();
-        Intent ActividadDestino;
-        ActividadDestino = new Intent(Registro.this, IniciarSesion.class);
-        startActivity(ActividadDestino);
 
+        if (username.getText().toString().matches("") || contra.getText().toString().matches("") || mail.getText().toString().matches("") || nombretext.getText().toString().matches("") || edad.getText().toString().matches("")) {
+            Toast.makeText(Registro.this, "Alguno de los campos esta vacio, reintentar", Toast.LENGTH_SHORT).show();
+
+        } else {
+            usuarionombre = username.getText().toString();
+            contrasenha = contra.getText().toString();
+            stringmail = mail.getText().toString();
+            nombraso = nombretext.getText().toString();
+            nrotel = Integer.parseInt(numtel.getText().toString());
+            EdadReal = Integer.parseInt(edad.getText().toString());
+
+            tareaAsincronicaRegistro r = new tareaAsincronicaRegistro();
+            r.execute();
+            Intent ActividadDestino;
+            ActividadDestino = new Intent(Registro.this, IniciarSesion.class);
+            startActivity(ActividadDestino);
+        }
     }
 
     private class tareaAsincronicaRegistro extends AsyncTask<Void, Void, Void> {
@@ -53,7 +60,7 @@ public class Registro extends AppCompatActivity {
 
             try {
 
-                URL rutatlantica = new URL(IP +"Usuario/Register/" + usuarionombre + "/" + contrasenha + "/" + stringmail + "/" + nombraso + "/" +nrotel + "/" +EdadReal);
+                URL rutatlantica = new URL(IP + "Usuario/Register/" + usuarionombre + "/" + contrasenha + "/" + stringmail + "/" + nombraso + "/" + nrotel + "/" + EdadReal);
                 HttpURLConnection conexion = (HttpURLConnection) rutatlantica.openConnection();
                 conexion.setRequestMethod("POST");
                 conexion.setRequestProperty("Content-Type", "application/json");
@@ -66,6 +73,7 @@ public class Registro extends AppCompatActivity {
 //                    ProcessJSONLeido(lectorrespuesta);
                 } else {
                     Log.d("AccesoAPI7", "Error en la conexion " + conexion.getResponseCode());
+                    Toast.makeText(Registro.this, "Hubo un error, reintentar", Toast.LENGTH_SHORT).show();
                 }
                 conexion.disconnect();
             } catch (Exception error) {

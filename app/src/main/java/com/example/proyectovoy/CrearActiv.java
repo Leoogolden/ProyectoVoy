@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.gson.JsonParser;
 
@@ -94,16 +95,22 @@ public class CrearActiv extends Fragment {
                 NombreActividad = NombreActiv.getText().toString();
                 DescActividad = DescActiv.getText().toString();
                 NombreDeCalle = NombreCalle.getText().toString();
-                NumeroDeCalle = Integer.parseInt(NumeroCalle.getText().toString());
-                EdadMinima = Integer.parseInt(EdadMinim.getText().toString());
-                EdadMaxima = Integer.parseInt(EdadMaxim.getText().toString());
-                LimPersona = Integer.parseInt(LimPerson.getText().toString());
 
-                int mes = FechaDeActiv.getMonth() + 1;
-                FechaConvertida = "" + FechaDeActiv.getDayOfMonth() + "-" + mes + "-" + FechaDeActiv.getYear();
 
-                tareaCrarActiv asd = new tareaCrarActiv();
-                asd.execute();
+                if (NombreActividad.matches("") || DescActividad.matches("") || NombreDeCalle.matches("") || NumeroCalle.getText().toString().matches("") || EdadMinim.getText().toString().matches("") || EdadMaxim.getText().toString().matches("") || LimPerson.getText().toString().matches("") || FechaDeActiv.toString().matches("")) {
+                    Toast.makeText(getActivity(), "Alguno de los campos esta vacio, reintentar", Toast.LENGTH_SHORT).show();
+
+                } else {
+                    NumeroDeCalle = Integer.parseInt(NumeroCalle.getText().toString());
+                    EdadMinima = Integer.parseInt(EdadMinim.getText().toString());
+                    EdadMaxima = Integer.parseInt(EdadMaxim.getText().toString());
+                    LimPersona = Integer.parseInt(LimPerson.getText().toString());
+                    int mes = FechaDeActiv.getMonth() + 1;
+                    FechaConvertida = "" + FechaDeActiv.getDayOfMonth() + "-" + mes + "-" + FechaDeActiv.getYear();
+
+                    tareaCrarActiv asd = new tareaCrarActiv();
+                    asd.execute();
+                }
 //                try {
 //                    FechaDeActividad = sdf.parse(fecha);
 //                } catch (ParseException e) {
@@ -133,7 +140,7 @@ public class CrearActiv extends Fragment {
         protected Void doInBackground(Void... voids) {
             try {
                 Log.d("AccesoAPI6", "aaaa234");
-                URL rutatlantica = new URL(getString(R.string.IP) + "ActivsGrupo/CrearActiv/" + NombreActividad + "/" + DescActividad + "/" +  EdadMinima + "/" + EdadMaxima + "/" + LimPersona + "/" + NombreDeCalle + "/" + NumeroDeCalle + "/" + grupaso.IdGrupo + "/" + user.IdUsuario);
+                URL rutatlantica = new URL(getString(R.string.IP) + "ActivsGrupo/CrearActiv/" + NombreActividad + "/" + DescActividad + "/" + EdadMinima + "/" + EdadMaxima + "/" + LimPersona + "/" + NombreDeCalle + "/" + NumeroDeCalle + "/" + grupaso.IdGrupo + "/" + user.IdUsuario);
                 Log.d("AccesoAPI6", "vaaa " + rutatlantica.toString());
                 HttpURLConnection conexion = (HttpURLConnection) rutatlantica.openConnection();
                 conexion.setRequestMethod("POST");

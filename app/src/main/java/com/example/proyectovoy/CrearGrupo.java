@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonParser;
@@ -56,9 +57,14 @@ public class CrearGrupo extends Fragment implements View.OnClickListener {
         NombreGrupo = Nom.getText().toString();
         DescripcionGrupo = Desc.getText().toString();
         Log.d("AccesoAPI6", NombreGrupo + " " + DescripcionGrupo + " " + idUsr);
-        tareaAsincronica miTarea = new tareaAsincronica();
-        miTarea.execute();
+        if (NombreGrupo.matches("") || DescripcionGrupo.matches("")) {
+            Toast.makeText(getActivity(), "Alguno de los campos esta vacio, reintentar", Toast.LENGTH_SHORT).show();
 
+        } else {
+
+            tareaAsincronica miTarea = new tareaAsincronica();
+            miTarea.execute();
+        }
 
         Log.d("AccesoAPI6", "funco papa");
     }
@@ -106,6 +112,7 @@ public class CrearGrupo extends Fragment implements View.OnClickListener {
             Transacciones = ManejadorFragments.beginTransaction();
             Transacciones.replace(R.id.AlojadorDeFragmentsGrupos, AgregarUsuarios);
             Transacciones.commit();
+            Toast.makeText(getActivity(), "el grupo se ha creado correctamente", Toast.LENGTH_SHORT).show();
         }
     }
 

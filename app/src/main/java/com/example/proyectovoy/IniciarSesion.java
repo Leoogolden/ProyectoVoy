@@ -26,7 +26,6 @@ import java.util.ArrayList;
 public class IniciarSesion extends AppCompatActivity {
 
 
-
     Usuarios user;
     String Nombreu;
     String pas;
@@ -38,7 +37,7 @@ public class IniciarSesion extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_iniciar_sesion);
         Log.d("aver", getString(R.string.IP));
-        IP =  getString(R.string.IP);
+        IP = getString(R.string.IP);
     }
 
 
@@ -47,9 +46,12 @@ public class IniciarSesion extends AppCompatActivity {
         EditText pwd = findViewById(R.id.contrasenialogin);
         Nombreu = nombraso.getText().toString();
         pas = pwd.getText().toString();
-        tareaAsincronicaLogIn tar = new tareaAsincronicaLogIn();
-        tar.execute();
-
+        if (Nombreu.matches("") || pas.matches("")) {
+            Toast.makeText(IniciarSesion.this, "Alguno de los campos esta vacio, reintentar", Toast.LENGTH_SHORT).show();
+        } else {
+            tareaAsincronicaLogIn tar = new tareaAsincronicaLogIn();
+            tar.execute();
+        }
 
     }
 
@@ -90,9 +92,9 @@ public class IniciarSesion extends AppCompatActivity {
             }
             return null;
         }
+
         @Override
-        protected void onPostExecute(Void aVoid)
-        {
+        protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
             if (entraono) {
                 Bundle UsuarioBundle = new Bundle();
@@ -111,12 +113,10 @@ public class IniciarSesion extends AppCompatActivity {
                 startActivity(ActividadDestino);
             } else {
                 Toast.makeText(IniciarSesion.this, "Contraseña o usuariologeado incorrecto", Toast.LENGTH_SHORT).show();
-//            finish();
-//            startActivity(getIntent());
+
             }
         }
     }
-
 
 
     public void ProcessJSONLeido(InputStreamReader streamLeido) {
@@ -136,7 +136,9 @@ public class IniciarSesion extends AppCompatActivity {
             user.Contra = objetojson.get("Contraseña").getAsString();
             user.NroTel = objetojson.get("NroTelefono").getAsInt();
             user.Edad = objetojson.get("Edad").getAsInt();
-        }else {entraono=false;}
+        } else {
+            entraono = false;
+        }
         Log.d("HolaHola3", "que ondaa " + objetojson.get("IdUsuario").getAsInt() + "  " + entraono);
 
 

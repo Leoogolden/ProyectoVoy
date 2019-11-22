@@ -27,6 +27,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.List;
 
 public class InvitarAlGrupo extends Fragment implements View.OnClickListener {
     String IP;
@@ -40,6 +41,8 @@ public class InvitarAlGrupo extends Fragment implements View.OnClickListener {
     Button VolveraGrupos;
     Bundle usuariologeado;
     Boolean esono;
+
+    ListView ListaMiembros;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         vistadevuelve = inflater.inflate(R.layout.fragment_invitarusuarios, container, false);
@@ -104,14 +107,13 @@ public class InvitarAlGrupo extends Fragment implements View.OnClickListener {
             }
             ArrayAdapter<String> miAdaptador;
             miAdaptador = new ArrayAdapter<>(getActivity().getBaseContext(), android.R.layout.simple_list_item_1, DatosLista);
-            ListView ListaMiembros = vistadevuelve.findViewById(R.id.ListaUsuarios);
+             ListaMiembros = vistadevuelve.findViewById(R.id.ListaUsuarios);
             ListaMiembros.setAdapter(miAdaptador);
 
             ListaMiembros.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     openDialog(ListaDeUsuarios.get(position));
-
                     idusrinvitado = ListaDeUsuarios.get(position).IdUsuario;
 
                 }
@@ -132,7 +134,6 @@ public class InvitarAlGrupo extends Fragment implements View.OnClickListener {
                 .setPositiveButton("Agregar", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
                         Log.d("queonda", "invita" + idusr + " a " + idusrinvitado + " grupo " + idgrupo);
                         EnviarInvitacion as = new EnviarInvitacion();
                         as.execute();

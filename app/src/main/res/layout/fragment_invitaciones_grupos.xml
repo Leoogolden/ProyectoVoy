@@ -16,18 +16,26 @@
         android:id="@+id/ListaInvitacionGrupo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/TextoInvitaciones">
+        android:layout_below="@+id/TextoInvitaciones"></ListView>
 
-    </ListView>
+    <TextView
+        android:id="@+id/InvitacionesAGrupos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ListaInvitacionGrupo"
+        android:text="No tienes invitaciones a grupos"
+        android:textSize="15dp"
+        android:textColor="@color/negrito"/>
 
     <TextView
         android:id="@+id/TextoSolicitudes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/ListaInvitacionGrupo"
+        android:layout_below="@+id/InvitacionesAGrupos"
         android:layout_marginTop="20dp"
-        android:text="Solicitudes a grupos: "
+        android:text="Solicitudes de usuarios a mis grupos: "
         android:textSize="20dp" />
+
 
     <ListView
         android:id="@+id/ListaSolicitudGrupo"
@@ -38,12 +46,20 @@
 
     </ListView>
 
+    <TextView
+        android:id="@+id/UsuariosSolicitan"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ListaSolicitudGrupo"
+        android:text="No tienes peticiones de usuarios para unirse a tus grupos"
+        android:textColor="@color/negrito"
+        android:textSize="15dp" />
 
     <TextView
         android:id="@+id/TextoEstadoSol"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/ListaSolicitudGrupo"
+        android:layout_below="@+id/UsuariosSolicitan"
         android:layout_marginTop="20dp"
         android:text="Solicitudes enviadas pendientes: "
         android:textSize="20dp" />
@@ -56,6 +72,15 @@
         android:layout_marginTop="30dp">
 
     </ListView>
+
+    <TextView
+        android:id="@+id/Estadosolicitudes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/negrito"
+        android:layout_below="@+id/ListaEstadoSol"
+        android:text="No tienes solicitudes pendientes "
+        android:textSize="15dp" />
 
 
 </RelativeLayout>
