@@ -14,8 +14,6 @@ import java.util.Date;
 import java.util.List;
 
 public class ActividadesListAdapter extends ArrayAdapter<Actividades> {
-
-
     private static final String TAG = "ActividadesListAdapter";
     private Context mContext;
     private int mResource;
@@ -29,8 +27,6 @@ public class ActividadesListAdapter extends ArrayAdapter<Actividades> {
     @NonNull
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-
-
         final String NombreE = getItem(position).getNombreActiv();
         final Date Fecha = getItem(position).getFechaActiv();
 

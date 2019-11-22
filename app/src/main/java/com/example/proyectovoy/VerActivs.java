@@ -58,7 +58,7 @@ public class VerActivs extends Fragment {
         return vistadevuelve;
     }
 
-    public void openDialogActiv(final Actividades activsl, final int pos) {
+    public void openDialogActiv(final Actividades activsl) {
         new LovelyStandardDialog(getActivity(), LovelyStandardDialog.ButtonLayout.VERTICAL)
                 .setTopColorRes(R.color.colorAccent)
                 .setButtonsColorRes(R.color.colorAccent)
@@ -210,11 +210,9 @@ public class VerActivs extends Fragment {
                 }
             });
             ListaEven.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    openDialogActiv(ListaActivs.get(position), position);
-
+                    openDialogActiv((Actividades) ListaEven.getAdapter().getItem(position));
                 }
             });
         }
