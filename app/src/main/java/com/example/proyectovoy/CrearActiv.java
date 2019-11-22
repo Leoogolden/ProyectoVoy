@@ -64,6 +64,8 @@ public class CrearActiv extends Fragment {
     public View onCreateView(LayoutInflater inflador, ViewGroup grupo, Bundle datos) {
         vistadevuelve = inflador.inflate(R.layout.fragment_crear_activ, grupo, false);
 
+        final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
+
         NombreActiv = vistadevuelve.findViewById(R.id.NombreDelEvento);
         DescActiv = vistadevuelve.findViewById(R.id.DescActiv);
         NombreCalle = vistadevuelve.findViewById(R.id.NombreDeCalle);
@@ -72,7 +74,6 @@ public class CrearActiv extends Fragment {
         EdadMaxim = vistadevuelve.findViewById(R.id.EdadMax);
         LimPerson = vistadevuelve.findViewById(R.id.LimPer);
         FechaDeActiv = vistadevuelve.findViewById(R.id.FechaActiv);
-
         Bundle bundleaso = getArguments();
         usuariologeado = bundleaso.getBundle("usuariologeado");
         user = new Usuarios(usuariologeado.getInt("IdUsuario"), usuariologeado.getString("Nombre"), usuariologeado.getString("Mail"), usuariologeado.getString("NombreUsuario"), usuariologeado.getString("Contra"), usuariologeado.getInt("NroTel"), usuariologeado.getInt("Edad"));
@@ -88,6 +89,7 @@ public class CrearActiv extends Fragment {
         grupaso.Nombre = Nombre;
         grupaso.Descripcion = Descripcion;
 
+
         Button siguiente = vistadevuelve.findViewById(R.id.ConfirmarDatosEvento);
         siguiente.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,6 +103,11 @@ public class CrearActiv extends Fragment {
                     Toast.makeText(getActivity(), "Alguno de los campos esta vacio, reintentar", Toast.LENGTH_SHORT).show();
 
                 } else {
+                    try {
+                        FechaDeActividad = dateFormat.parse(FechaDeActiv.toString());
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
                     NumeroDeCalle = Integer.parseInt(NumeroCalle.getText().toString());
                     EdadMinima = Integer.parseInt(EdadMinim.getText().toString());
                     EdadMaxima = Integer.parseInt(EdadMaxim.getText().toString());
@@ -140,7 +147,7 @@ public class CrearActiv extends Fragment {
         protected Void doInBackground(Void... voids) {
             try {
                 Log.d("AccesoAPI6", "aaaa234");
-                URL rutatlantica = new URL(getString(R.string.IP) + "ActivsGrupo/CrearActiv/" + NombreActividad + "/" + DescActividad + "/" + EdadMinima + "/" + EdadMaxima + "/" + LimPersona + "/" + NombreDeCalle + "/" + NumeroDeCalle + "/" + grupaso.IdGrupo + "/" + user.IdUsuario);
+                URL rutatlantica = new URL(getString(R.string.IP) + "ActivsGrupo/CrearActiv/" + NombreActividad + "/" + DescActividad + "/" + EdadMinima + "/" + EdadMaxima + "/" + LimPersona + "/" + NombreDeCalle + "/" + NumeroDeCalle  +"/" + grupaso.IdGrupo + "/" + user.IdUsuario);
                 Log.d("AccesoAPI6", "vaaa " + rutatlantica.toString());
                 HttpURLConnection conexion = (HttpURLConnection) rutatlantica.openConnection();
                 conexion.setRequestMethod("POST");

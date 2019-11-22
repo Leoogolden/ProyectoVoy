@@ -27,6 +27,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -224,6 +225,8 @@ public class VerActivs extends Fragment {
         JsonParser parseador;
         parseador = new JsonParser();
         JsonArray objetojson;
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
+
         objetojson = parseador.parse(lectorrespuesta).getAsJsonArray();
         for (int i = 0; i < objetojson.size(); i++) {
             Actividades activ;
@@ -238,8 +241,10 @@ public class VerActivs extends Fragment {
             activ.setLimPer(objPersona.get("LimPer").getAsInt());
             activ.setNombreCalle(objPersona.get("Calle").getAsString());
             activ.setNumeroCalle(objPersona.get("Direccion").getAsInt());
-            // activ.setFechaActiv(new SimpleDateFormat("dd/MM/yyyy").parse(objPersona.get("Fecha").getAsString()));
-            Log.d("HolaHola3", "que ondaa " + activ.NombreActiv);
+            activ.setFechaActiv(dateFormat.parse(objPersona.get("Fecha").getAsString()));
+            Log.d("HolaHola3", objPersona.get("Fecha")+"");
+            Log.d("HolaHola3", activ.FechaActiv.toString());
+            Log.d("HolaHola3", "que ondaa la activ " + activ.NombreActiv+ " fecha: "+ activ.FechaActiv.toString());
             ListaActivs.add(activ);
         }
 
